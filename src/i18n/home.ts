@@ -85,7 +85,7 @@ const es: HomeText = {
     linkedinLabel: 'LinkedIn de Santiago Cardona (se abre en otra pestaña)',
     githubLabel: 'GitHub de Santiago Cardona (se abre en otra pestaña)',
   },
-  clients: { label: 'Diez años trabajando con:', aria: 'Marcas con las que he trabajado' },
+  clients: { label: 'Desde 2017 trabajando con:', aria: 'Marcas con las que he trabajado' },
   big: {
     h2: 'No desaparezco dos semanas para volver con un *entregable*.',
     body: 'Trabajo dentro de tu equipo, con todas las áreas, para encontrar dónde se frena la venta. Y me quedo hasta que el cambio se note en la conversión (cuántas visitas terminan comprando), en las ventas o en las horas que tu equipo se ahorra.',
@@ -230,7 +230,7 @@ const en: HomeText = {
     linkedinLabel: 'Santiago Cardona on LinkedIn (opens in a new tab)',
     githubLabel: 'Santiago Cardona on GitHub (opens in a new tab)',
   },
-  clients: { label: 'Ten years working with:', aria: 'Brands I have worked with' },
+  clients: { label: "Since 2017, I've worked with:", aria: 'Brands I have worked with' },
   big: {
     h2: "I don't vanish for two weeks and come back with a *deliverable*.",
     body: 'I work inside your team, across every area, to find where sales are getting stuck. And I stay until the change shows up in conversion (how many visitors end up buying), in revenue, or in hours your team gets back.',

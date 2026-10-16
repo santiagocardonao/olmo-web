@@ -1,6 +1,13 @@
 ---
 import '../../styles/pages.css';
-import { Picture } from 'astro:assets';
+import { Picture, Image } from 'astro:assets';
+import lgSilbe from '../../assets/logos/silbe.png';
+import lgVieli from '../../assets/logos/vieli.png';
+import lgIlmin from '../../assets/logos/ilmin.png';
+import lgSarabe from '../../assets/logos/sarabe.png';
+import lgUndergold from '../../assets/logos/undergold.png';
+import lgCesde from '../../assets/logos/cesde.png';
+import lgBancolombia from '../../assets/logos/bancolombia.png';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../PageHero.astro';
 import Btn from '../Btn.astro';
@@ -18,11 +25,11 @@ const T = es
       label: 'Sobre mí', right: 'Medellín, Colombia',
       tl: 'Trayectoria', names: 'Con quién he trabajado',
       timeline: [
-        { y: '2017–2025', t: 'Vieli', d: 'Cofundador y COO. Estudio de 30 personas, más de 100 proyectos, todos por referidos.', x: 'Armé y dirigí la operación del estudio: equipo, procesos, finanzas y la relación con cada cliente. Hicimos sitios, tiendas y productos digitales para marcas de Colombia y del exterior.' },
-        { y: 'Desde 2020', t: 'silBe', d: 'Funnel, conversión, migración a app y producto de suscripción.', x: 'Estuve desde el primer lanzamiento, que logró USD 400.000 y 5.000 suscriptores en la primera semana (Forbes, 2021). Después trabajé el funnel y las pruebas A/B del checkout, que subieron la conversión de 3 % a 4 %, y el paso del sitio a la app.' },
-        { y: '6 años', t: 'CESDE', d: 'Docente de UX/UI (diseño de interfaces y experiencia de usuario).', x: 'Durante seis años enseñé a diseñar productos digitales: investigación con usuarios, arquitectura de información, prototipos y pruebas. Enseñar me obligó a explicar con claridad por qué una decisión de diseño funciona.' },
+        { y: '2017–2025', t: 'Vieli', d: 'Cofundador y COO. Estudio de 30 personas, más de 100 proyectos, todos por referidos.', x: 'Definía la estrategia de cada cliente, presentaba presupuestos y resultados a los dueños y la convertía en briefs para los especialistas de pauta y los diseñadores. Cuando un cliente no podía esperar, montaba yo mismo las campañas en Meta y Google Ads. También armé lanzamientos y funnels para creadoras de contenido con 845.000 a 1 millón de seguidores que vendían cursos en Hotmart y Kajabi. El equipo trabajaba remoto desde Colombia, Argentina, España y Estados Unidos.' },
+        { y: '2020–2026', t: 'silBe', d: 'Líder de growth y marketing: funnel, conversión, app y suscripción.', x: 'Lideré el marketing desde el primer lanzamiento, que logró USD 400.000 y 5.000 suscriptores en la primera semana (Forbes, 2021), hasta una app con 25.000 suscriptores pagos. Definí los canales y la oferta en cinco mercados (Colombia, Estados Unidos, Medio Oriente, Australia y España), medí cada venta por canal y por creador, y con pruebas A/B en el checkout la conversión pasó de 3 % a 4 %.' },
+        { y: '2019–2024', t: 'CESDE', d: 'Docente de UX/UI (diseño de interfaces y experiencia de usuario).', x: 'Durante seis años enseñé a diseñar productos digitales: investigación con usuarios, arquitectura de información, prototipos y pruebas. Enseñar me obligó a explicar con claridad por qué una decisión de diseño funciona.' },
         { y: '—', t: 'Bancolombia · FIDI', d: 'Prototipo de educación financiera con videos por WhatsApp.', x: 'Diseñé FIDI para enseñar finanzas personales con videos cortos que llegan por WhatsApp, el canal que la gente ya abre todos los días, en lugar de pedirle que descargue otra app.' },
-        { y: 'Desde 2025', t: 'Olmo', d: 'Asesoría independiente.', x: 'Trabajo solo y directamente con los dueños y equipos de marcas que ya venden online. Asesoro en funnels, producto, sistemas con IA y web, y me quedo hasta que se note en los números.' },
+        { y: 'Desde 2025', t: 'Olmo', d: 'Asesoría independiente.', x: 'Trabajo solo y directamente con los dueños y equipos de marcas que ya venden online. Asesoro en funnels, producto, sistemas con IA y web, y me quedo hasta que se note en los números. También construí Olmo Métricas, una calculadora gratuita para negocios de suscripción, y Olmo Cotiza, que convierte un alcance escrito en una propuesta lista para enviar y ya la usan clientes reales.' },
       ],
     }
   : {
@@ -30,14 +37,19 @@ const T = es
       label: 'About', right: 'Medellín, Colombia',
       tl: 'Track record', names: "Who I've worked with",
       timeline: [
-        { y: '2017–2025', t: 'Vieli', d: 'Co-founder & COO. A 30-person studio, 100+ projects, all from referrals.', x: "I built and ran the studio's operations: team, processes, finances and every client relationship. We made websites, online stores and digital products for brands in Colombia and abroad." },
-        { y: 'Since 2020', t: 'silBe', d: 'Funnel, conversion, the move to an app and the subscription product.', x: 'I was there from the first launch, which brought in USD 400,000 and 5,000 subscribers in its first week (Forbes, 2021). Then I worked on the funnel and checkout A/B tests, which lifted conversion from 3% to 4%, and on the move from website to app.' },
-        { y: '6 years', t: 'CESDE', d: 'UX/UI instructor.', x: 'For six years I taught how to design digital products: user research, information architecture, prototyping and testing. Teaching made me explain clearly why a design decision works.' },
+        { y: '2017–2025', t: 'Vieli', d: 'Co-founder & COO. A 30-person studio, 100+ projects, all from referrals.', x: 'I set the strategy for every client, presented budgets and results to the owners, and turned the plan into briefs for the ads specialists and designers. When a client couldn\'t wait, I ran the Meta and Google Ads campaigns myself. I also built launches and funnels for creators with 845,000 to 1 million followers selling courses on Hotmart and Kajabi. The team worked remotely from Colombia, Argentina, Spain and the US.' },
+        { y: '2020–2026', t: 'silBe', d: 'Growth and marketing lead: funnel, conversion, app and subscription.', x: 'I led marketing from the first launch, which brought in USD 400,000 and 5,000 subscribers in its first week (Forbes, 2021), to an app with 25,000 paying subscribers. I set the channels and the offer in five markets (Colombia, the US, the Middle East, Australia and Spain), tracked every sale by channel and by creator, and checkout A/B tests lifted conversion from 3% to 4%.' },
+        { y: '2019–2024', t: 'CESDE', d: 'UX/UI instructor.', x: 'For six years I taught how to design digital products: user research, information architecture, prototyping and testing. Teaching made me explain clearly why a design decision works.' },
         { y: '—', t: 'Bancolombia · FIDI', d: 'A personal-finance prototype built on short WhatsApp videos.', x: 'I designed FIDI to teach personal finance through short videos sent over WhatsApp, the app people already open every day, instead of asking them to download another one.' },
-        { y: 'Since 2025', t: 'Olmo', d: 'Independent advisory.', x: 'I work on my own, directly with the owners and teams of brands that already sell online. I advise on funnels, product, AI-powered systems and web, and I stay until it shows in the numbers.' },
+        { y: 'Since 2025', t: 'Olmo', d: 'Independent advisory.', x: 'I work on my own, directly with the owners and teams of brands that already sell online. I advise on funnels, product, AI-powered systems and web, and I stay until it shows in the numbers. I also built Olmo Métricas, a free calculator for subscription businesses, and Olmo Cotiza, which turns a written scope into a proposal ready to send and is used by real clients.' },
       ],
     };
-const names = ['silBe', 'Vieli', 'ILMIN', 'SaraBe', 'Undergold', 'Ideal Team', 'Olmo Métricas', 'CESDE', 'Bancolombia'];
+// Logos con permiso de uso (confirmado por Santiago, 16 oct 2026). Sin logo: nombre en texto. h = alto en px.
+const names: { n: string; src?: ImageMetadata; h?: number }[] = [
+  { n: 'silBe', src: lgSilbe, h: 40 }, { n: 'Vieli', src: lgVieli, h: 34 }, { n: 'ILMIN', src: lgIlmin, h: 26 },
+  { n: 'SaraBe', src: lgSarabe, h: 46 }, { n: 'Undergold', src: lgUndergold, h: 20 }, { n: 'Ideal Team' },
+  { n: 'Olmo Métricas' }, { n: 'CESDE', src: lgCesde, h: 28 }, { n: 'Bancolombia', src: lgBancolombia, h: 36 },
+];
 ---
 <Base lang={lang} route="about" title={T.meta.title} description={T.meta.description}>
   <PageHero label={T.label} right={T.right} title={a.title} />
@@ -73,8 +85,11 @@ const names = ['silBe', 'Vieli', 'ILMIN', 'SaraBe', 'Undergold', 'Ideal Team', '
   <section class="block" aria-labelledby="names">
     <div class="wrap">
       <div class="labels"><h2 id="names" class="lbl-h">{T.names}</h2><span aria-hidden="true">( {names.length} )</span></div>
-      <!-- PENDIENTE: logos con permiso de uso. Por ahora, nombres en texto. -->
-      <ul class="names" data-fade>{names.map((n) => <li>{n}</li>)}</ul>
+      <ul class="names" data-fade>
+        {names.map((l) => (
+          <li>{l.src ? <Image src={l.src} alt={l.n} height={l.h! * 2} format="webp" loading="lazy" style={`height:${l.h}px`} /> : <span>{l.n}</span>}</li>
+        ))}
+      </ul>
     </div>
   </section>
 </Base>
@@ -85,5 +100,11 @@ const names = ['silBe', 'Vieli', 'ILMIN', 'SaraBe', 'Undergold', 'Ideal Team', '
   .ab-photo { aspect-ratio: 4 / 5; max-width: 560px; }
   .ab-photo :global(img) { object-position: 50% 20%; }
   .ab-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
-  .names { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 28px; font: 600 clamp(26px, 3.4vw, 48px)/1.2 var(--f-sans); letter-spacing: -0.04em; color: var(--gris-palabra); }
+  .names { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+  @media (min-width: 768px) { .names { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .names li { display: grid; place-items: center; min-height: 120px; padding: 20px; border-radius: var(--r-img); background: var(--blanco); }
+  /* Todos los logos en silueta oscura para que pesen parejo, sin importar el color original */
+  .names :global(img) { width: auto; max-width: 100%; object-fit: contain; filter: brightness(0); opacity: .6; transition: opacity .3s; }
+  .names li:hover :global(img) { opacity: .9; }
+  .names span { font: 700 clamp(20px, 2vw, 26px)/1.1 var(--f-sans); letter-spacing: -0.04em; color: var(--tinta); opacity: .6; text-align: center; }
 </style>

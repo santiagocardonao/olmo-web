@@ -1,0 +1,67 @@
+---
+/**
+ * Testimonios de clientes. Los textos en español son los mismos que estaban publicados en Framer, sin cambios.
+ * El inglés es traducción. Sin fotos: las de Framer no eran de las personas; se muestran iniciales hasta tener fotos reales.
+ */
+import type { Lang } from '../../config';
+import { emph } from '../../lib/util';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const T = es
+  ? { left: 'Testimonios', title: 'No me creas a mí. *Créeles* a ellos.', aria: 'Testimonios de clientes' }
+  : { left: 'Testimonials', title: "Don't take my word for it. *Take* theirs.", aria: 'Client testimonials' };
+const items = [
+  { name: 'Esteban García', role: es ? 'Director de producto, silBe by Silvy' : 'Head of Product, silBe by Silvy',
+    quote: es ? 'Llevo años trabajando con ellos, especialmente con Santi. Siempre nos ha ido perfecto y nos han acompañado en todo el crecimiento de la marca.'
+              : "I've worked with them for years, especially with Santi. It has always gone perfectly, and they've been with us through all of the brand's growth." },
+  { name: 'Sara Bermúdez', role: 'CMO, Undergold',
+    quote: es ? 'Ha sido un proceso sencillo. Hemos llevado un par de proyectos a distancia y siempre han entregado a tiempo. ¡Recomendadooo!'
+              : "It's been an easy process. We've run a couple of projects remotely and they've always delivered on time. Highly recommended!" },
+  { name: 'Steven Hurtado', role: 'IT · Astrea',
+    quote: es ? 'Captaron la esencia de nuestra marca sin necesidad de mil reuniones, y el nivel técnico de lo que entregaron es de otro mundo.'
+              : 'They captured the essence of our brand without endless meetings, and the technical quality of what they delivered is out of this world.' },
+  { name: 'Andrés Felipe Roldán', role: es ? 'Productor y sonidista de cine' : 'Film producer and sound engineer',
+    quote: es ? 'Buscábamos una web que funcionara como pieza de portafolio en sí misma. Nos dieron criterio estético y una ejecución rapidísima, sin mil vueltas.'
+              : 'We wanted a website that worked as a portfolio piece in its own right. They brought a strong eye and very fast execution, without endless back-and-forth.' },
+];
+const initials = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('');
+---
+<section class="tm sec" aria-labelledby="tm-title">
+  <div class="wrap">
+    <div class="labels"><span>{T.left}</span><span aria-hidden="true">( {items.length} )</span></div>
+    <h2 id="tm-title" class="tm-title" data-split-lines set:html={emph(T.title)} />
+    <ul class="tm-grid" aria-label={T.aria}>
+      {items.map((it) => (
+        <li class="tm-card" data-fade>
+          <figure>
+            <blockquote><p>{it.quote}</p></blockquote>
+            <figcaption>
+              <span class="tm-avatar" aria-hidden="true">{initials(it.name)}</span>
+              <span class="tm-who"><b>{it.name}</b><span>{it.role}</span></span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .tm-title {
+    margin-top: clamp(24px, 3vw, 40px); max-width: 20em;
+    font: 600 clamp(36px, 5.2vw, 76px)/1.02 var(--f-sans); letter-spacing: -0.045em; text-wrap: balance;
+  }
+  .tm-grid { display: grid; gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
+  @media (min-width: 768px) { .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .tm-card figure { height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 28px;
+    padding: clamp(24px, 3vw, 40px); border-radius: var(--r-img); background: var(--blanco); }
+  .tm-card blockquote p { position: relative; font: 500 clamp(18px, 1.5vw, 22px)/1.45 var(--f-sans); letter-spacing: -0.015em; color: var(--tinta); text-wrap: pretty; }
+  .tm-card blockquote p::before { content: '“'; display: block; font: 600 56px/0.6 var(--f-serif, serif); color: var(--violeta); margin-bottom: 10px; }
+  .tm-card figcaption { display: flex; align-items: center; gap: 14px; }
+  .tm-avatar { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+    background: var(--violeta-tinte); color: var(--violeta); font: 700 16px/1 var(--f-sans); letter-spacing: .02em; }
+  .tm-who { display: flex; flex-direction: column; gap: 3px; }
+  .tm-who b { font: 600 16px/1.3 var(--f-sans); }
+  .tm-who span { font: 400 14px/1.4 var(--f-sans); color: var(--gris-700); }
+</style>
