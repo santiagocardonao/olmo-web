@@ -17,4 +17,6 @@ export default defineConfig({
   },
   image: { responsiveStyles: false },
   devToolbar: { enabled: false },
+  // Astro 7 cambió el default a 'jsx'; true conserva el HTML de Astro 5.
+  compressHTML: true,
 });

@@ -1,6 +1,6 @@
 # olmo.agency · sitio nuevo
 
-Sitio estático en Astro 5 + TypeScript, sin frameworks de UI. Animaciones con GSAP (ScrollTrigger + SplitText) solo cuando el visitante no pide `prefers-reduced-motion`.
+Sitio estático en Astro 7 (Node ≥ 22.22) + TypeScript, sin frameworks de UI. Animaciones con GSAP (ScrollTrigger + SplitText) solo cuando el visitante no pide `prefers-reduced-motion`.
 En producción en **https://olmo.agency** desde el 16 de octubre de 2026. `pruebas.olmo.agency` se vació y redirige (301) a olmo.agency.
 
 ## Correr en local
