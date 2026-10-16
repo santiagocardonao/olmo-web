@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from './Hero.astro';
+import Clients from './Clients.astro';
+import BigText from './BigText.astro';
+import Services from './Services.astro';
+import Work from './Work.astro';
+import Pricing from './Pricing.astro';
+import About from './About.astro';
+import NotDo from './NotDo.astro';
+import type { Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const m = HOME[lang].meta;
+---
+<Base lang={lang} route="home" title={m.title} description={m.description} ogTitle={m.ogTitle} ogDescription={m.ogDescription}>
+  <Hero lang={lang} />
+  <Clients lang={lang} />
+  <BigText lang={lang} />
+  <Services lang={lang} />
+  <Work lang={lang} />
+  <Pricing lang={lang} />
+  <About lang={lang} />
+  <NotDo lang={lang} />
+</Base>

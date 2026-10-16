@@ -1,0 +1,69 @@
+---
+import '../../styles/pages.css';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import { EMAIL, type Lang } from '../../config';
+interface Props { lang: Lang; kind: 'terms' | 'privacy' }
+const { lang, kind } = Astro.props;
+const es = lang === 'es';
+type Sec = { h: string; p: string };
+const terms: { title: string; meta: string; secs: Sec[] } = es
+  ? { title: 'Términos y condiciones', meta: 'Términos del servicio de asesoría de Olmo (Santiago Cardona Ortiz): precios, pagos, permanencia, confidencialidad y propiedad intelectual.', secs: [
+      { h: 'Quién presta el servicio', p: `Olmo es la marca con la que Santiago Cardona Ortiz presta servicios de asesoría desde Medellín, Colombia. Contacto: ${EMAIL}.` },
+      { h: 'Servicios y precios', p: 'Los precios publicados en este sitio están en pesos colombianos (COP) y en dólares (USD). No cobro IVA.' },
+      { h: 'Pagos', p: 'El pago se coordina por WhatsApp. La asesoría mensual y los proyectos requieren un 50 % de anticipo. El sitio no tiene links de pago.' },
+      { h: 'Permanencia', p: 'La asesoría mensual no tiene permanencia mínima.' },
+      { h: 'Confidencialidad', p: 'Lo que me cuentas de tu marca, tus cifras y tus clientes es confidencial. No lo comparto con terceros ni lo publico sin tu permiso por escrito. Si necesitas un acuerdo de confidencialidad, lo firmo.' },
+      { h: 'Propiedad intelectual', p: 'Lo que hago para tu marca dentro de un servicio pagado es tuyo cuando el pago está completo. Puedo mencionar el proyecto en mi portafolio, salvo que me pidas lo contrario. Las herramientas y métodos propios que uso siguen siendo míos.' },
+      { h: 'Limitación de responsabilidad', p: 'Trabajo con cuidado y con datos, pero las ventas dependen de factores que no controlo, como el mercado, el producto y las decisiones de cada equipo. No garantizo cifras concretas. Mi responsabilidad se limita al valor pagado por el servicio en cuestión.' },
+      { h: 'Ley aplicable', p: 'Estos términos se rigen por las leyes de Colombia. Si surge una diferencia, primero la intentamos resolver conversando; si no es posible, la resuelven los jueces de Medellín.' },
+    ] }
+  : { title: 'Terms and conditions', meta: 'Terms of service for Olmo advisory (Santiago Cardona Ortiz): pricing, payments, term, confidentiality and intellectual property.', secs: [
+      { h: 'Who provides the service', p: `Olmo is the brand under which Santiago Cardona Ortiz provides advisory services from Medellín, Colombia. Contact: ${EMAIL}.` },
+      { h: 'Services and prices', p: 'Prices on this site are in US dollars. Clients in Colombia pay in pesos. I don\'t charge VAT.' },
+      { h: 'Payments', p: 'Payment is arranged over WhatsApp. Monthly advisory and projects require 50% upfront. The site has no payment links.' },
+      { h: 'Term', p: 'The monthly advisory has no minimum term.' },
+      { h: 'Confidentiality', p: "What you share about your brand, your numbers and your customers is confidential. I don't share it with third parties or publish it without your written permission. If you need an NDA, I'll sign one." },
+      { h: 'Intellectual property', p: 'Work I do for your brand as part of a paid service is yours once payment is complete. I may mention the project in my portfolio unless you ask me not to. My own tools and methods remain mine.' },
+      { h: 'Limitation of liability', p: "I work carefully and with data, but sales depend on factors I don't control, such as the market, the product and each team's decisions. I don't guarantee specific numbers. My liability is limited to the amount paid for the service in question." },
+      { h: 'Governing law', p: 'These terms are governed by the laws of Colombia. If a disagreement comes up, we first try to resolve it by talking; if that fails, it goes to the courts of Medellín.' },
+    ] };
+const privacy: typeof terms = es
+  ? { title: 'Política de privacidad', meta: 'Cómo trata Olmo los datos personales de quienes visitan el sitio o escriben por WhatsApp o correo.', secs: [
+      { h: 'Responsable', p: `Santiago Cardona Ortiz (Olmo), Medellín, Colombia. Contacto: ${EMAIL}.` },
+      { h: 'Qué datos recojo', p: 'Este sitio no tiene formularios. Si me escribes por WhatsApp o por correo, uso lo que me cuentas solo para responderte y prestarte el servicio.' },
+      { h: 'Analítica', p: 'Uso Google Analytics 4, cargado a través de Google Tag Manager, para saber cuántas personas visitan el sitio y qué páginas leen. Google Analytics usa cookies y no guarda tu dirección IP. No uso estos datos para identificarte ni para mostrarte publicidad.' },
+      { h: 'Tus derechos', p: `Según la Ley 1581 de 2012, puedes conocer, actualizar, corregir o pedir que borre tus datos personales cuando quieras. Escríbeme a ${EMAIL} y te respondo en máximo 15 días hábiles.` },
+      { h: 'Conservación de los datos', p: 'Guardo tus mensajes y datos mientras trabajemos juntos y durante el tiempo que exija la ley para fines contables. Después los borro.' },
+      { h: 'Cambios a esta política', p: 'Si cambio esta política, publico la nueva versión en esta misma página.' },
+    ] }
+  : { title: 'Privacy policy', meta: 'How Olmo handles the personal data of site visitors and people who reach out by WhatsApp or email.', secs: [
+      { h: 'Controller', p: `Santiago Cardona Ortiz (Olmo), Medellín, Colombia. Contact: ${EMAIL}.` },
+      { h: 'What data I collect', p: "This site has no forms. If you message me on WhatsApp or by email, I only use what you tell me to reply and to provide the service." },
+      { h: 'Analytics', p: 'I use Google Analytics 4, loaded through Google Tag Manager, to see how many people visit the site and which pages they read. Google Analytics uses cookies and does not store your IP address. I don\'t use this data to identify you or to show you ads.' },
+      { h: 'Your rights', p: `Under Colombian law (Ley 1581 de 2012) you can access, update, correct or ask me to delete your personal data at any time. Email ${EMAIL} and I'll reply within 15 business days.` },
+      { h: 'Data retention', p: 'I keep your messages and data while we work together and for as long as the law requires for accounting purposes. After that, I delete them.' },
+      { h: 'Changes to this policy', p: 'If I change this policy, I will publish the new version on this page.' },
+    ] };
+const d = kind === 'terms' ? terms : privacy;
+---
+<Base lang={lang} route={kind} title={`${d.title} | Olmo · Santiago Cardona`} description={d.meta}>
+  <PageHero label={es ? 'Legal' : 'Legal'} title={d.title} />
+  <section class="block">
+    <div class="wrap">
+      <Fragment set:html={'<!-- PENDIENTE: texto legal definitivo, revisado por Santiago (y un abogado si aplica) -->'} />
+      <div class="prose legal">
+        {d.secs.map((s, i) => (
+          <Fragment>
+            <h2>{i + 1}. {s.h}</h2>
+            <p>{s.p}</p>
+          </Fragment>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal { max-width: 48em; }
+  .legal h2:first-child { margin-top: 0; }
+</style>

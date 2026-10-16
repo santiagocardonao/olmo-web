@@ -1,0 +1,102 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import { wa, EMAIL, LINKS, type Lang } from '../config';
+import { HOME } from '../i18n/home';
+import { r, SERVICES_ANCHOR, type RouteId } from '../i18n/routes';
+interface Props { lang: Lang; route: RouteId | null }
+const { lang, route } = Astro.props;
+const t = HOME[lang].ui;
+const ids: (RouteId | 'services')[] = ['services', 'portfolio', 'tools', 'about'];
+const href = (id: RouteId | 'services') => (id === 'services' ? SERVICES_ANCHOR[lang] : r(id, lang));
+---
+<div id="menu" class="menu" role="dialog" aria-modal="true" aria-label={lang === 'es' ? 'Menú' : 'Menu'} hidden>
+  <div class="menu-panel">
+    <a class="logo-word menu-logo" href={r('home', lang)} aria-label={t.logoLabel}>olmo</a>
+    <nav aria-label={lang === 'es' ? 'Menú principal' : 'Main menu'}>
+      <ul class="menu-list">
+        {ids.map((id, i) => (
+          <li><span class="menu-mask"><a href={href(id)} aria-current={route === id ? 'page' : undefined}>{t.menuItems[i]}</a></span></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="menu-foot">
+      <a class="tlink" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      <a class="tlink" href={wa(lang, 'WA5')} target="_blank" rel="noopener">WhatsApp <span class="sr-only">{t.newTab}</span></a>
+      <a class="tlink" href={LINKS.linkedin} target="_blank" rel="noopener">LinkedIn <span class="sr-only">{t.newTab}</span></a>
+      <LangSwitch lang={lang} route={route} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .menu {
+    position: fixed; inset: 0; z-index: 110;
+    pointer-events: none;
+  }
+  .menu:not([hidden]) { pointer-events: auto; }
+  .menu::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(17, 17, 17, 0.18);
+    opacity: 0; transition: opacity .4s var(--ease-p3);
+  }
+  .menu.is-open::before { opacity: 1; }
+  .menu-panel {
+    position: absolute; top: 10px; right: 10px; bottom: 10px;
+    width: calc(100% - 20px);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sombra-lg);
+    padding: 28px 28px 28px;
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    clip-path: circle(0% at calc(100% - 38px) 38px);
+    transition: clip-path .6s var(--ease-menu);
+  }
+  .menu.is-open .menu-panel { clip-path: circle(150% at calc(100% - 38px) 38px); }
+  .menu.is-closing .menu-panel { transition-duration: .35s; }
+  @media (min-width: 1200px) {
+    .menu-panel { top: 20px; right: 20px; bottom: 20px; width: 50%; padding: 36px 48px; clip-path: circle(0% at calc(100% - 30px) 30px); }
+    .menu.is-open .menu-panel { clip-path: circle(150% at calc(100% - 30px) 30px); }
+  }
+  .menu-logo { font-size: 32px; align-self: flex-start; }
+  .menu-list { margin-block: auto; padding-block: 40px; }
+  .menu-mask { display: block; overflow: hidden; padding-bottom: .08em; }
+  .menu-list a {
+    position: relative; display: inline-block;
+    font: 600 clamp(40px, 5.6vw, 80px)/1.15 var(--f-sans);
+    letter-spacing: -0.04em;
+    transform: translateY(105%);
+    transition: transform .5s var(--ease-p3), color .3s;
+  }
+  .menu.is-open .menu-list a { transform: none; }
+  .menu.is-open .menu-list li:nth-child(1) a { transition-delay: .25s, 0s; }
+  .menu.is-open .menu-list li:nth-child(2) a { transition-delay: .31s, 0s; }
+  .menu.is-open .menu-list li:nth-child(3) a { transition-delay: .37s, 0s; }
+  .menu.is-open .menu-list li:nth-child(4) a { transition-delay: .43s, 0s; }
+  .menu.is-open .menu-list li:nth-child(5) a { transition-delay: .49s, 0s; }
+  .menu.is-open .menu-list li:nth-child(6) a { transition-delay: .55s, 0s; }
+  .menu-list a::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: .08em; height: 4px;
+    background: var(--violeta); transform: scaleX(0); transform-origin: left;
+    transition: transform .3s var(--ease-p2);
+  }
+  .menu-list a[aria-current='page']::after { transform: scaleX(1); }
+  @media (hover: hover) and (pointer: fine) {
+    .menu-list:hover a { color: var(--gris-palabra); }
+    .menu-list a:hover, .menu-list a:focus-visible { color: var(--tinta); }
+    .menu-list a:hover::after { transform: scaleX(1); }
+  }
+  .menu-list a:focus-visible { color: var(--tinta); }
+  .menu-list a:focus-visible::after { transform: scaleX(1); }
+  .menu-foot {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px;
+    border-top: 1px solid var(--borde); padding-top: 20px;
+    font-size: 15px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-panel, .menu.is-open .menu-panel { clip-path: none !important; opacity: 0; transition: opacity .2s !important; }
+    .menu.is-open .menu-panel { opacity: 1; }
+    .menu-list a { transform: none !important; }
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Menu from '../components/Menu.astro';
+import Footer from '../components/Footer.astro';
+import { NOINDEX, GTM_ID, EMAIL, LINKS, WHATSAPP_NUMBER, type Lang } from '../config';
+import { ROUTES, type RouteId } from '../i18n/routes';
+import { HOME } from '../i18n/home';
+
+interface Props {
+  lang: Lang;
+  route: RouteId | null; // null = sin equivalente (404)
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  hash?: string;
+}
+const { lang, route, title, description, ogTitle, ogDescription } = Astro.props;
+const t = HOME[lang];
+const site = Astro.site!;
+const alt = route ? ROUTES[route] : ROUTES.home;
+const canonical = new URL(route ? alt[lang] : Astro.url.pathname, site).href;
+const ogImage = new URL(lang === 'es' ? '/og-es.jpg' : '/og-en.jpg', site).href;
+// Datos estructurados (schema.org) solo en la home: quién presta el servicio y dónde.
+const ld = route === 'home' ? JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': new URL('/#olmo', site).href,
+  name: 'Olmo',
+  url: new URL(alt[lang], site).href,
+  description,
+  image: ogImage,
+  logo: new URL('/apple-touch-icon.png', site).href,
+  email: EMAIL,
+  telephone: `+${WHATSAPP_NUMBER}`,
+  areaServed: ['CO', 'Worldwide'],
+  availableLanguage: ['es', 'en'],
+  address: { '@type': 'PostalAddress', addressLocality: 'Medellín', addressRegion: 'Antioquia', addressCountry: 'CO' },
+  founder: {
+    '@type': 'Person',
+    name: 'Santiago Cardona Ortiz',
+    jobTitle: lang === 'es' ? 'Asesor de crecimiento digital' : 'Digital growth advisor',
+    sameAs: [LINKS.linkedin, LINKS.github, LINKS.behance],
+  },
+  sameAs: [LINKS.linkedin, LINKS.github, LINKS.behance],
+}) : null;
+---
+<!doctype html>
+<html lang={lang} class="no-anim">
+  <head>
+    <meta charset="utf-8" />
+    {GTM_ID && (
+      <script is:inline define:vars={{ GTM_ID }}>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer',GTM_ID);
+      </script>
+    )}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {NOINDEX && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    {route && (
+      <>
+        <link rel="alternate" hreflang="es" href={new URL(alt.es, site).href} />
+        <link rel="alternate" hreflang="en" href={new URL(alt.en, site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(alt.es, site).href} />
+      </>
+    )}
+    {ld && <script type="application/ld+json" set:html={ld} />}
+    <meta name="theme-color" content="#F6F6F7" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/calsans.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Olmo" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      // Las entradas animadas solo esconden contenido si el JS de animación corre (15 §1.7).
+      document.documentElement.classList.remove('no-anim');
+      document.documentElement.classList.add('js');
+      window.setTimeout(function () {
+        if (!document.documentElement.classList.contains('anim-ready')) document.documentElement.classList.add('no-anim');
+      }, 2000);
+    </script>
+
+  </head>
+  <body data-lang={lang}>
+    {GTM_ID && (
+      <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    )}
+    <a class="skip" href="#main">{t.ui.skip}</a>
+    <Header lang={lang} route={route} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} route={route} />
+    <Menu lang={lang} route={route} />
+    <div class="cursor" aria-hidden="true"><span class="cursor-txt"></span></div>
+    <script>
+      import '../scripts/site';
+    </script>
+  </body>
+</html>

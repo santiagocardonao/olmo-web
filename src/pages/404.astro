@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Btn from '../components/Btn.astro';
+---
+<Base lang="es" route={null} title="Página no encontrada | Olmo" description="Esta página no existe o cambió de dirección.">
+  <section class="nf">
+    <div class="wrap">
+      <p class="labels"><span>404</span><span aria-hidden="true">( ES · EN )</span></p>
+      <h1 class="nf-title">Esta página <em class="s">no existe</em>.</h1>
+      <p class="support nf-p">Puede que haya cambiado de dirección con el sitio nuevo.</p>
+      <p class="support nf-p" lang="en">This page doesn't exist. It may have moved with the new site.</p>
+      <div class="nf-btns">
+        <Btn href="/" label="Ir al inicio" />
+        <Btn href="/en/" label="Go to the English site" variant="sec" lang="en" />
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { padding: calc(var(--header-h) + 60px) 0 80px; }
+  .nf-title { margin-top: 40px; font: 700 clamp(48px, 8.4vw, 132px)/0.98 var(--f-sans); letter-spacing: -0.05em; }
+  .nf-p { margin-top: 16px; font-size: 20px; }
+  .nf-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+</style>

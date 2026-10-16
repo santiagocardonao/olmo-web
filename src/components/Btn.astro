@@ -1,0 +1,33 @@
+---
+/** Botón pill con texto que cambia de línea al pasar el cursor (G1). La copia lleva aria-hidden. */
+interface Props {
+  href: string;
+  label: string;
+  variant?: 'pri' | 'sec' | 'dark' | 'light';
+  size?: 'sm' | 'md';
+  ariaLabel?: string;
+  external?: boolean;
+  arrow?: 'diag' | 'right' | 'none';
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, label, variant = 'pri', size = 'md', ariaLabel, external = false, arrow, class: cls = '', ...rest } = Astro.props;
+const a = arrow ?? (external ? 'diag' : 'right');
+const path = a === 'diag' ? 'M3 11L11 3M11 3H4.5M11 3V9.5' : 'M2 7h10M8 3l4 4-4 4';
+---
+<a
+  class:list={['btn', `btn-${variant}`, size === 'sm' && 'btn-sm', cls]}
+  href={href}
+  aria-label={ariaLabel}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+  {...rest}
+>
+  <span class="lbl"><span>{label}</span><span aria-hidden="true">{label}</span></span>
+  {a !== 'none' && (
+    <span class:list={['ico', a === 'right' && 'r']} aria-hidden="true">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={path} /></svg>
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={path} /></svg>
+    </span>
+  )}
+</a>

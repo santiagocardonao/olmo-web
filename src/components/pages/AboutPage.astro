@@ -1,0 +1,89 @@
+---
+import '../../styles/pages.css';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Btn from '../Btn.astro';
+import { LINKS, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { IMG } from '../../lib/images';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const h = HOME[lang];
+const a = h.about;
+const T = es
+  ? {
+      meta: { title: 'Sobre mí: Santiago Cardona Ortiz | Olmo', description: 'Santiago Cardona Ortiz: cofundador y COO de Vieli (2017–2025), docente de UX/UI en CESDE durante 6 años y asesor independiente desde Medellín.' },
+      label: 'Sobre mí', right: 'Medellín, Colombia',
+      tl: 'Trayectoria', names: 'Con quién he trabajado',
+      timeline: [
+        { y: '2017–2025', t: 'Vieli', d: 'Cofundador y COO. Estudio de 30 personas, más de 100 proyectos, todos por referidos.', x: 'Armé y dirigí la operación del estudio: equipo, procesos, finanzas y la relación con cada cliente. Hicimos sitios, tiendas y productos digitales para marcas de Colombia y del exterior.' },
+        { y: 'Desde 2020', t: 'silBe', d: 'Funnel, conversión, migración a app y producto de suscripción.', x: 'Estuve desde el primer lanzamiento, que logró USD 400.000 y 5.000 suscriptores en la primera semana (Forbes, 2021). Después trabajé el funnel y las pruebas A/B del checkout, que subieron la conversión de 3 % a 4 %, y el paso del sitio a la app.' },
+        { y: '6 años', t: 'CESDE', d: 'Docente de UX/UI (diseño de interfaces y experiencia de usuario).', x: 'Durante seis años enseñé a diseñar productos digitales: investigación con usuarios, arquitectura de información, prototipos y pruebas. Enseñar me obligó a explicar con claridad por qué una decisión de diseño funciona.' },
+        { y: '—', t: 'Bancolombia · FIDI', d: 'Prototipo de educación financiera con videos por WhatsApp.', x: 'Diseñé FIDI para enseñar finanzas personales con videos cortos que llegan por WhatsApp, el canal que la gente ya abre todos los días, en lugar de pedirle que descargue otra app.' },
+        { y: 'Desde 2025', t: 'Olmo', d: 'Asesoría independiente.', x: 'Trabajo solo y directamente con los dueños y equipos de marcas que ya venden online. Asesoro en funnels, producto, sistemas con IA y web, y me quedo hasta que se note en los números.' },
+      ],
+    }
+  : {
+      meta: { title: 'About: Santiago Cardona Ortiz | Olmo', description: 'Santiago Cardona Ortiz: co-founder and COO of Vieli (2017–2025), UX/UI instructor at CESDE for six years, and independent advisor based in Medellín.' },
+      label: 'About', right: 'Medellín, Colombia',
+      tl: 'Track record', names: "Who I've worked with",
+      timeline: [
+        { y: '2017–2025', t: 'Vieli', d: 'Co-founder & COO. A 30-person studio, 100+ projects, all from referrals.', x: "I built and ran the studio's operations: team, processes, finances and every client relationship. We made websites, online stores and digital products for brands in Colombia and abroad." },
+        { y: 'Since 2020', t: 'silBe', d: 'Funnel, conversion, the move to an app and the subscription product.', x: 'I was there from the first launch, which brought in USD 400,000 and 5,000 subscribers in its first week (Forbes, 2021). Then I worked on the funnel and checkout A/B tests, which lifted conversion from 3% to 4%, and on the move from website to app.' },
+        { y: '6 years', t: 'CESDE', d: 'UX/UI instructor.', x: 'For six years I taught how to design digital products: user research, information architecture, prototyping and testing. Teaching made me explain clearly why a design decision works.' },
+        { y: '—', t: 'Bancolombia · FIDI', d: 'A personal-finance prototype built on short WhatsApp videos.', x: 'I designed FIDI to teach personal finance through short videos sent over WhatsApp, the app people already open every day, instead of asking them to download another one.' },
+        { y: 'Since 2025', t: 'Olmo', d: 'Independent advisory.', x: 'I work on my own, directly with the owners and teams of brands that already sell online. I advise on funnels, product, AI-powered systems and web, and I stay until it shows in the numbers.' },
+      ],
+    };
+const names = ['silBe', 'Vieli', 'ILMIN', 'SaraBe', 'Undergold', 'Ideal Team', 'Olmo Métricas', 'CESDE', 'Bancolombia'];
+---
+<Base lang={lang} route="about" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} right={T.right} title={a.title} />
+  <section class="block">
+    <div class="wrap ab">
+      <figure class="media-frame ab-photo" data-fade>
+        <Picture src={IMG.santiago} alt={a.photoAlt} widths={[400, 700, 1000]} sizes="(min-width: 992px) 40vw, 92vw" formats={['avif']} fallbackFormat="webp" loading="eager" />
+      </figure>
+      <div>
+        <div class="prose" data-fade><p>{a.body}</p></div>
+        <div class="ab-links" data-fade>
+          <Btn href={LINKS.linkedin} label="LinkedIn" variant="dark" external ariaLabel={`LinkedIn ${h.ui.newTab}`} />
+          <Btn href={LINKS.github} label="GitHub" variant="sec" external ariaLabel={`GitHub ${h.ui.newTab}`} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="tl">
+    <div class="wrap">
+      <div class="labels"><h2 id="tl" class="lbl-h">{T.tl}</h2><span aria-hidden="true">( {T.timeline.length} )</span></div>
+      <ol class="rowlist">
+        {T.timeline.map((it) => (
+          <li data-fade>
+            <div><span class="rl-num">{it.y}</span><h3 class="rl-word">{it.t}</h3></div>
+            <div class="prose"><p><strong>{it.d}</strong></p><p>{it.x}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="names">
+    <div class="wrap">
+      <div class="labels"><h2 id="names" class="lbl-h">{T.names}</h2><span aria-hidden="true">( {names.length} )</span></div>
+      <!-- PENDIENTE: logos con permiso de uso. Por ahora, nombres en texto. -->
+      <ul class="names" data-fade>{names.map((n) => <li>{n}</li>)}</ul>
+    </div>
+  </section>
+</Base>
+<style>
+  .lbl-h { font: inherit; }
+  .ab { display: grid; gap: 40px; }
+  @media (min-width: 992px) { .ab { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 30px; align-items: start; } }
+  .ab-photo { aspect-ratio: 4 / 5; max-width: 560px; }
+  .ab-photo :global(img) { object-position: 50% 20%; }
+  .ab-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .names { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 28px; font: 600 clamp(26px, 3.4vw, 48px)/1.2 var(--f-sans); letter-spacing: -0.04em; color: var(--gris-palabra); }
+</style>

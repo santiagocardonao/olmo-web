@@ -1,0 +1,102 @@
+---
+import Btn from './Btn.astro';
+import LangSwitch from './LangSwitch.astro';
+import { wa, type Lang } from '../config';
+import { HOME } from '../i18n/home';
+import { r, SERVICES_ANCHOR, type RouteId } from '../i18n/routes';
+interface Props { lang: Lang; route: RouteId | null }
+const { lang, route } = Astro.props;
+const t = HOME[lang].ui;
+const navIds: (RouteId | 'services')[] = ['services', 'portfolio', 'tools', 'about'];
+const href = (id: RouteId | 'services') => (id === 'services' ? SERVICES_ANCHOR[lang] : r(id, lang));
+const isActive = (id: RouteId | 'services') =>
+  route === id
+  || (id === 'portfolio' && (!!route?.startsWith('pf') || route === 'silbe' || route === 'undergold' || route === 'idealTeam'));
+---
+<header class="site-header">
+  <div class="wrap hdr">
+    <a class="logo-word hdr-logo grad-text" href={r('home', lang)} aria-label={t.logoLabel}>olmo</a>
+    <nav class="hdr-nav" aria-label={lang === 'es' ? 'Principal' : 'Main'}>
+      <ul>
+        {navIds.map((id, i) => (
+          <li><a href={href(id)} aria-current={isActive(id) ? 'page' : undefined}>{t.nav[i]}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="hdr-right">
+      <LangSwitch lang={lang} route={route} />
+      <Btn class="hdr-cta" href={wa(lang, 'WA5')} label={t.waCta} ariaLabel={t.waCtaLabel} external size="sm" data-cta="wa5-header" />
+    </div>
+  </div>
+</header>
+
+<button
+  class="menu-btn"
+  type="button"
+  aria-expanded="false"
+  aria-controls="menu"
+  aria-label={t.menuOpen}
+  data-open-label={t.menuOpen}
+  data-close-label={t.menuClose}
+>
+  <span class="menu-btn-lines" aria-hidden="true"><i></i><i></i></span>
+</button>
+
+<style>
+  .site-header {
+    position: absolute; inset: 0 0 auto 0; z-index: 50;
+    height: var(--header-h);
+    display: flex; align-items: center;
+  }
+  .hdr { display: flex; align-items: center; gap: 16px; }
+  .hdr-logo { font-size: 30px; color: var(--tinta); padding-bottom: 4px; }
+  .hdr-nav { display: none; margin-inline: auto; }
+  .hdr-nav ul {
+    display: flex; gap: 2px; padding: 5px;
+    background: var(--blanco); border: 1px solid var(--borde); border-radius: var(--pill);
+    font: 500 14.5px/1 var(--f-sans);
+  }
+  .hdr-nav a { display: block; padding: 10px 16px; border-radius: var(--pill); transition: background-color .2s, color .2s; }
+  .hdr-nav a:hover { background: var(--violeta-tinte); color: var(--violeta); }
+  .hdr-nav a[aria-current='page'] { color: var(--violeta); background: var(--violeta-tinte); }
+  .hdr-right { margin-left: auto; display: flex; align-items: center; gap: 10px; margin-right: 64px; }
+  .hdr-right :global(.hdr-cta) { display: none; }
+  @media (min-width: 768px) {
+    .hdr-right :global(.hdr-cta) { display: inline-flex; }
+  }
+  @media (min-width: 1200px) {
+    .hdr-nav { display: block; }
+    .hdr-right { margin-left: 0; margin-right: 0; }
+  }
+
+  /* Botón redondo violeta (M1). Escritorio: aparece al bajar 120 px. Móvil/tableta: siempre visible. */
+  .menu-btn {
+    position: fixed; top: 14px; right: var(--gutter); z-index: 120;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--violeta); color: #fff;
+    display: grid; place-items: center;
+    box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.6), 0 8px 20px rgba(109, 40, 217, 0.28);
+    transition: transform .3s var(--ease-p3), opacity .3s var(--ease-p3), background-color .2s;
+  }
+  .menu-btn:hover { background: var(--violeta-hover); }
+  .menu-btn:focus-visible { outline-offset: 4px; border-radius: 50%; }
+  .menu-btn-lines { position: relative; width: 20px; height: 12px; display: block; }
+  .menu-btn-lines i {
+    position: absolute; left: 0; height: 2px; border-radius: 2px; background: currentColor;
+    transition: transform .3s var(--ease-p3), width .3s var(--ease-p3), top .3s var(--ease-p3);
+  }
+  .menu-btn-lines i:first-child { top: 1px; width: 20px; }
+  .menu-btn-lines i:last-child { top: 9px; width: 13px; left: 7px; }
+  .menu-btn:hover .menu-btn-lines i:last-child { width: 20px; left: 0; }
+  .menu-btn[aria-expanded='true'] .menu-btn-lines i:first-child { top: 5px; transform: rotate(45deg); }
+  .menu-btn[aria-expanded='true'] .menu-btn-lines i:last-child { top: 5px; left: 0; width: 20px; transform: rotate(-45deg); }
+
+  @media (min-width: 1200px) {
+    .menu-btn { top: 20px; width: 60px; height: 60px; transform: scale(.5); opacity: 0; pointer-events: none; }
+    :global(html:not(.js)) .menu-btn { display: none; }
+    :global(.scrolled) .menu-btn, .menu-btn[aria-expanded='true'] { transform: scale(1); opacity: 1; pointer-events: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-btn { transform: none !important; }
+  }
+</style>

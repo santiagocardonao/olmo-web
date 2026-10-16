@@ -1,0 +1,103 @@
+---
+import { Picture } from 'astro:assets';
+import { wa, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { link } from '../../lib/util';
+import asesoria from '../../assets/servicios/asesoria.jpg';
+import ia from '../../assets/servicios/ia.jpg';
+import web from '../../assets/servicios/web.jpg';
+import mensualidad from '../../assets/servicios/mensualidad.jpg';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = HOME[lang].services;
+const bg = { asesoria, ia, web, mensualidad };
+// La cinta se repite para que nunca quede un hueco al desplazarse
+const tape = [...s.marquee, ...s.marquee, ...s.marquee];
+---
+<section id={lang === 'es' ? 'servicios' : 'services'} class="svc" aria-labelledby="svc-title" data-services data-dark>
+  <div class="svc-bg" aria-hidden="true">
+    {s.offer.map((it, i) => (
+      <div class:list={['svc-pane', i === 0 && 'is-active']} data-svc-pane>
+        <Picture src={bg[it.img]} alt="" widths={[768, 1280, 1920, 2752]} sizes="100vw"
+          formats={['avif']} fallbackFormat="webp" loading="lazy" />
+      </div>
+    ))}
+  </div>
+
+  <div class="wrap svc-inner">
+    <h2 id="svc-title" class="svc-label">[ {s.left} ]</h2>
+    <ul class="svc-list" aria-label={s.aria}>
+      {s.offer.map((it, i) => (
+        <li class:list={['svc-item', i === 0 && 'is-active']} data-svc>
+          <a class="svc-link" href={link(lang, it.href)}>
+            <span class="svc-title">{it.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a class="svc-tape" href={wa(lang, 'WA5')} target="_blank" rel="noopener" aria-label={`${s.marquee[0]} ${HOME[lang].ui.newTab}`} data-cta="wa5-services">
+      <span class="svc-track" aria-hidden="true">
+        {[0, 1].map(() => (
+          <span class="svc-run">
+            {tape.map((t) => <span class="svc-chunk">{t}<span class="svc-dash"></span></span>)}
+          </span>
+        ))}
+      </span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .svc {
+    position: relative; isolation: isolate; overflow: hidden;
+    color: #fff; background: #111;
+    min-height: max(100svh, 720px);
+    display: flex;
+  }
+  .svc-bg { position: absolute; inset: 0; z-index: -1; }
+  .svc-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.24) 55%, rgba(0,0,0,.06) 100%),
+      linear-gradient(0deg, rgba(0,0,0,.35) 0%, transparent 30%);
+  }
+  .svc-pane {
+    position: absolute; inset: 0; opacity: 0; transform: scale(1.06);
+    transition: opacity .8s var(--ease-p3), transform 1.4s var(--ease-p3);
+  }
+  .svc-pane.is-active { opacity: 1; transform: none; }
+  .svc-pane :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; }
+
+  .svc-inner {
+    width: 100%; display: flex; flex-direction: column;
+    padding-block: clamp(96px, 12vh, 140px) clamp(32px, 5vh, 64px);
+  }
+  .svc-label { font: 600 clamp(16px, 1.4vw, 20px)/1.4 var(--f-sans); letter-spacing: -0.03em; text-transform: uppercase; }
+
+  .svc-list { margin-block: clamp(32px, 6vh, 72px) auto; display: flex; flex-direction: column; gap: clamp(14px, 2.4vh, 28px); }
+  .svc-link { display: block; }
+  .svc-title {
+    font: 600 clamp(38px, 6.2vw, 108px)/.95 var(--f-sans); letter-spacing: -0.055em;
+    text-transform: uppercase; text-wrap: balance;
+    color: rgba(255, 255, 255, .46); transition: color .4s var(--ease-p2);
+  }
+  .svc-item.is-active .svc-title { color: #fff; }
+  .svc-link:focus-visible { outline: 2px solid #fff; outline-offset: 6px; border-radius: 4px; }
+
+  .svc-tape {
+    display: block; overflow: hidden; margin-top: clamp(40px, 7vh, 80px);
+    border-block: 1px solid rgba(255, 255, 255, .28); padding-block: clamp(14px, 2vh, 22px);
+    font: 600 clamp(20px, 2.2vw, 34px)/1 var(--f-sans); letter-spacing: -0.03em; text-transform: uppercase;
+  }
+  .svc-track { display: flex; width: max-content; animation: svc-tape 36s linear infinite; }
+  .svc-tape:hover .svc-track { animation-play-state: paused; }
+  .svc-run, .svc-chunk { display: flex; align-items: center; }
+  .svc-dash { display: inline-block; width: 1.4em; height: 2px; background: currentColor; margin-inline: .8em; }
+  @keyframes svc-tape { to { transform: translateX(-50%); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc-pane { transition: opacity .3s; transform: none; }
+    .svc-track { animation: none; }
+  }
+</style>

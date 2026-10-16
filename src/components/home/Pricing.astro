@@ -1,0 +1,113 @@
+---
+import Btn from '../Btn.astro';
+import { wa, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { emph, link } from '../../lib/util';
+interface Props { lang: Lang; showLabels?: boolean; headingLevel?: 'h2' | 'h3' }
+const { lang, showLabels = true } = Astro.props;
+const p = HOME[lang].pricing;
+const ui = HOME[lang].ui;
+---
+<section id={lang === 'es' ? 'precios' : 'pricing'} class="pricing sec" aria-labelledby="pricing-title">
+  <div class="wrap">
+    {showLabels && <div class="labels"><span>{p.left}</span><span aria-hidden="true">{p.right}</span></div>}
+    <div class="pr-grid">
+      <div class="pr-copy">
+        <h2 id="pricing-title" class="pr-title" data-split-lines set:html={emph(p.title)} />
+        <p class="pr-lead support" data-fade>{p.lead}</p>
+        <div class="pr-actions" data-fade>
+          <Btn href={wa(lang, 'WA5')} label={p.cta} ariaLabel={ui.ctaLabel} external data-cta="wa5-pricing" />
+          <ul class="pr-links">
+            {p.links.map((l) => (
+              <li>
+                {l.wa ? (
+                  <a class="tlink" href={wa(lang, l.wa)} target="_blank" rel="noopener">{l.label} ↗<span class="sr-only"> {ui.newTab}</span></a>
+                ) : (
+                  <a class="tlink" href={link(lang, l.href!)}>{l.label}</a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="pr-receipt-wrap" data-fade>
+        <div class="receipt">
+          <p class="rc-head" aria-hidden="true"><span class="logo-word">olmo</span><span>{lang === 'es' ? 'Medellín · 2026' : 'Medellín · 2026'}</span></p>
+          <table aria-label={p.aria}>
+            <thead class="sr-only"><tr><th scope="col">{lang === 'es' ? 'Servicio' : 'Service'}</th><th scope="col">{lang === 'es' ? 'Precio' : 'Price'}</th></tr></thead>
+            <tbody>
+              {p.rows.map((row) => (
+                <tr>
+                  <th scope="row"><span class="rc-name">{row.name}</span><span class="rc-detail">{row.detail}</span></th>
+                  <td class="rc-amount tnum">{row.amount}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr class="rc-total">
+                <th scope="row"><span class="rc-name">{p.total.name}</span><span class="rc-detail">{p.total.detail}</span></th>
+                <td class="rc-amount tnum">{p.total.amount}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <ul class="pr-notes small">
+          <li>{p.currencyNote}</li>
+          <li>{p.paymentNote}</li>
+          <li>{p.legalNote}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pr-grid { display: grid; gap: 48px; margin-top: clamp(32px, 4vw, 56px); }
+  .pr-grid > * { min-width: 0; }
+  @media (min-width: 1200px) {
+    .pr-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 30px; align-items: start; }
+    .pr-copy { grid-column: 1 / span 5; }
+    .pr-receipt-wrap { grid-column: 6 / span 7; }
+  }
+  .pr-title { font: 700 clamp(48px, 7.4vw, 112px)/0.98 var(--f-sans); letter-spacing: -0.05em; }
+  .pr-lead { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; margin-top: 24px; max-width: 26em; }
+  .pr-actions { margin-top: 32px; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .pr-links { display: flex; flex-direction: column; gap: 12px; font-size: 16px; }
+
+  .receipt {
+    position: relative;
+    background: var(--blanco);
+    border-radius: var(--r-img) var(--r-img) 0 0;
+    padding: clamp(22px, 3vw, 40px) clamp(20px, 3vw, 40px) clamp(30px, 3.5vw, 48px);
+    --zz: 10px;
+    -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--zz)) 100%;
+    mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--zz)) 100%;
+  }
+  .rc-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 16px; border-bottom: 1.5px dashed var(--borde-fuerte);
+    font: 500 13px/1 var(--f-sans); color: var(--gris-500);
+  }
+  .rc-head .logo-word { font-size: 26px; color: var(--tinta); }
+  table { width: 100%; }
+  th, td { text-align: left; vertical-align: top; font-weight: inherit; }
+  tbody tr { border-bottom: 1px dashed var(--borde-fuerte); }
+  tbody th, tbody td, tfoot th, tfoot td { padding-block: 18px; }
+  .rc-name { display: block; font: 600 17px/1.3 var(--f-sans); letter-spacing: -0.02em; }
+  .rc-detail { display: block; margin-top: 4px; font: 300 14.5px/1.5 var(--f-sans); color: var(--gris-700); max-width: 34em; }
+  .rc-amount {
+    text-align: right; padding-left: 20px;
+    font: 600 16px/1.3 var(--f-sans); letter-spacing: -0.02em; white-space: nowrap;
+  }
+  .rc-total { border-top: 2px solid var(--tinta); }
+  .rc-total .rc-name, .rc-total .rc-amount { color: var(--violeta); font-size: 19px; }
+  .rc-total .rc-detail { font-weight: 500; }
+  @media (max-width: 600px) {
+    tbody tr, tfoot tr { display: grid; }
+    .rc-amount { text-align: left; padding: 0 0 18px; white-space: normal; }
+    tbody th, tfoot th { padding-bottom: 8px; }
+  }
+  .pr-notes { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; }
+  .pr-notes li::before { content: '· '; color: var(--violeta); font-weight: 700; }
+</style>

@@ -1,0 +1,137 @@
+---
+import '../../styles/pages.css';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Cover from '../Cover.astro';
+import Btn from '../Btn.astro';
+import { Picture } from 'astro:assets';
+import { wa, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { ORDER, PROJECTS, PROJECT_ROUTE, repoUrl, type ProjectId } from '../../i18n/portfolio';
+import { r } from '../../i18n/routes';
+interface Props { lang: Lang; id: ProjectId }
+const { lang, id } = Astro.props;
+const p = PROJECTS[lang][id];
+const ui = HOME[lang].ui;
+const es = lang === 'es';
+const nextId = ORDER[(ORDER.indexOf(id) + 1) % ORDER.length];
+const next = PROJECTS[lang][nextId];
+// Capturas opcionales del proyecto: src/assets/galerias/<id>/*.jpg, en orden de nombre.
+const shots = Object.entries(import.meta.glob<{ default: ImageMetadata }>('../../assets/galerias/*/*.{jpg,jpeg,png,webp}', { eager: true }))
+  .filter(([path]) => path.split('/').at(-2) === id)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, m]) => m.default);
+const n = String(ORDER.indexOf(id) + 1).padStart(2, '0');
+const L = es
+  ? { label: 'Portafolio', about: 'El proyecto', did: 'Qué hice', see: 'Ver sitio', code: 'Código en GitHub', next: 'Siguiente proyecto', all: 'Ver todo el portafolio', cta: 'Cotiza tu proyecto por WhatsApp', cover: 'Portada de', shots: 'Capturas', shot: 'Captura del sitio de', more: 'Más detalle del proyecto, capturas y resultados.' }
+  : { label: 'Portfolio', about: 'The project', did: 'What I did', see: 'Visit site', code: 'Code on GitHub', next: 'Next project', all: 'See the full portfolio', cta: 'Get a project quote on WhatsApp', cover: 'Cover for', shots: 'Screenshots', shot: 'Screenshot of the site for', more: 'More project detail, screenshots and results.' };
+---
+<Base lang={lang} route={PROJECT_ROUTE[id]} title={p.meta!.title} description={p.meta!.description}>
+  <PageHero label={`${L.label} · ${n}`} right={p.tag} title={p.headline!} lead={p.lead}>
+    {p.live && <Btn href={p.live.href} label={`${L.see} · ${p.live.label}`} external />}
+    {p.repo && <Btn href={repoUrl(p.repo)} label={L.code} variant="sec" external />}
+    <div slot="aside" class="media-frame pj-cover">
+      <Cover id={id} lang={lang} alt={`${L.cover} ${p.name}`} sizes="(min-width: 992px) 50vw, 96vw" eager />
+    </div>
+  </PageHero>
+
+  {p.facts && (
+    <section class="block pj-cover-sec">
+      <div class="wrap">
+        <dl class="pj-facts" data-fade>
+          {p.facts.map((f) => <div><dt>{f.k}</dt><dd>{f.v}</dd></div>)}
+        </dl>
+      </div>
+    </section>
+  )}
+
+  <section class="block pj-story">
+    <div class="wrap">
+      <div class="labels"><h2 class="lbl-h">{p.about ? L.about : L.did}</h2><span aria-hidden="true">01</span></div>
+      <div class="pj-story-grid">
+        <div class="pj-story-left">
+          <p class="pj-statement" data-fade>{p.about ?? p.lead}</p>
+        </div>
+        <div class="pj-story-right">
+          {p.stats && (
+            <dl class="pj-stats" data-fade>
+              {p.stats.map((s) => <div><dt>{s.k}</dt><dd>{s.v}</dd></div>)}
+            </dl>
+          )}
+          {p.about && <h3 class="pj-did-h">{L.did}</h3>}
+          <ul class="pj-did">
+            {p.did!.map((d) => (
+              <li data-fade>
+                {typeof d === 'string' ? <p>{d}</p> : <><h4>{d.t}</h4><p>{d.d}</p></>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {shots.length > 0 && (
+    <section class="block">
+      <div class="wrap">
+        <div class="labels"><h2 class="lbl-h">{L.shots}</h2><span aria-hidden="true">02</span></div>
+        <ul class="pj-shots">
+          {shots.map((img, i) => (
+            <li class="media-frame" data-fade>
+              <Picture src={img} alt={`${L.shot} ${p.name} (${i + 1})`} widths={[700, 1100, 1600]} sizes="(min-width: 992px) 80vw, 96vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="block">
+    <div class="wrap next">
+      <a class="next-link" href={r(PROJECT_ROUTE[nextId], lang)}>
+        <span class="small">{L.next}</span>
+        <span class="next-name">{next.name} →</span>
+      </a>
+      <div class="next-btns">
+        <Btn href={r('portfolio', lang)} label={L.all} variant="sec" arrow="none" />
+        <Btn href={wa(lang, 'WA4')} label={L.cta} ariaLabel={`${L.cta} ${ui.newTab}`} external />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lbl-h { font: inherit; }
+  .pj-cover-sec { padding-top: 0; }
+  .pj-cover { aspect-ratio: 1; }
+  @media (min-width: 992px) { .pj-cover { aspect-ratio: 5 / 4; } }
+  .pj-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px 30px; padding-top: 24px; border-top: 1px solid var(--borde); }
+  .pj-facts dt { font: 500 12px/1.4 var(--f-sans); letter-spacing: .04em; text-transform: uppercase; color: var(--gris-500); }
+  .pj-facts dd { margin-top: 6px; font: 500 18px/1.4 var(--f-sans); letter-spacing: -0.01em; }
+  .pj-more { margin-top: 24px; }
+  /* Historia del proyecto: frase grande fija a la izquierda, cifras y lista a la derecha. */
+  .pj-story-grid { display: grid; gap: 40px 30px; margin-top: clamp(24px, 3vw, 40px); }
+  @media (min-width: 992px) {
+    .pj-story-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 30px clamp(40px, 5vw, 96px); align-items: start; }
+    .pj-story-left { position: sticky; top: calc(var(--header-h) + 24px); }
+  }
+  .pj-statement { font: 500 clamp(24px, 2.3vw, 34px)/1.25 var(--f-sans); letter-spacing: -0.02em; color: var(--tinta); text-wrap: pretty; }
+  .pj-stats { display: grid; gap: 24px; padding-bottom: clamp(28px, 3vw, 40px); margin-bottom: clamp(28px, 3vw, 40px); border-bottom: 1px solid var(--borde); }
+  @media (min-width: 640px) { .pj-stats { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } }
+  .pj-stats div { display: flex; flex-direction: column-reverse; gap: 8px; align-items: center; text-align: center; }
+  .pj-stats dd { font: 700 clamp(30px, 3vw, 44px)/1 var(--f-sans); letter-spacing: -0.04em; color: var(--violeta); font-variant-numeric: tabular-nums; }
+  .pj-stats dt { font: 400 15px/1.4 var(--f-sans); color: var(--gris-700); max-width: 16em; }
+  .pj-did-h { font: 600 13px/1.3 var(--f-sans); letter-spacing: .04em; text-transform: uppercase; color: var(--gris-500); margin-bottom: 8px; }
+  .pj-did li { padding-block: 20px; }
+  .pj-did li + li { border-top: 1px solid var(--borde); }
+  .pj-did h4 { font: 600 clamp(18px, 1.5vw, 21px)/1.3 var(--f-sans); letter-spacing: -0.015em; color: var(--tinta); margin-bottom: 6px; }
+  .pj-did p { font: 400 clamp(16px, 1.2vw, 18px)/1.6 var(--f-sans); color: var(--gris-700); max-width: 40em; }
+  .pj-shots { display: grid; gap: clamp(16px, 2vw, 30px); }
+  .pj-shots li { display: block; }
+  .pj-shots :global(img) { width: 100%; height: auto; display: block; }
+  .next { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; border-top: 1px solid var(--borde); padding-top: 24px; }
+  .next-link { display: flex; flex-direction: column; gap: 6px; }
+  .next-name { font: 700 clamp(36px, 5vw, 72px)/1 var(--f-sans); letter-spacing: -0.04em; transition: color .3s; }
+  .next-link:hover .next-name { color: var(--violeta); }
+  .next-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+</style>

@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+import type { Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import bancolombia from '../../assets/logos/bancolombia.png';
+import cesde from '../../assets/logos/cesde.png';
+import undergold from '../../assets/logos/undergold.png';
+import silbe from '../../assets/logos/silbe.png';
+import serenn from '../../assets/logos/serenn.png';
+import miaplus from '../../assets/logos/miaplus.png';
+import mic from '../../assets/logos/mic.png';
+import balparaiso from '../../assets/logos/balparaiso.png';
+import feria from '../../assets/logos/feria-diseno.png';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = HOME[lang].clients;
+// h = alto en px en desktop, ajustado a ojo para que todos pesen parecido
+const logos = [
+  { src: bancolombia, alt: 'Bancolombia', h: 34 },
+  { src: cesde, alt: 'Cesde', h: 26 },
+  { src: undergold, alt: 'Undergold', h: 20 },
+  { src: silbe, alt: 'silBe', h: 38 },
+  { src: serenn, alt: 'Serénn', h: 34 },
+  { src: miaplus, alt: 'Mía+', h: 40 },
+  { src: mic, alt: 'MIC', h: 54 },
+  { src: balparaiso, alt: 'Balparaiso 1988', h: 38 },
+  { src: feria, alt: 'La Feria de Diseño', h: 42 },
+];
+---
+<section class="clients" aria-label={c.aria}>
+  <div class="wrap clients-inner">
+    <p class="clients-label">{c.label}</p>
+    <div class="marquee">
+      <div class="track">
+        {[0, 1].map((copy) => (
+          <ul aria-hidden={copy === 1 ? 'true' : undefined}>
+            {logos.map((l) => (
+              <li style={`--h:${l.h}px`}>
+                <Image src={l.src} alt={copy === 1 ? '' : l.alt} height={l.h * 2} format="webp" loading="lazy" />
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .clients { padding-block: clamp(28px, 4vw, 56px); }
+  .clients-inner { display: flex; flex-direction: column; gap: 18px; }
+  .clients-label { font: 500 15px/1.35 var(--f-sans); color: var(--tinta); max-width: 12ch; }
+  .marquee {
+    overflow: hidden;
+    margin-inline: calc(var(--gutter) * -1);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .track { display: flex; width: max-content; animation: clients-scroll 40s linear infinite; }
+  .marquee:hover .track { animation-play-state: paused; }
+  .track ul { display: flex; align-items: center; gap: clamp(48px, 6vw, 96px); padding-right: clamp(48px, 6vw, 96px); }
+  .track li { flex: none; display: flex; align-items: center; height: 64px; }
+  .track img {
+    height: calc(var(--h) * .8); width: auto;
+    opacity: .55; transition: opacity .4s var(--ease-p2);
+  }
+  .track li:hover img { opacity: 1; }
+  @keyframes clients-scroll { to { transform: translateX(-50%); } }
+  @media (min-width: 768px) {
+    .clients-inner { flex-direction: row; align-items: center; gap: 32px; }
+    .clients-label { flex: none; width: 140px; }
+    .marquee { flex: 1; min-width: 0; margin-inline: 0 calc(var(--gutter) * -1); }
+    .track li { height: 80px; }
+    .track img { height: var(--h); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+    .marquee { overflow-x: auto; scrollbar-width: none; }
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+import { emph } from '../lib/util';
+interface Props { label: string; right?: string; title: string; lead?: string; pending?: boolean }
+const { label, right = '', title, lead, pending = false } = Astro.props;
+/** Con el slot "aside" el hero se parte en dos columnas (texto | imagen) y el titular baja a la mitad. */
+const split = Astro.slots.has('aside');
+---
+<section class:list={['phero', split && 'is-split']}>
+  <div class="wrap">
+    <div class="labels"><span>{label}</span><span aria-hidden="true">{right}</span></div>
+    {pending && <Fragment set:html={'<!-- PENDIENTE: titular y bajada de esta página sin aprobar -->'} />}
+    <div class="phero-body">
+      <div class="phero-text">
+        <h1 class="phero-title" data-split-lines set:html={emph(title)} />
+        {lead && <p class="phero-lead support" data-fade>{lead}</p>}
+        <div class="phero-actions" data-fade><slot /></div>
+      </div>
+      {split && <div class="phero-aside" data-fade><slot name="aside" /></div>}
+    </div>
+  </div>
+</section>
+<style>
+  .phero { padding-top: calc(var(--header-h) + clamp(24px, 4vw, 56px)); padding-bottom: clamp(40px, 5vw, 72px); }
+  .phero-title {
+    margin-top: clamp(28px, 4vw, 56px);
+    font: 700 clamp(48px, 8.4vw, 132px)/0.98 var(--f-sans);
+    letter-spacing: -0.05em; max-width: 14em; text-wrap: balance;
+  }
+  .phero-lead { margin-top: 28px; font-size: clamp(18px, 1.7vw, 24px); line-height: 1.5; max-width: 38em; }
+  .phero-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .phero-actions:empty { display: none; }
+  .phero-aside { margin-top: 40px; }
+  @media (min-width: 992px) {
+    .is-split .phero-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 64px); align-items: center; }
+    .is-split .phero-title { font-size: clamp(36px, 4.2vw, 66px); line-height: 1; letter-spacing: -0.04em; }
+    .is-split .phero-lead { font-size: clamp(16px, 1.25vw, 19px); }
+    .is-split .phero-aside { margin-top: clamp(28px, 4vw, 56px); }
+  }
+</style>

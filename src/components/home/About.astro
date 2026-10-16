@@ -1,0 +1,55 @@
+---
+import { Picture } from 'astro:assets';
+import Btn from '../Btn.astro';
+import { LINKS, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { emph } from '../../lib/util';
+import { r } from '../../i18n/routes';
+import { IMG } from '../../lib/images';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const a = HOME[lang].about;
+const ui = HOME[lang].ui;
+---
+<section class="about sec" aria-labelledby="about-title">
+  <div class="wrap">
+    <div class="labels"><span>{a.label}</span><span aria-hidden="true">( 01 )</span></div>
+    <div class="ab-grid">
+      <figure class="ab-photo" data-fade>
+        <Picture src={IMG.santiago} alt={a.photoAlt} widths={[400, 700, 1000]} sizes="(min-width: 1200px) 440px, (min-width: 768px) 50vw, 92vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
+        <!-- PENDIENTE: fotos A-01 a A-03 de la sesión (retrato 4:5). Se usa la foto 1000×1000 disponible. -->
+      </figure>
+      <div class="ab-copy">
+        <h2 id="about-title" class="big-title ab-title" data-split-lines set:html={emph(a.title)} />
+        <p class="ab-body support" data-fade>{a.body}</p>
+        <p class="ab-more" data-fade><a class="tlink under" href={r('about', lang)}>{a.button} →</a></p>
+        <ol class="ab-ms" data-fade>
+          {a.milestones.map((m) => (
+            <li><span class="ms-date">{m.date}</span><span class="ms-place">{m.place}</span><span class="ms-role">{m.role}</span></li>
+          ))}
+        </ol>
+        <div class="ab-links" data-fade>
+          <Btn href={LINKS.linkedin} label={`${a.linkedin}`} variant="dark" external ariaLabel={`${a.linkedin} ${ui.newTab}`} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ab-grid { display: grid; gap: 40px; margin-top: clamp(32px, 4vw, 56px); }
+  @media (min-width: 992px) { .ab-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 30px; align-items: start; } }
+  @media (min-width: 1200px) { .ab-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); } .ab-photo { grid-column: 1 / span 4; } .ab-copy { grid-column: 6 / span 7; } }
+  .ab-photo { border-radius: var(--r-img); overflow: hidden; aspect-ratio: 4 / 5; background: var(--neutro); max-width: 520px; }
+  .ab-photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+  .ab-title { max-width: 12em; }
+  .ab-body { margin-top: 28px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.6; max-width: 38em; }
+  .ab-more { margin-top: 20px; font-size: 17px; }
+  .ab-ms { display: grid; gap: 0; margin-top: 40px; }
+  @media (min-width: 768px) { .ab-ms { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; } }
+  .ab-ms li { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--borde); padding: 16px 0; }
+  .ms-date { font: 600 13px/1.3 var(--f-sans); color: var(--violeta); }
+  .ms-place { font: 600 22px/1.2 var(--f-sans); letter-spacing: -0.03em; }
+  .ms-role { font: 300 15px/1.5 var(--f-sans); color: var(--gris-700); }
+  .ab-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+</style>

@@ -1,0 +1,65 @@
+# Olmo · sitio estático (Astro) en SiteGround
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# www → olmo.agency (sin www)
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# HTTPS siempre
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- Redirecciones 301 desde las URLs de Framer (08_PLAN_MAESTRO.md §11) ---
+RewriteRule ^alianza/?$ /mensualidad/ [R=301,L]
+RewriteRule ^como-trabajamos/?$ /asesoria/ [R=301,L]
+RewriteRule ^about/?$ /sobre-mi/ [R=301,L]
+RewriteRule ^agenda/?$ /asesoria/ [R=301,L]
+RewriteRule ^contacto/?$ /asesoria/ [R=301,L]
+# /términos-y-condiciones (con tilde, llegue codificada o no)
+RewriteRule ^t[^/]{1,6}rminos-y-condiciones/?$ /terminos/ [R=301,L]
+RewriteRule ^terminos-y-condiciones/?$ /terminos/ [R=301,L]
+RewriteRule ^politica-privacidad/?$ /privacidad/ [R=301,L]
+RewriteRule ^blog(/.*)?$ / [R=301,L]
+RewriteRule ^pagos/?$ / [R=301,L]
+
+# --- El diagnóstico se eliminó (16 oct 2026) ---
+RewriteRule ^diagnostico/?$ /asesoria/ [R=301,L]
+RewriteRule ^en/diagnostic/?$ /en/advisory/ [R=301,L]
+
+# --- Casos se unificó en Portafolio (15 oct 2026) ---
+RewriteRule ^casos/?$ /portafolio/ [R=301,L]
+RewriteRule ^casos/(silbe|undergold|ideal-team)/?$ /portafolio/$1/ [R=301,L]
+RewriteRule ^en/work/?$ /en/portfolio/ [R=301,L]
+RewriteRule ^en/work/(silbe|undergold|ideal-team)/?$ /en/portfolio/$1/ [R=301,L]
+</IfModule>
+
+# Caché: los archivos de /_astro y /fonts llevan hash o no cambian
+<IfModule mod_headers.c>
+  <FilesMatch "\.(avif|webp|png|jpg|jpeg|svg|woff2|js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # Seguridad (revisión del 16 oct 2026). HSTS sin includeSubDomains: cotiza y metricas aún no fuerzan HTTPS.
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Frame-Options "DENY"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+  # CSP en modo solo reporte: los hashes son los dos <script> en línea (GTM y no-anim). Si cambian, recalcular.
+  # Tras una semana sin violaciones en la consola, cambiar a Content-Security-Policy.
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'sha256-Qb1aArT/SgSgeNEOrLH2uZXfBNMzLxYwtsVa1Su9VuM=' 'sha256-q4AVQQWkK1GnfX1VkqdeYfc3oN5+Q56Qg9CafOLHibg=' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com; font-src 'self'; frame-src https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+</IfModule>

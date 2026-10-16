@@ -1,0 +1,9 @@
+---
+import C from '../../components/pages/ProjectPage.astro';
+import { SLUG, type ProjectId } from '../../i18n/portfolio';
+export function getStaticPaths() {
+  return (Object.entries(SLUG) as [ProjectId, string][]).map(([id, slug]) => ({ params: { slug }, props: { id } }));
+}
+const { id } = Astro.props as { id: ProjectId };
+---
+<C lang="es" id={id} />

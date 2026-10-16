@@ -1,0 +1,200 @@
+---
+import '../../styles/pages.css';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Btn from '../Btn.astro';
+import Visual from '../Visual.astro';
+import { wa, LINKS, type Lang } from '../../config';
+import { CASES, type CaseId } from '../../i18n/cases';
+import { HOME } from '../../i18n/home';
+import { r } from '../../i18n/routes';
+import { IMG } from '../../lib/images';
+import { ORDER, PROJECTS, PROJECT_ROUTE, type ProjectId } from '../../i18n/portfolio';
+interface Props { lang: Lang; id: CaseId }
+const { lang, id } = Astro.props;
+const c = CASES[lang][id];
+// Los casos son parte del portafolio: misma numeración y mismo "siguiente proyecto"
+const pid = (Object.keys(PROJECT_ROUTE) as ProjectId[]).find((k) => PROJECT_ROUTE[k] === id)!;
+const nextId = ORDER[(ORDER.indexOf(pid) + 1) % ORDER.length];
+const next = { name: PROJECTS[lang][nextId].name, href: r(PROJECT_ROUTE[nextId], lang) };
+const n = String(ORDER.indexOf(pid) + 1).padStart(2, '0');
+const ui = HOME[lang].ui;
+const es = lang === 'es';
+const L = es
+  ? { label: 'Portafolio', story: 'La historia completa', stall: 'El estancamiento', did: 'Qué hice', changed: 'Qué cambió', next: 'Siguiente proyecto', all: 'Ver todo el portafolio', cta: 'Cotiza tu proyecto por WhatsApp', figures: 'Cifras', source: 'Fuente: Forbes Colombia ↗', illustrative: 'Recreación ilustrativa' }
+  : { label: 'Portfolio', story: 'The full story', stall: 'The plateau', did: 'What I did', changed: 'What changed', next: 'Next project', all: 'See the full portfolio', cta: 'Get a project quote on WhatsApp', figures: 'Figures', source: 'Source: Forbes Colombia ↗', illustrative: 'Illustrative recreation' };
+const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silbePaywall];
+---
+<Base lang={lang} route={id} title={c.meta.title} description={c.meta.description}>
+  <PageHero label={`${L.label} · ${n}`} right={c.period ?? c.tag} title={c.headline} lead={c.lead} pending>
+    <span class="pill">{c.tag}</span>
+  </PageHero>
+
+  <section class="block" aria-label={L.figures}>
+    <div class="wrap">
+      <div class={`figs case-figs n${c.figures.length > 4 ? 3 : c.figures.length}`} data-fade>
+        {c.figures.map((f) => (
+          <div><b class="tnum">{f.value}</b><span>{f.label}</span>{f.source && <small>{f.source}</small>}</div>
+        ))}
+      </div>
+      {id === 'silbe' && (
+        <p class="small case-src">
+          {c.story && c.note && <span>{c.note} </span>}
+          <a class="tlink" href={LINKS.forbes} target="_blank" rel="noopener">{L.source}<span class="sr-only"> {ui.newTab}</span></a>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <section class="block case-media-sec">
+    <div class="wrap">
+      {id === 'silbe' && (
+        <div class="phones-row" data-fade>
+            {phones.map((p, i) => (
+              <Picture src={p} alt={es ? `Pantalla ${i + 1} de la app de silBe` : `silBe app screen ${i + 1}`} widths={[300, 500]} sizes="(min-width: 992px) 22vw, 45vw" formats={['avif']} fallbackFormat="webp" loading="lazy" class="phone" />
+            ))}
+        </div>
+      )}
+      {id === 'undergold' && (
+        <div class="case-media two">
+          <div class="media-frame tall" data-fade><Visual kind="undergold" lang={lang} label={es ? 'Recreación ilustrativa del catálogo B2B de Undergold' : "Illustrative recreation of Undergold's B2B catalog"} /><span class="tag-ill">{L.illustrative}</span></div>
+          <div class="media-frame tall" data-fade><Visual kind="systems" lang={lang} label={es ? 'Diagrama de la conexión entre Shopify, Supabase y Vercel' : 'Diagram of the Shopify, Supabase and Vercel setup'} /></div>
+        </div>
+      )}
+      {id === 'idealTeam' && (
+        <div class="case-media two">
+          <div class="media-frame tall" data-fade><Visual kind="ideal" lang={lang} label={es ? 'Tablero de rendimiento de los 14 sitios de Ideal Team' : "Performance dashboard for Ideal Team's 14 websites"} /></div>
+          <div class="media-frame tall" data-fade><Visual kind="speed" lang={lang} label={es ? 'Comparación de velocidad antes y después: 60 % menos tiempo de carga' : 'Before-and-after speed comparison: 60% shorter load time'} /></div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {c.story ? (
+    <Fragment>
+      <section class="block">
+        <div class="wrap">
+          <div class="labels"><h2 class="lbl-h">{L.story}</h2><span aria-hidden="true">01</span></div>
+          <ol class="story">
+            {c.story.map((st, i) => (
+              <li data-fade>
+                <div class="story-side">
+                  <span class="story-n tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="story-when">{st.when}</span>
+                </div>
+                <div><h3 class="story-title">{st.title}</h3><p class="story-text">{st.text}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+      {id === 'silbe' && (
+        <section class="block case-web">
+          <div class="wrap">
+            <div class="media-frame wide" data-fade>
+              <Picture src={IMG.silbeWebHero} alt={es ? 'Sitio web de silBe' : 'silBe website'} widths={[800, 1400, 2000]} sizes="(min-width: 1440px) 1410px, 96vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
+            </div>
+          </div>
+        </section>
+      )}
+      <section class="block">
+        <div class="wrap">
+          <div class="labels"><h2 class="lbl-h">{L.did}</h2><span aria-hidden="true">02</span></div>
+          <ul class="did-grid">
+            {c.did.map((d, i) => (
+              <li data-fade><span class="did-n tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><p>{d}</p></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </Fragment>
+  ) : (
+    <Fragment>
+      <section class="block">
+        <div class="wrap">
+          <div class="labels"><h2 class="lbl-h">{L.stall}</h2><span aria-hidden="true">01</span></div>
+          <div class="block-grid"><div></div><div class="prose" data-fade><p>{c.stall}</p></div></div>
+        </div>
+      </section>
+      <section class="block">
+        <div class="wrap">
+          <div class="labels"><h2 class="lbl-h">{L.did}</h2><span aria-hidden="true">02</span></div>
+          <div class="block-grid"><div></div><div class="prose" data-fade><ul>{c.did.map((d) => <li>{d}</li>)}</ul></div></div>
+        </div>
+      </section>
+      <section class="block">
+        <div class="wrap">
+          <div class="labels"><h2 class="lbl-h">{L.changed}</h2><span aria-hidden="true">03</span></div>
+          <div class="block-grid"><div></div>
+            <div class="prose" data-fade>
+              <ul>{c.changed.map((d) => <li><strong>{d}</strong></li>)}</ul>
+              {c.note && <p class="small case-note">{c.note}</p>}
+            </div>
+          </div>
+        </div>
+      </section>
+    </Fragment>
+  )}
+
+  <section class="block">
+    <div class="wrap next">
+      <a class="next-link" href={next.href}>
+        <span class="small">{L.next}</span>
+        <span class="next-name">{next.name} →</span>
+      </a>
+      <div class="next-btns">
+        <Btn href={r('portfolio', lang)} label={L.all} variant="sec" arrow="none" />
+        <Btn href={wa(lang, 'WA4')} label={L.cta} ariaLabel={`${L.cta} ${ui.newTab}`} external />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lbl-h { font: inherit; }
+  .case-src { margin-top: 14px; }
+  .case-media { display: grid; gap: 30px; }
+  .case-media.two { grid-template-columns: 1fr; }
+  @media (min-width: 768px) { .case-media.two { grid-template-columns: 1fr 1fr; } }
+  .media-frame.tall { aspect-ratio: 6 / 7; position: relative; }
+  .media-frame.wide { aspect-ratio: 3002 / 1546; }
+  .tag-ill { position: absolute; left: 12px; top: 12px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.94); font: 600 12px/1 var(--f-sans); }
+  /* Cifras: filas parejas (3 + 3 en silBe) y valores que no se parten. */
+  @media (min-width: 768px) {
+    .case-figs.n2 { grid-template-columns: repeat(2, 1fr); }
+    .case-figs.n3 { grid-template-columns: repeat(3, 1fr); }
+    .case-figs.n4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1200px) { .case-figs.n4 { grid-template-columns: repeat(4, 1fr); } }
+  .case-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case-figs b { white-space: nowrap; font-size: clamp(26px, 3.6vw, 56px); }
+  .case-src { margin-top: 16px; max-width: 60em; color: var(--gris-500); }
+  .phones-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: clamp(20px, 4vw, 56px); background: #EBE7E4; border-radius: var(--r-img); }
+  .phones-row :global(picture) { display: block; }
+  @media (min-width: 992px) { .phones-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.2vw, 36px); } }
+  .phones-row :global(.phone) { display: block; width: 100%; height: auto; border-radius: 18px; border: 5px solid #111; box-shadow: 0 24px 40px -16px rgba(17,17,17,.35); }
+  .case-note { margin-top: 20px; }
+  /* Historia: fecha y número a la izquierda, texto en una columna de lectura. */
+  .story { margin-top: clamp(24px, 3vw, 40px); }
+  .story li { display: grid; gap: 10px 30px; padding-block: clamp(28px, 3vw, 44px); border-top: 1px solid var(--borde); }
+  .story li:last-child { border-bottom: 1px solid var(--borde); }
+  @media (min-width: 992px) { .story li { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+  .story-side { display: flex; align-items: baseline; gap: 14px; }
+  .story-n { font: 500 14px/1 var(--f-sans); color: var(--gris-500); }
+  .story-when { font: 600 15px/1.4 var(--f-sans); color: var(--violeta); }
+  .story-title { font: 600 clamp(22px, 2vw, 30px)/1.2 var(--f-sans); letter-spacing: -0.02em; margin-bottom: 12px; text-wrap: balance; }
+  .story-text { font: 400 clamp(16px, 1.2vw, 18px)/1.65 var(--f-sans); color: var(--gris-700); max-width: 40em; text-wrap: pretty; }
+  .case-web { padding-top: 0; }
+  /* Qué hice: cuatro bloques en 2 columnas, separados con líneas. */
+  .did-grid { display: grid; margin-top: clamp(24px, 3vw, 40px); border-top: 1px solid var(--borde); }
+  @media (min-width: 768px) { .did-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(30px, 4vw, 72px); } }
+  .did-grid li { display: grid; grid-template-columns: auto 1fr; gap: 16px; padding-block: 28px; border-bottom: 1px solid var(--borde); }
+  .did-n { font: 500 14px/1.6 var(--f-sans); color: var(--violeta); }
+  .did-grid p { font: 400 clamp(16px, 1.2vw, 18px)/1.6 var(--f-sans); color: var(--tinta); text-wrap: pretty; }
+  .next { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; border-top: 1px solid var(--borde); padding-top: 24px; }
+  .next-link { display: flex; flex-direction: column; gap: 6px; }
+  .next-name { font: 700 clamp(36px, 5vw, 72px)/1 var(--f-sans); letter-spacing: -0.04em; transition: color .3s; }
+  .next-link:hover .next-name { color: var(--violeta); }
+  .next-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+</style>

@@ -1,0 +1,152 @@
+---
+import '../../styles/pages.css';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Btn from '../Btn.astro';
+import Pricing from '../home/Pricing.astro';
+import NotDo from '../home/NotDo.astro';
+import { wa, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { SERVICE_ANCHORS } from '../../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const h = HOME[lang];
+const A = SERVICE_ANCHORS[lang];
+const svc = h.services.items;
+const T = es
+  ? {
+      meta: { title: 'Asesoría: cómo trabajo y precios | Olmo', description: 'Hora suelta, asesoría mensual con WhatsApp diario y 4 reuniones al mes, o proyecto cerrado. Precios publicados, sin IVA y sin permanencia.' },
+      label: 'Asesoría', right: '( 3 pasos )',
+      title: 'Cómo *trabajo*',
+      ladderLabel: 'La escalera', ladderRight: '( 01 → 03 )',
+      ladder: [
+        { n: '01', word: 'Hora suelta', text: 'Para resolver algo puntual, sin mensualidad. Me cuentas el tema por WhatsApp y lo revisamos en una llamada de 1 h.', price: 'COP 320.000 · USD 100' },
+        { n: '02', word: 'Mensualidad', text: 'WhatsApp todos los días y 4 reuniones de 1 h al mes. Las horas adicionales se cobran aparte (COP 160.000 · USD 60).', price: 'COP 1.900.000 · USD 700 / mes' },
+        { n: '03', word: 'Proyecto', text: 'Cuando el proyecto completo queda en mis manos.', price: 'Cotización a la medida', cta: 'Cotiza tu proyecto por WhatsApp' },
+      ],
+      svcLabel: 'Qué trabajo', svcRight: '( 4 )',
+      more: [
+        'Reviso cada paso con datos reales, encuentro dónde se va la gente y lo corrijo con tu equipo: textos, ofertas, pruebas A/B en el checkout y correos que recuperan a quien no terminó de comprar. Medimos antes y después para saber qué funcionó.',
+        'Defino con tu equipo qué se construye primero y por qué. Diseño el registro, la pantalla de pago y los planes, y acompaño el lanzamiento hasta ver cómo se comportan los usuarios. En silBe acompañé el paso del sitio a la app y el producto de suscripción.',
+        'Uso IA y automatizaciones para quitarle a tu equipo el trabajo repetitivo: inventario, pedidos, reportes y mensajes. Conecto herramientas como Shopify, Supabase y Vercel, y armo agentes con Claude cuando tiene sentido. Lo dejo documentado para que tu equipo lo pueda mantener.',
+        'Diseño y desarrollo sitios y tiendas en Shopify, Framer o código propio. Si ya tienes sitio, lo audito, mejoro la velocidad y el SEO, y hago la migración sin perder posicionamiento. En Ideal Team trabajé sobre 14 sitios a la vez.',
+      ],
+      faqLabel: 'Preguntas frecuentes', faqRight: '( 6 )',
+      faq: [
+        { q: '¿Cobras IVA?', a: 'No cobro IVA.' },
+        { q: '¿Hay permanencia mínima?', a: 'No. La asesoría mensual no tiene permanencia mínima.' },
+        { q: '¿Cómo se paga?', a: 'El pago se coordina por WhatsApp, con un 50 % de anticipo. El sitio no tiene links de pago.' },
+        { q: '¿En qué moneda cobras?', a: 'Precios en pesos para Colombia y en dólares para clientes del exterior.' },
+        { q: '¿Por dónde empezamos?', a: 'Escríbeme por WhatsApp y cuéntame qué está pasando con tu marca. Si puedo ayudarte, te propongo empezar con una hora suelta, la mensualidad o un proyecto cerrado. Si no, te lo digo y, si puedo, te recomiendo a alguien.' },
+        { q: '¿Cuánto tardas en responder por WhatsApp?', a: 'Respondo el mismo día hábil, de 10 a. m. a 7 p. m., hora de Colombia (GMT-5). Con la mensualidad tienes WhatsApp todos los días.' },
+      ],
+      cta: 'Escríbeme por WhatsApp', ask: 'Preguntar por la asesoría',
+    }
+  : {
+      meta: { title: 'Advisory: how I work and pricing | Olmo', description: 'Single hour, monthly advisory with daily WhatsApp and four meetings a month, or a fixed project. Public prices, no VAT, no minimum term.' },
+      label: 'Advisory', right: '( 3 steps )',
+      title: 'How I *work*',
+      ladderLabel: 'The ladder', ladderRight: '( 01 → 03 )',
+      ladder: [
+        { n: '01', word: 'Single hour', text: 'For a one-off question, without monthly advisory. Tell me the topic on WhatsApp and we go through it on a 1-hour call.', price: 'USD 100' },
+        { n: '02', word: 'Monthly advisory', text: 'WhatsApp every day and four 1-hour meetings a month. Extra hours are billed separately (USD 60).', price: 'USD 700 / month' },
+        { n: '03', word: 'Project', text: 'When you hand me the whole project.', price: 'Custom quote', cta: 'Get a project quote on WhatsApp' },
+      ],
+      svcLabel: 'What I work on', svcRight: '( 4 )',
+      more: [
+        "I go through every step with real data, find where people drop off and fix it with your team: copy, offers, checkout A/B tests and emails that bring back people who didn't finish buying. We measure before and after so we know what worked.",
+        'I work out with your team what gets built first and why. I design sign-up, the paywall and the plans, and I stay through launch to see how users behave. At silBe I worked on the move from website to app and on the subscription product.',
+        'I use AI and automations to take repetitive work off your team: inventory, orders, reports and messages. I connect tools like Shopify, Supabase and Vercel, and build agents with Claude when it makes sense. I document it so your team can maintain it.',
+        "I design and build websites and stores on Shopify, Framer or custom code. If you already have a site, I audit it, improve speed and SEO, and migrate it without losing rankings. At Ideal Team I worked on 14 sites at once.",
+      ],
+      faqLabel: 'FAQ', faqRight: '( 6 )',
+      faq: [
+        { q: 'Do you charge VAT?', a: "No, I don't charge VAT." },
+        { q: 'Is there a minimum term?', a: 'No. The monthly advisory has no minimum term.' },
+        { q: 'How do I pay?', a: "Payment is arranged over WhatsApp, with 50% upfront. The site has no payment links." },
+        { q: 'Which currency do you charge in?', a: 'Prices in US dollars. Clients in Colombia pay in pesos.' },
+        { q: 'Where do we start?', a: "Message me on WhatsApp and tell me what's going on with your brand. If I can help, I'll suggest starting with a single hour, monthly advisory or a fixed project. If I can't, I'll tell you and, where I can, recommend someone." },
+        { q: 'How fast do you reply on WhatsApp?', a: 'I reply the same business day, 10 a.m. to 7 p.m. Colombia time (GMT-5). With monthly advisory you get WhatsApp every day.' },
+      ],
+      cta: 'Message me on WhatsApp', ask: 'Ask about advisory',
+    };
+const detail = [
+  { id: A.funnels, item: svc[1], more: T.more[0] },
+  { id: A.product, item: svc[2], more: T.more[1] },
+  { id: A.systems, item: svc[3], more: T.more[2] },
+  { id: A.web, item: svc[4], more: T.more[3] },
+];
+---
+<Base lang={lang} route="advisory" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} right={T.right} title={T.title} lead={h.big.body} pending>
+    <Btn href={wa(lang, 'WA5')} label={T.cta} ariaLabel={h.ui.ctaLabel} external />
+    <Btn href={wa(lang, 'WA2')} label={T.ask} variant="sec" external ariaLabel={`${T.ask} ${h.ui.newTab}`} />
+  </PageHero>
+
+  <section class="block" aria-labelledby="ladder">
+    <div class="wrap">
+      <div class="labels"><h2 id="ladder" class="lbl-h">{T.ladderLabel}</h2><span aria-hidden="true">{T.ladderRight}</span></div>
+      <ol class="rowlist ladder">
+        {T.ladder.map((s) => (
+          <li data-fade>
+            <div><span class="rl-num">{s.n}</span><span class="rl-word">{s.word}</span></div>
+            <div class="prose"><p>{s.text}</p><p class="ld-price tnum">{s.price}</p>{s.cta && <div class="ld-cta"><Btn href={wa(lang, 'WA4')} label={s.cta} ariaLabel={`${s.cta} ${h.ui.newTab}`} external data-cta="wa4-ladder" /></div>}</div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="svc-detail">
+    <div class="wrap">
+      <div class="labels"><h2 id="svc-detail" class="lbl-h">{T.svcLabel}</h2><span aria-hidden="true">{T.svcRight}</span></div>
+      <ul class="rowlist">
+        {detail.map((d) => (
+          <li id={d.id} class="anchor" data-fade>
+            <h3 class="rl-word">{d.item.word}</h3>
+            <div class="prose">
+              <p><strong>{d.item.support}</strong></p>
+              <p>{d.more}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Pricing lang={lang} />
+  <NotDo lang={lang} />
+
+  <section class="block" aria-labelledby="faq">
+    <div class="wrap">
+      <div class="labels"><h2 id="faq" class="lbl-h">{T.faqLabel}</h2><span aria-hidden="true">{T.faqRight}</span></div>
+      <div class="faq">
+        {T.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <div class="prose"><p>{f.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lbl-h { font: inherit; }
+  .ld-price { font-weight: 600; color: var(--tinta); }
+  .ld-cta { margin-top: 20px; }
+  .anchor { scroll-margin-top: 24px; }
+  .faq { margin-top: 24px; }
+  .faq details { border-top: 1px solid var(--borde); }
+  .faq details:last-child { border-bottom: 1px solid var(--borde); }
+  .faq summary {
+    cursor: pointer; list-style: none; padding: 22px 40px 22px 0; position: relative;
+    font: 600 clamp(19px, 1.8vw, 24px)/1.3 var(--f-sans); letter-spacing: -0.02em;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; position: absolute; right: 4px; top: 18px; font-weight: 400; font-size: 28px; color: var(--violeta); transition: transform .3s var(--ease-p2); }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq .prose { padding-bottom: 24px; }
+</style>

@@ -1,0 +1,162 @@
+---
+import Btn from '../Btn.astro';
+import Cover from '../Cover.astro';
+import { ORDER, PROJECTS, PROJECT_ROUTE } from '../../i18n/portfolio';
+import { r, SERVICES_ANCHOR } from '../../i18n/routes';
+import { LINKS, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { emph } from '../../lib/util';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const h = HOME[lang].hero;
+const ui = HOME[lang].ui;
+// La tira usa las mismas portadas, nombres y enlaces del portafolio.
+const P = PROJECTS[lang];
+---
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="wrap hero-inner">
+    <p class="hero-logo logo-word" aria-hidden="true">
+      {['o', 'l', 'm', 'o'].map((c) => <span class="lo"><span class="li">{c}</span></span>)}
+    </p>
+
+    <div class="grid12 hero-row">
+      <div class="hero-copy">
+        <h1 id="hero-h1" class="hero-h1" data-hero set:html={emph(h.h1)} />
+        <p class="hero-sub support" data-hero>{h.sub}</p>
+      </div>
+      <div class="hero-btns" data-hero>
+        <Btn href={SERVICES_ANCHOR[lang]} label={h.primary} data-cta="servicios-hero" />
+        <Btn href={h.secondaryHref} label={h.secondary} variant="sec" arrow="none" />
+      </div>
+      <div class="hero-side" data-hero>
+        <p class="hero-social small">
+          <a class="tlink" href={LINKS.linkedin} target="_blank" rel="noopener" aria-label={h.linkedinLabel}>LinkedIn ↗</a>
+          <a class="tlink" href={LINKS.github} target="_blank" rel="noopener" aria-label={h.githubLabel}>GitHub ↗</a>
+        </p>
+      </div>
+    </div>
+
+    <nav class="strip" aria-label={lang === 'es' ? 'Portafolio' : 'Portfolio'} data-hero>
+      <ul>
+        {ORDER.map((id, i) => (
+          <li>
+            <a class="thumb" href={r(PROJECT_ROUTE[id], lang)} aria-label={P[id].name}>
+              <span class="thumb-img">
+                <Cover id={id} lang={lang} alt="" sizes="(min-width: 1200px) 210px, 140px" eager={i < 6} />
+              </span>
+              <span class="thumb-label" aria-hidden="true">{P[id].name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: calc(var(--header-h) + clamp(16px, 4vw, 48px));
+    padding-bottom: clamp(32px, 4vw, 60px);
+  }
+  @media (min-width: 1200px) {
+    .hero { min-height: min(100svh, 940px); display: flex; flex-direction: column; justify-content: flex-end; }
+  }
+  .hero-logo {
+    text-align: center;
+    font-size: clamp(120px, 24vw, 330px);
+    line-height: .86;
+    letter-spacing: -0.035em;
+    color: var(--tinta);
+    margin-bottom: clamp(24px, 3vw, 44px);
+    user-select: none;
+  }
+  .hero-logo .lo, .hero-logo .li { display: inline-block; }
+  /* Cada letra se mueve sola, así que cada una lleva el degradado de la palabra entera
+     desplazado a su posición (medidas en em de Cal Sans con este letter-spacing). */
+  .hero-logo .li {
+    background: var(--grad-olmo) no-repeat;
+    background-size: 2.25em 100%;
+    /* El letter-spacing negativo deja la caja más angosta que la letra y el clip cortaba la curva de la "o". */
+    padding-right: 0.08em; margin-right: -0.08em;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-logo .lo:nth-child(2) .li { background-position: -0.559em 0; }
+  .hero-logo .lo:nth-child(3) .li { background-position: -0.739em 0; }
+  .hero-logo .lo:nth-child(4) .li { background-position: -1.614em 0; }
+  .hero-row { row-gap: 28px; align-items: start; }
+  .hero-copy { grid-column: 1 / -1; }
+  .hero-h1 {
+    font: 600 clamp(26px, 2.2vw, 32px)/1.15 var(--f-sans);
+    letter-spacing: -0.03em;
+    margin-bottom: 14px;
+    max-width: 22ch; text-wrap: balance;
+  }
+  .hero-sub { font-size: 17px; line-height: 1.6; max-width: 46ch; }
+  .hero-btns { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero-side { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .hero-social { display: flex; gap: 18px; width: 100%; }
+  @media (min-width: 768px) {
+    .hero-copy { grid-column: 1 / span 5; }
+    .hero-btns { grid-column: 6 / span 3; flex-direction: column; align-items: flex-start; }
+    .hero-side { grid-column: 1 / -1; }
+  }
+  @media (min-width: 1200px) {
+    .hero-logo { text-align: center; }
+    .hero-copy { grid-column: 1 / span 4; }
+    .hero-btns { grid-column: 5 / span 4; flex-direction: row; justify-content: center; padding-top: 4px; }
+    .hero-side { grid-column: 9 / span 4; flex-direction: column; align-items: flex-end; text-align: right; padding-top: 4px; }
+    .hero-social { justify-content: flex-end; }
+  }
+
+  /* Tira de miniaturas (H4/H5): fila manual con scroll-snap, sin carrusel automático */
+  .strip { margin-top: clamp(32px, 4vw, 56px); }
+  .strip ul {
+    display: flex; gap: 12px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1); padding: 14px var(--gutter);
+  }
+  .strip ul::-webkit-scrollbar { display: none; }
+  .strip li { flex: none; scroll-snap-align: start; }
+  .thumb { display: block; position: relative; }
+  .thumb-img {
+    display: block; width: 140px; height: 140px; border-radius: 8px; overflow: hidden;
+    background: var(--neutro);
+    transition: transform .3s var(--ease-p2);
+  }
+  .thumb-img :global(img), .thumb-img :global(svg) { width: 100%; height: 100%; object-fit: cover; }
+  .thumb-label {
+    display: block; margin-top: 8px;
+    font: 500 13px/1.2 var(--f-sans); color: var(--gris-700);
+  }
+  .thumb::after {
+    content: ''; position: absolute; left: 50%; bottom: 22px; width: 19px; height: 2px; margin-left: -9.5px;
+    background: var(--violeta); opacity: 0; transition: opacity .3s;
+  }
+  @media (min-width: 1200px) {
+    .strip ul {
+      overflow: visible; margin: 0; gap: 15px; padding: 20px;
+      background: rgba(17, 17, 17, 0.05);
+      border-radius: 10px;
+    }
+    /* Todos los proyectos del portafolio: la fila se desplaza en horizontal dentro del panel. */
+    .strip ul { overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(17, 17, 17, 0.25) transparent; }
+    .strip li { flex: none; width: 210px; }
+    .thumb-img { width: 100%; height: 150px; border-radius: 6px; }
+    .thumb-label {
+      position: absolute; left: 10px; bottom: 10px; margin: 0;
+      padding: 6px 10px; border-radius: var(--pill);
+      background: rgba(255, 255, 255, 0.94); color: var(--tinta); font-weight: 600;
+      opacity: 0; transform: translateY(4px);
+      transition: opacity .3s var(--ease-p2), transform .3s var(--ease-p2);
+    }
+    .thumb::after { bottom: -10px; }
+    .thumb:hover .thumb-img, .thumb:focus-visible .thumb-img { transform: translateY(-12px); }
+    .thumb:hover .thumb-label, .thumb:focus-visible .thumb-label { opacity: 1; transform: translateY(-12px); }
+    .thumb:hover::after, .thumb:focus-visible::after { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thumb:hover .thumb-img, .thumb:focus-visible .thumb-img,
+    .thumb:hover .thumb-label, .thumb:focus-visible .thumb-label { transform: none !important; }
+  }
+</style>

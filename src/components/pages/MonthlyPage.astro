@@ -1,0 +1,206 @@
+---
+/**
+ * Mensualidad: versión nueva de olmo.agency/alianza (Framer), en primera persona y con los precios vigentes.
+ * Precios y condiciones iguales a los de la home y /asesoria: COP 1.900.000 · USD 700 al mes, hora adicional
+ * COP 160.000 · USD 60, hora suelta COP 320.000 · USD 100, sin permanencia, 50 % de anticipo.
+ */
+import '../../styles/pages.css';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Btn from '../Btn.astro';
+import { wa, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { emph } from '../../lib/util';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const ui = HOME[lang].ui;
+
+const T = es
+  ? {
+      meta: { title: 'Mensualidad: mi criterio disponible todo el mes | Olmo', description: 'Un fijo al mes con WhatsApp diario y una reunión de 1 h cada semana, más hora adicional con tarifa preferencial. COP 1.900.000 · USD 700 al mes.' },
+      label: 'Mensualidad', right: 'COP 1.900.000 / mes',
+      title: 'Mi criterio, *disponible* todo el mes.',
+      lead: 'Un fijo al mes para tener mi criterio dentro de tu equipo, en una marca o en varias, más una tarifa preferencial por hora cuando haya que ejecutar. El precio se acuerda antes de empezar y el riesgo técnico es mío.',
+      seePrice: 'Ver la inversión', ask: 'Preguntar por la mensualidad',
+      quoteLabel: 'Cómo cotizo', quoteTitle: 'El riesgo técnico es *mío*.',
+      quoteLead: 'Para cada solicitud te entrego una cotización cerrada, según el resultado esperado. Si la ejecución se complica, el sobrecosto corre por mi cuenta.',
+      pillars: [
+        { t: 'El riesgo lo asumo yo', d: 'Precio cerrado. Si algo toma más tiempo del previsto, es asunto mío.' },
+        { t: 'Inversión predecible', d: 'Sabes cuánto vas a invertir desde el inicio, sin sobrecostos.' },
+        { t: 'Comunicación directa', d: 'Hablamos por WhatsApp durante todo el proceso, directo conmigo y sin intermediarios.' },
+      ],
+      invLabel: 'Inversión', invTitle: 'Los números, *con contexto*.',
+      planName: 'Mensualidad + tarifa preferencial', planTag: 'Recomendada',
+      fixed: { k: 'Fijo mensual', v: 'COP 1.900.000', u: 'al mes · USD 700', d: 'Acompañamiento todo el mes, dentro de tu equipo.' },
+      rate: { k: 'Hora adicional', v: 'COP 160.000', u: 'por hora · USD 60', d: 'Para cualquier desarrollo, integración o rediseño nuevo.' },
+      incH: 'Qué incluye el fijo mensual',
+      inc: [
+        'WhatsApp todos los días para lo que necesites.',
+        'Una reunión de 1 h cada semana: 4 al mes.',
+        'Se puede usar en una o varias marcas: propuesta de valor, herramientas, funnels y tecnología.',
+      ],
+      termsH: 'Condiciones',
+      terms: ['Sin permanencia mínima.', '50 % de anticipo. El pago se coordina por WhatsApp.', 'No cobro IVA.'],
+      soloTag: 'Sin mensualidad', soloName: 'Hora suelta',
+      solo: { v: 'COP 320.000', u: 'por hora · USD 100', d: 'Si no tienes mensualidad, la hora cuesta el doble. Sirve para resolver algo puntual.' },
+      procLabel: 'Cómo trabajo', procTitle: 'Un proceso *simple*.',
+      steps: [
+        { t: 'Solicitud', d: 'Me cuentas qué necesitas: una idea, un error, un desarrollo nuevo, lo que sea.' },
+        { t: 'Cotización cerrada', d: 'Cotizo por resultado esperado, a precio cerrado. El riesgo técnico es mío y tu inversión queda clara desde el principio.' },
+        { t: 'Ejecución', d: 'Me concentro en el trabajo y te cuento cómo va en cada paso.' },
+        { t: 'Entrega', d: 'Recibes el trabajo terminado y funcionando. Lo que se cobra por hora se factura después de hacerlo.' },
+      ],
+      procNote: 'Todo el proceso pasa por WhatsApp, directo conmigo.',
+    }
+  : {
+      meta: { title: 'Monthly advisory: my judgment on call all month | Olmo', description: 'A flat monthly fee with daily WhatsApp and a 1-hour meeting every week, plus a preferred hourly rate for extra hours. USD 700 a month.' },
+      label: 'Monthly advisory', right: 'USD 700 / month',
+      title: 'My judgment, *on call* all month.',
+      lead: "A flat monthly fee to have my judgment inside your team, for one brand or several, plus a preferred hourly rate when there's work to execute. We agree on the price before we start, and the technical risk is mine.",
+      seePrice: 'See the pricing', ask: 'Ask about monthly advisory',
+      quoteLabel: 'How I quote', quoteTitle: 'The technical risk is *mine*.',
+      quoteLead: 'Every request gets a fixed quote based on the expected result. If the work gets complicated, the overrun is on me.',
+      pillars: [
+        { t: 'I take the risk', d: "Fixed price. If something takes longer than planned, that's my problem." },
+        { t: 'Predictable spend', d: "You know what you'll spend from day one, with no cost overruns." },
+        { t: 'Direct line', d: 'We talk on WhatsApp the whole way through, directly with me, no middlemen.' },
+      ],
+      invLabel: 'Pricing', invTitle: 'The numbers, *in context*.',
+      planName: 'Monthly fee + preferred rate', planTag: 'Recommended',
+      fixed: { k: 'Monthly fee', v: 'USD 700', u: 'per month', d: 'Ongoing support all month, inside your team.' },
+      rate: { k: 'Extra hour', v: 'USD 60', u: 'per hour', d: 'For any new build, integration or redesign.' },
+      incH: "What's in the monthly fee",
+      inc: [
+        'WhatsApp every day for whatever you need.',
+        'A 1-hour meeting every week: four a month.',
+        'Use it for one brand or several: value proposition, tools, funnels and tech.',
+      ],
+      termsH: 'Terms',
+      terms: ['No minimum term.', '50% upfront. Payment is arranged over WhatsApp.', 'No VAT.'],
+      soloTag: 'Without monthly advisory', soloName: 'Single hour',
+      solo: { v: 'USD 100', u: 'per hour', d: 'Without monthly advisory, an hour costs twice as much. Good for a one-off question.' },
+      procLabel: 'How I work', procTitle: 'A *simple* process.',
+      steps: [
+        { t: 'Request', d: 'You tell me what you need: an idea, a bug, a new build, anything.' },
+        { t: 'Fixed quote', d: 'I quote by expected result, at a fixed price. The technical risk is mine and your spend is clear from the start.' },
+        { t: 'Execution', d: 'I focus on the work and keep you posted at every step.' },
+        { t: 'Delivery', d: 'You get the work finished and running. Hourly work is invoiced once it is done.' },
+      ],
+      procNote: 'The whole process runs on WhatsApp, directly with me.',
+    };
+---
+<Base lang={lang} route="monthly" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} right={T.right} title={T.title} lead={T.lead}>
+    <Btn href="#inversion" label={T.seePrice} arrow="none" />
+    <Btn href={wa(lang, 'WA2')} label={T.ask} variant="sec" external ariaLabel={`${T.ask} ${ui.newTab}`} />
+  </PageHero>
+
+  <section class="block" aria-labelledby="m-quote">
+    <div class="wrap">
+      <div class="labels"><h2 id="m-quote" class="lbl-h">{T.quoteLabel}</h2><span aria-hidden="true">01</span></div>
+      <div class="m-head">
+        <p class="block-title" data-fade set:html={emph(T.quoteTitle)} />
+        <p class="prose" data-fade>{T.quoteLead}</p>
+      </div>
+      <ul class="m-pillars">
+        {T.pillars.map((p) => <li data-fade><h3>{p.t}</h3><p>{p.d}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block m-inv" id="inversion" aria-labelledby="m-inv">
+    <div class="wrap">
+      <div class="labels"><h2 id="m-inv" class="lbl-h">{T.invLabel}</h2><span aria-hidden="true">02</span></div>
+      <p class="block-title m-inv-title" data-fade set:html={emph(T.invTitle)} />
+      <div class="m-plans">
+        <article class="m-plan m-plan-main" data-fade>
+          <header><h3>{T.planName}</h3><span class="m-tag">{T.planTag}</span></header>
+          <div class="m-prices">
+            {[T.fixed, T.rate].map((x) => (
+              <div>
+                <p class="m-k">{x.k}</p>
+                <p class="m-v tnum">{x.v}</p>
+                <p class="m-u">{x.u}</p>
+                <p class="m-d">{x.d}</p>
+              </div>
+            ))}
+          </div>
+          <div class="m-lists">
+            <div><h4>{T.incH}</h4><ul>{T.inc.map((i) => <li>{i}</li>)}</ul></div>
+            <div><h4>{T.termsH}</h4><ul>{T.terms.map((i) => <li>{i}</li>)}</ul></div>
+          </div>
+          <Btn href={wa(lang, 'WA2')} label={T.ask} variant="light" external ariaLabel={`${T.ask} ${ui.newTab}`} />
+        </article>
+        <article class="m-plan m-plan-solo" data-fade>
+          <header><h3>{T.soloName}</h3><span class="m-tag">{T.soloTag}</span></header>
+          <p class="m-v tnum">{T.solo.v}</p>
+          <p class="m-u">{T.solo.u}</p>
+          <p class="m-d">{T.solo.d}</p>
+          <Btn href={wa(lang, 'WA3')} label={es ? 'Reservar una hora' : 'Book an hour'} variant="sec" external ariaLabel={`${es ? 'Reservar una hora' : 'Book an hour'} ${ui.newTab}`} />
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="m-proc">
+    <div class="wrap">
+      <div class="labels"><h2 id="m-proc" class="lbl-h">{T.procLabel}</h2><span aria-hidden="true">03</span></div>
+      <p class="block-title m-inv-title" data-fade set:html={emph(T.procTitle)} />
+      <ol class="m-steps">
+        {T.steps.map((s, i) => (
+          <li data-fade><span class="m-n tnum">{String(i + 1).padStart(2, '0')}</span><h3>{s.t}</h3><p>{s.d}</p></li>
+        ))}
+      </ol>
+      <p class="m-note" data-fade>{T.procNote}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lbl-h { font: inherit; }
+  .m-head { display: grid; gap: 20px 30px; margin-top: clamp(24px, 3vw, 40px); }
+  @media (min-width: 992px) { .m-head { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: end; } }
+  .m-pillars { display: grid; gap: 1px; margin-top: clamp(32px, 4vw, 56px); background: var(--borde); border-block: 1px solid var(--borde); }
+  @media (min-width: 768px) { .m-pillars { grid-template-columns: repeat(3, 1fr); } }
+  .m-pillars li { background: var(--lienzo); padding: 28px 24px 28px 0; }
+  @media (min-width: 768px) { .m-pillars li + li { padding-left: 24px; } }
+  .m-pillars h3, .m-steps h3 { font: 600 clamp(19px, 1.6vw, 22px)/1.3 var(--f-sans); letter-spacing: -0.015em; margin-bottom: 8px; }
+  .m-pillars p, .m-steps p { font: 400 16px/1.6 var(--f-sans); color: var(--gris-700); }
+
+  .m-inv-title { margin-top: clamp(24px, 3vw, 40px); }
+  .m-plans { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
+  @media (min-width: 992px) { .m-plans { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); align-items: stretch; } }
+  .m-plan { border-radius: var(--r-img); padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; gap: 14px; }
+  .m-plan header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .m-plan h3 { font: 600 clamp(20px, 1.8vw, 26px)/1.2 var(--f-sans); letter-spacing: -0.02em; }
+  .m-tag { font: 600 12px/1 var(--f-sans); padding: 7px 11px; border-radius: var(--pill); }
+  .m-plan-main { background: var(--grad-olmo); color: #fff; }
+  .m-plan-main .m-tag { background: #fff; color: var(--violeta); }
+  .m-plan-main :global(.btn) { align-self: flex-start; margin-top: 10px; }
+  .m-prices { display: grid; gap: 24px; padding-block: 14px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
+  @media (min-width: 640px) { .m-prices { grid-template-columns: 1fr 1fr; } }
+  .m-k { font: 500 14px/1.3 var(--f-sans); opacity: .85; }
+  .m-v { font: 700 clamp(34px, 3.6vw, 52px)/1.05 var(--f-sans); letter-spacing: -0.04em; margin-top: 6px; }
+  .m-u { font: 500 14px/1.3 var(--f-sans); opacity: .85; margin-top: 4px; }
+  .m-d { font: 400 16px/1.5 var(--f-sans); margin-top: 10px; }
+  .m-lists { display: grid; gap: 24px; padding-top: 10px; }
+  @media (min-width: 640px) { .m-lists { grid-template-columns: 3fr 2fr; } }
+  .m-lists h4 { font: 600 15px/1.3 var(--f-sans); margin-bottom: 10px; }
+  .m-lists ul { display: grid; gap: 8px; }
+  .m-lists li { position: relative; padding-left: 20px; font: 400 15px/1.5 var(--f-sans); }
+  .m-lists li::before { content: ''; position: absolute; left: 2px; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+  .m-plan-solo { background: var(--blanco); border: 1px solid var(--borde); }
+  .m-plan-solo .m-tag { background: var(--violeta-tinte); color: var(--violeta); }
+  .m-plan-solo .m-u, .m-plan-solo .m-d { color: var(--gris-700); opacity: 1; }
+  .m-plan-solo :global(.btn) { align-self: flex-start; margin-top: auto; }
+
+  .m-steps { display: grid; gap: 1px; margin-top: clamp(32px, 4vw, 56px); background: var(--borde); border-block: 1px solid var(--borde); counter-reset: none; }
+  @media (min-width: 768px) { .m-steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1200px) { .m-steps { grid-template-columns: repeat(4, 1fr); } }
+  .m-steps li { background: var(--lienzo); padding: 28px 24px 28px 0; }
+  @media (min-width: 768px) { .m-steps li { padding-left: 24px; } .m-steps li:nth-child(odd) { padding-left: 0; } }
+  @media (min-width: 1200px) { .m-steps li:nth-child(odd) { padding-left: 24px; } .m-steps li:first-child { padding-left: 0; } }
+  .m-n { display: block; font: 500 14px/1 var(--f-sans); color: var(--violeta); margin-bottom: 14px; }
+  .m-note { margin-top: 24px; font: 500 16px/1.5 var(--f-sans); color: var(--tinta); }
+</style>

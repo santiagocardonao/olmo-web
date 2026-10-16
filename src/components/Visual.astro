@@ -1,0 +1,180 @@
+---
+/**
+ * Ilustraciones con los tokens de Olmo para lo que no tiene foto real
+ * (Undergold, Ideal Team, diagramas de servicios, skills). No son imágenes de stock.
+ * viewBox 600×700; con "slice" cubren cualquier proporción (lo esencial va en el centro).
+ */
+import type { Lang } from '../config';
+interface Props {
+  kind: 'undergold' | 'ideal' | 'funnel' | 'systems' | 'speed' | 'doc' | 'espanol' | 'dsa';
+  lang: Lang;
+  label?: string;
+  class?: string;
+}
+const { kind, lang, label, class: cls = '' } = Astro.props;
+const es = lang === 'es';
+const T = '#111111', G = '#767C87', L = '#E4E4E8', W = '#FFFFFF', V = '#6D28D9', BG = '#ECECEF';
+const funnel = es
+  ? ['Preregistro', 'Landing', 'Checkout', 'Correo', 'Automatización']
+  : ['Waitlist', 'Landing page', 'Checkout', 'Email', 'Automation'];
+const tiles = Array.from({ length: 14 }, (_, i) => i);
+const products = [0, 1, 2, 3, 4, 5];
+const prices = ['48', '62', '55', '71', '39', '84'];
+---
+<svg
+  class:list={['visual', cls]}
+  viewBox="0 0 600 700"
+  preserveAspectRatio="xMidYMid slice"
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect width="600" height="700" fill={BG} />
+  {kind === 'undergold' && (
+    <g font-family="Inter, sans-serif">
+      <rect x="60" y="120" width="480" height="460" rx="18" fill={W} />
+      <rect x="60" y="120" width="480" height="52" rx="18" fill={W} />
+      <line x1="60" y1="172" x2="540" y2="172" stroke={L} />
+      <circle cx="88" cy="146" r="5" fill={L} /><circle cx="106" cy="146" r="5" fill={L} /><circle cx="124" cy="146" r="5" fill={L} />
+      <text x="300" y="151" text-anchor="middle" font-size="14" font-weight="600" fill={T} letter-spacing="2">UNDERGOLD · B2B</text>
+      {products.map((p) => {
+        const x = 84 + (p % 3) * 148, y = 192 + Math.floor(p / 3) * 190;
+        return (
+          <g>
+            <rect x={x} y={y} width="136" height="128" rx="10" fill={['#D9D6D0', '#CFCBC4', '#E2DFDA', '#C8C4BD', '#DCD8D2', '#D2CEC7'][p]} />
+            <path d={`M${x + 48} ${y + 34} l12 -10 h16 l12 10 l10 18 -10 6 v54 h-40 v-54 l-10 -6z`} fill={W} opacity=".75" />
+            <text x={x} y={y + 150} font-size="12" font-weight="600" fill={T}>USD {prices[p]}</text>
+            <text x={x + 136} y={y + 150} font-size="11" fill={G} text-anchor="end">{es ? 'Stock' : 'Stock'} {[120, 64, 210, 38, 95, 150][p]}</text>
+            <rect x={x} y={y + 160} width={60 + (p % 3) * 18} height="6" rx="3" fill={L} />
+          </g>
+        );
+      })}
+      <g transform="translate(300 616)">
+        <rect x="-150" y="-20" width="300" height="40" rx="20" fill={T} />
+        <circle cx="-126" cy="0" r="5" fill="#22C55E" />
+        <text x="8" y="5" text-anchor="middle" font-size="13.5" font-weight="600" fill={W}>Shopify → {es ? 'una sola fuente' : 'single source'}</text>
+      </g>
+    </g>
+  )}
+  {kind === 'ideal' && (
+    <g font-family="Inter, sans-serif">
+      {tiles.map((t) => {
+        const c = t % 4, rr = Math.floor(t / 4);
+        const x = 60 + c * 122, y = 90 + rr * 92;
+        return (
+          <g>
+            <rect x={x} y={y} width="110" height="80" rx="8" fill={W} />
+            <rect x={x + 8} y={y + 8} width="94" height="34" rx="4" fill={['#DAD7F2', '#E3E3E7', '#D5DDE4', '#E7E1D8'][t % 4]} />
+            <rect x={x + 8} y={y + 50} width={40 + (t % 3) * 14} height="5" rx="2.5" fill={L} />
+            <rect x={x + 8} y={y + 62} width="30" height="5" rx="2.5" fill={L} />
+            <circle cx={x + 98} cy={y + 64} r="5" fill="#22C55E" />
+          </g>
+        );
+      })}
+      <g transform="translate(140 300)">
+        <rect x="0" y="0" width="320" height="300" rx="18" fill={W} stroke={L} />
+        <text x="24" y="40" font-size="13" font-weight="600" fill={G} letter-spacing=".5">{es ? 'TIEMPO DE CARGA' : 'LOAD TIME'}</text>
+        <text x="24" y="118" font-size="72" font-weight="700" fill={T} letter-spacing="-3">{es ? '−60 %' : '−60%'}</text>
+        <text x="24" y="148" font-size="13" fill={G}>{es ? '14 sitios corregidos' : '14 sites fixed'}</text>
+        {[150, 138, 126, 110, 96, 84, 70, 62].map((h, i) => (
+          <rect x={24 + i * 35} y={278 - h * 0.7} width="22" height={h * 0.7} rx="4" fill={i > 4 ? V : L} />
+        ))}
+      </g>
+    </g>
+  )}
+  {kind === 'funnel' && (
+    <g font-family="Inter, sans-serif">
+      {funnel.map((f, i) => {
+        const w = 460 - i * 70, y = 150 + i * 86;
+        return (
+          <g>
+            <rect x={300 - w / 2} y={y} width={w} height="68" rx="34" fill={i === 4 ? V : i === 0 ? T : W} stroke={i === 0 || i === 4 ? 'none' : L} />
+            <text x="300" y={y + 40} text-anchor="middle" font-size="18" font-weight="600" fill={i === 0 || i === 4 ? W : T}>{f}</text>
+          </g>
+        );
+      })}
+      <text x="300" y="112" text-anchor="middle" font-size="13" font-weight="600" fill={G} letter-spacing="1">{es ? 'DE LA VISITA AL PAGO' : 'FROM VISIT TO PAYMENT'}</text>
+    </g>
+  )}
+  {kind === 'systems' && (
+    <g font-family="Inter, sans-serif">
+      <line x1="300" y1="210" x2="160" y2="470" stroke={T} stroke-width="2" stroke-dasharray="6 7" />
+      <line x1="300" y1="210" x2="440" y2="470" stroke={T} stroke-width="2" stroke-dasharray="6 7" />
+      <line x1="160" y1="470" x2="440" y2="470" stroke={T} stroke-width="2" stroke-dasharray="6 7" />
+      {[
+        { x: 300, y: 210, t: 'Shopify', s: es ? 'catálogo e imágenes' : 'catalog & images' },
+        { x: 160, y: 470, t: 'Supabase', s: es ? 'una sola fuente' : 'single source' },
+        { x: 440, y: 470, t: 'Vercel', s: es ? 'catálogo B2B' : 'B2B catalog' },
+      ].map((n) => (
+        <g>
+          <circle cx={n.x} cy={n.y} r="74" fill={W} stroke={L} stroke-width="2" />
+          <text x={n.x} y={n.y + 2} text-anchor="middle" font-size="20" font-weight="700" fill={T}>{n.t}</text>
+          <text x={n.x} y={n.y + 24} text-anchor="middle" font-size="12" fill={G}>{n.s}</text>
+        </g>
+      ))}
+      <circle cx="300" cy="384" r="9" fill={V} />
+    </g>
+  )}
+  {kind === 'speed' && (
+    <g font-family="Inter, sans-serif">
+      <text x="70" y="200" font-size="15" font-weight="600" fill={G}>{es ? 'Antes' : 'Before'}</text>
+      <rect x="70" y="216" width="460" height="56" rx="28" fill={L} />
+      <rect x="70" y="216" width="460" height="56" rx="28" fill={T} />
+      <text x="70" y="336" font-size="15" font-weight="600" fill={G}>{es ? 'Después' : 'After'}</text>
+      <rect x="70" y="352" width="460" height="56" rx="28" fill={L} />
+      <rect x="70" y="352" width="184" height="56" rx="28" fill={V} />
+      <text x="70" y="520" font-size="96" font-weight="700" fill={T} letter-spacing="-4">{es ? '−60 %' : '−60%'}</text>
+      <text x="74" y="556" font-size="16" fill={G}>{es ? 'en tiempo de carga' : 'in load time'}</text>
+    </g>
+  )}
+  {kind === 'doc' && (
+    <g font-family="Inter, sans-serif">
+      <g transform="rotate(-4 300 350)">
+        <rect x="150" y="110" width="300" height="424" rx="6" fill="#000" opacity=".06" transform="translate(10 14)" />
+        <rect x="150" y="110" width="300" height="424" rx="6" fill={W} />
+        <text x="178" y="160" font-family="Cal Sans, Inter, sans-serif" font-size="26" fill={T}>olmo</text>
+        <text x="178" y="260" font-size="30" font-weight="700" fill={T} letter-spacing="-1">{es ? 'Diagnóstico' : 'Diagnostic'}</text>
+        <text x="178" y="292" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="22" fill={V}>{es ? '3 días' : '3 days'}</text>
+        {[330, 348, 366, 384, 420, 438, 456].map((y, i) => (
+          <rect x="178" y={y} width={[230, 200, 240, 150, 220, 190, 120][i]} height="6" rx="3" fill={L} />
+        ))}
+        <line x1="178" y1="500" x2="422" y2="500" stroke={L} />
+      </g>
+    </g>
+  )}
+  {kind === 'espanol' && (
+    <g font-family="Inter, sans-serif">
+      <rect x="70" y="140" width="460" height="420" rx="18" fill={W} />
+      <text x="100" y="196" font-size="13" font-weight="600" fill={G} letter-spacing="1">SKILL · ESPAÑOL NATURAL</text>
+      <text x="100" y="262" font-size="22" fill={G}>Es importante destacar que…</text>
+      <line x1="100" y1="254" x2="398" y2="254" stroke={V} stroke-width="3" />
+      <text x="100" y="322" font-size="26" font-weight="600" fill={T}>Lo importante es esto:</text>
+      {[370, 392, 414, 450, 472].map((y, i) => (
+        <rect x="100" y={y} width={[380, 330, 260, 360, 210][i]} height="7" rx="3.5" fill={L} />
+      ))}
+      <circle cx="490" cy="196" r="8" fill={V} />
+    </g>
+  )}
+  {kind === 'dsa' && (
+    <g font-family="Inter, sans-serif">
+      <rect x="70" y="140" width="460" height="420" rx="18" fill={W} />
+      <text x="100" y="196" font-size="13" font-weight="600" fill={G} letter-spacing="1">DESIGN SYSTEM ADHERENCE</text>
+      {[
+        { t: es ? 'Color fuera de tokens' : 'Off-token color', s: 0.82 },
+        { t: es ? 'Tipografía' : 'Typography', s: 0.46 },
+        { t: es ? 'Espaciado' : 'Spacing', s: 0.28 },
+        { t: es ? 'Radios' : 'Radii', s: 0.12 },
+      ].map((row, i) => (
+        <g>
+          <text x="100" y={258 + i * 72} font-size="17" font-weight="600" fill={T}>{row.t}</text>
+          <rect x="100" y={272 + i * 72} width="400" height="12" rx="6" fill={L} />
+          <rect x="100" y={272 + i * 72} width={400 * row.s} height="12" rx="6" fill={i === 0 ? V : T} />
+        </g>
+      ))}
+    </g>
+  )}
+</svg>
+<style>
+  .visual { width: 100%; height: 100%; }
+</style>

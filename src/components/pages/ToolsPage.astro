@@ -1,0 +1,100 @@
+---
+import '../../styles/pages.css';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Visual from '../Visual.astro';
+import type { Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { IMG } from '../../lib/images';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const ui = HOME[lang].ui;
+const GH = 'https://github.com/santiagocardonao/';
+const tools = [
+  {
+    name: 'Olmo Métricas',
+    text: es
+      ? 'Calculadora gratuita para negocios de suscripción: MRR, ARR, CLTV, CAC, LTV:CAC y punto de equilibrio. Los cálculos se hacen en Postgres.'
+      : 'A free calculator for subscription businesses: MRR, ARR, CLTV, CAC, LTV:CAC and break-even. The math runs in Postgres.',
+    live: 'https://metricas.olmo.agency', liveLabel: 'metricas.olmo.agency', repo: 'olmo-metricas',
+    img: IMG.metricas, alt: es ? 'Calculadora Olmo Métricas con un cálculo de ingresos mensuales' : 'Olmo Métricas calculator showing a monthly revenue calculation',
+  },
+  {
+    name: 'Olmo Cotiza',
+    text: es
+      ? 'Genera cotizaciones a partir de texto libre: Claude estructura la información, Supabase la guarda y sale una propuesta A4 con link público.'
+      : 'Turns free text into quotes: Claude structures the information, Supabase stores it, and out comes an A4 proposal with a public link.',
+    live: 'https://cotiza.olmo.agency/demo', liveLabel: 'cotiza.olmo.agency/demo', repo: 'olmo-cotiza',
+    img: IMG.cotiza, alt: es ? 'Demo de Olmo Cotiza con una lista de cotizaciones de ejemplo' : 'Olmo Cotiza demo with a list of sample quotes',
+  },
+  {
+    name: 'Steady',
+    text: es
+      ? 'Registro de gimnasio hecho para un usuario real, mi papá. React y Supabase, PWA instalable.'
+      : 'A gym log built for one real user, my dad. React and Supabase, installable PWA.',
+    live: 'https://steady-gym.lovable.app', liveLabel: 'steady-gym.lovable.app', repo: 'steady',
+    img: IMG.steady, alt: es ? 'Pantalla de inicio de la app Steady' : 'Steady app sign-in screen', phone: true,
+  },
+  {
+    name: 'Español natural',
+    text: es
+      ? 'Skill de Claude para que la IA escriba en español nativo, no en traducción del inglés.'
+      : 'A Claude skill that makes AI write native Spanish, not translated English.',
+    repo: 'espanol-natural', visual: 'espanol' as const,
+  },
+  {
+    name: 'Design System Adherence',
+    text: es
+      ? 'Skill que revisa si un entregable sigue de verdad su design system. La severidad se calcula, no se juzga.'
+      : 'A skill that checks whether a deliverable really follows its design system. Severity is calculated, not judged.',
+    repo: 'design-system-adherence', visual: 'dsa' as const,
+  },
+];
+const T = es
+  ? { meta: { title: 'Herramientas gratis: métricas, cotizador y skills de IA | Olmo', description: 'Olmo Métricas, Olmo Cotiza, Steady y dos skills de Claude. Código abierto en GitHub.' }, label: 'Herramientas', title: 'Herramientas *gratis*', lead: 'Herramientas que hice para mi propio trabajo y que comparto gratis. Todas tienen el código abierto en GitHub.', open: 'Abrir', code: 'Código en GitHub' }
+  : { meta: { title: 'Free tools: metrics, proposals and AI skills | Olmo', description: 'Olmo Métricas, Olmo Cotiza, Steady and two Claude skills. Open source on GitHub.' }, label: 'Tools', title: 'Free *tools*', lead: 'Tools I built for my own work and share for free. All of them are open source on GitHub.', open: 'Open', code: 'Code on GitHub' };
+---
+<Base lang={lang} route="tools" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} right="( 5 )" title={T.title} pending>
+    <p class="small">{T.lead}</p>
+  </PageHero>
+  <section class="block">
+    <div class="wrap">
+      <ul class="tools">
+        {tools.map((t, i) => (
+          <li class="tool" data-fade>
+            <div class:list={['media-frame', 'tool-media', t.phone && 'is-phone']}>
+              {t.img ? (
+                <Picture src={t.img} alt={t.alt!} widths={[600, 1000, 1400]} sizes="(min-width: 992px) 56vw, 92vw" formats={['avif']} fallbackFormat="webp" loading={i < 1 ? 'eager' : 'lazy'} />
+              ) : (
+                <Visual kind={t.visual!} lang={lang} />
+              )}
+            </div>
+            <div class="tool-copy">
+              <span class="rl-num">0{i + 1}</span>
+              <h2 class="block-title">{t.name}</h2>
+              <p class="prose">{t.text}</p>
+              <p class="tool-links">
+                {t.live && <a class="tlink under" href={t.live} target="_blank" rel="noopener">{T.open} {t.liveLabel} ↗<span class="sr-only"> {ui.newTab}</span></a>}
+                <a class="tlink under" href={GH + t.repo} target="_blank" rel="noopener">{T.code} ↗<span class="sr-only"> {ui.newTab}</span></a>
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+<style>
+  .tools { display: grid; gap: 0; }
+  .tool { display: grid; gap: 24px 30px; padding-block: 40px; border-top: 1px solid var(--borde); }
+  @media (min-width: 992px) { .tool { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; } }
+  .tool-media { aspect-ratio: 1440 / 1000; }
+  .tool-media :global(img) { object-position: 0 0; }
+  .tool-media.is-phone { background: #ECECEF; display: grid; place-items: center; padding: 24px; }
+  .tool-media.is-phone :global(img) { width: auto; height: 100%; max-height: 100%; border-radius: 18px; border: 5px solid #111; object-fit: cover; aspect-ratio: 860 / 1560; }
+  .tool-copy .prose { margin-top: 14px; }
+  .tool-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 20px; font-size: 15px; }
+</style>

@@ -1,0 +1,13 @@
+---
+import type { Lang } from '../config';
+import { ROUTES, type RouteId } from '../i18n/routes';
+interface Props { lang: Lang; route: RouteId | null; class?: string }
+const { lang, route, class: cls = '' } = Astro.props;
+const alt = route ? ROUTES[route] : ROUTES.home;
+---
+<div class:list={['lang', cls]} role="group" aria-label={lang === 'es' ? 'Idioma' : 'Language'}>
+  <a href={alt.es} hreflang="es" lang="es" aria-current={lang === 'es' ? 'true' : undefined}
+     aria-label={lang === 'es' ? 'Español (idioma actual)' : 'Switch to Spanish'}>ES</a>
+  <a href={alt.en} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined}
+     aria-label={lang === 'en' ? 'English (current language)' : 'Cambiar a inglés'}>EN</a>
+</div>

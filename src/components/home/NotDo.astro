@@ -1,0 +1,45 @@
+---
+import { wa, type Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const n = HOME[lang].notDo;
+const ui = HOME[lang].ui;
+---
+<section class="notdo sec" aria-labelledby="notdo-title">
+  <div class="wrap">
+    <div class="labels"><h2 id="notdo-title">{n.left}</h2><span aria-hidden="true">{n.right}</span></div>
+    <ul class="nd-list">
+      {n.items.map((it) => (
+        <li class="nd-item" data-fade>
+          <span class="nd-word"><span class="sr-only">{n.srPrefix} </span><s>{it.word}</s></span>
+          <span class="nd-sub">{it.support}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="nd-close" data-fade>
+      <p class="nd-p">{n.closing}</p>
+      <a class="tlink under nd-link" href={wa(lang, 'WA6')} target="_blank" rel="noopener">{n.link} ↗<span class="sr-only"> {ui.newTab}</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .labels h2 { font: inherit; }
+  .nd-list { margin-top: clamp(24px, 3vw, 40px); }
+  .nd-item {
+    display: grid; gap: 4px 30px; align-items: baseline;
+    padding-block: 10px 14px; border-bottom: 1px solid var(--borde);
+  }
+  @media (min-width: 1200px) { .nd-item { grid-template-columns: minmax(0, 1fr) auto; } .nd-sub { max-width: 22em; text-align: right; } }
+  .nd-word { font: 500 clamp(30px, 5.6vw, 88px)/1.1 var(--f-sans); letter-spacing: -0.05em; color: var(--gris-palabra); }
+  .nd-word s {
+    text-decoration: none;
+    background: linear-gradient(var(--violeta), var(--violeta)) 0 56% / 100% 4px no-repeat;
+    padding-inline: .04em;
+  }
+  .nd-sub { font: 300 15px/1.5 var(--f-sans); color: var(--gris-700); }
+  .nd-close { display: grid; gap: 16px; margin-top: clamp(32px, 4vw, 48px); max-width: 44em; }
+  .nd-p { font: 400 clamp(20px, 2vw, 28px)/1.4 var(--f-sans); letter-spacing: -0.02em; }
+  .nd-link { justify-self: start; font-size: 17px; }
+</style>

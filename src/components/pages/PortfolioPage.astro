@@ -1,0 +1,107 @@
+---
+import '../../styles/pages.css';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Cover from '../Cover.astro';
+import type { Lang } from '../../config';
+import { ORDER, GROUPS, PROJECTS, PROJECT_ROUTE } from '../../i18n/portfolio';
+import { r } from '../../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const P = PROJECTS[lang];
+const T = lang === 'es'
+  ? { meta: { title: 'Portafolio: marcas, tiendas y herramientas | Olmo', description: 'silBe, Undergold, Ideal Team, Balparaiso, Mía+, Zafiro, Vieli, SaraBe, ILMIN, Ítaca, Olmo Métricas, Olmo Cotiza y dos skills de Claude.' },
+      label: 'Portafolio', title: 'Lo que he *construido*', lead: 'Marcas, tiendas online, herramientas y skills de IA. Cada proyecto cuenta qué hice y, cuando se puede, enlaza al sitio en vivo.', view: 'Ver proyecto', cover: 'Portada de',
+      groups: { cases: 'Resultados destacados', brands: 'Marcas y tiendas', tools: 'Herramientas y skills de IA' } }
+  : { meta: { title: 'Portfolio: brands, stores and tools | Olmo', description: 'silBe, Undergold, Ideal Team, Balparaiso, Mía+, Zafiro, Vieli, SaraBe, ILMIN, Ítaca, Olmo Métricas, Olmo Cotiza and two Claude skills.' },
+      label: 'Portfolio', title: "What I've *built*", lead: 'Brands, online stores, tools and AI skills. Each project shows what I did and, where possible, links to the live site.', view: 'View project', cover: 'Cover for',
+      groups: { cases: 'Featured results', brands: 'Brands and stores', tools: 'Tools and AI skills' } };
+---
+<Base lang={lang} route="portfolio" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} right={`( ${ORDER.length} )`} title={T.title} lead={T.lead} pending />
+  {GROUPS.map((g, gi) => (
+    <section class={`pf pf-${g.id}`} aria-labelledby={`pf-${g.id}`}>
+      <div class="wrap">
+        <div class="labels"><h2 id={`pf-${g.id}`} class="lbl-h">{T.groups[g.id]}</h2><span aria-hidden="true">( {g.ids.length} )</span></div>
+        <ul class:list={['pf-grid', g.id === 'cases' && 'pf-feature']}>
+          {g.ids.map((id, i) => {
+            const p = P[id];
+            const big = g.id === 'cases';
+            return (
+              <li data-fade class={big ? `pf-f${i + 1}` : undefined}>
+                <a class:list={['pf-card', big && 'is-big']} href={r(PROJECT_ROUTE[id], lang)} data-cursor={T.view}>
+                  <span class="media-frame pf-thumb">
+                    <Cover id={id} lang={lang} alt={`${T.cover} ${p.name}`} eager={gi === 0}
+                      sizes={big ? (i === 0 ? '(min-width: 992px) 60vw, 92vw' : '(min-width: 992px) 38vw, 92vw') : '(min-width: 1200px) 340px, (min-width: 992px) 31vw, (min-width: 768px) 46vw, 92vw'} />
+                  </span>
+                  <div class="pf-cap">
+                    <h3 class="pf-title">{p.short ?? p.name}</h3>
+                    <span class="pf-tag">{p.tag}</span>
+                    {p.figure && <span class="pf-fig">{p.figure}</span>}
+                  </div>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  ))}
+</Base>
+<style>
+  .lbl-h { font: inherit; }
+  .pf { padding-top: clamp(24px, 3vw, 40px); }
+  .pf + .pf { padding-top: clamp(64px, 8vw, 120px); }
+  .pf:last-of-type { padding-bottom: var(--sec-y); }
+  .pf-grid { display: grid; gap: 48px 30px; padding-top: clamp(28px, 3.5vw, 48px); }
+  @media (min-width: 768px) { .pf-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 992px) { .pf-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1200px) { .pf-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .pf-card { display: block; text-align: center; transition: transform .2s var(--ease-p2); }
+  .pf-card:active { transform: scale(.985); }
+  .pf-thumb { display: block; aspect-ratio: 1; margin-bottom: 20px; }
+  .pf-thumb :global(img), .pf-thumb :global(svg) { transition: transform .6s var(--ease-p2); }
+  .pf-card:hover .pf-thumb :global(img), .pf-card:hover .pf-thumb :global(svg),
+  .pf-card:focus-visible .pf-thumb :global(img) { transform: scale(1.04); }
+  .pf-cap { display: block; }
+  .pf-title {
+    font: 600 22px/1.25 var(--f-sans); letter-spacing: .18em; text-transform: uppercase;
+    padding-left: .18em; /* compensa el espacio que deja la última letra para que quede centrado */
+    transition: color .3s;
+  }
+  .pf-card:hover .pf-title { color: var(--violeta); }
+  .pf-tag { display: block; margin-top: 10px; font: 500 13px/1.5 var(--f-sans); letter-spacing: .03em; text-transform: uppercase; color: var(--gris-700); }
+  .pf-fig { display: block; margin-top: 8px; font: 600 15px/1.4 var(--f-sans); letter-spacing: -0.01em; color: var(--violeta); }
+
+  /* Casos con resultados: uno grande y dos medianos, con el texto sobre la imagen. */
+  .pf-feature { gap: 16px; }
+  .pf-feature .pf-card { position: relative; text-align: left; height: 100%; border-radius: var(--r-img); overflow: hidden; }
+  .pf-feature .pf-thumb { aspect-ratio: 4 / 5; margin: 0; border-radius: 0; }
+  .pf-feature .pf-thumb :global(picture) { display: block; width: 100%; height: 100%; }
+  .pf-feature .pf-cap {
+    position: absolute; inset: auto 0 0 0; padding: clamp(20px, 2.4vw, 32px);
+    background: linear-gradient(to top, rgba(17, 10, 40, .82), rgba(17, 10, 40, .45) 60%, rgba(17, 10, 40, 0));
+    color: #fff;
+  }
+  .pf-feature .pf-title { padding-left: 0; letter-spacing: .14em; font-size: clamp(20px, 1.8vw, 26px); }
+  .pf-feature .pf-card:hover .pf-title { color: #fff; }
+  .pf-feature .pf-tag { color: rgba(255, 255, 255, .8); }
+  .pf-feature .pf-fig { color: #fff; font: 700 clamp(18px, 1.7vw, 24px)/1.25 var(--f-sans); letter-spacing: -0.02em; margin-top: 12px; max-width: 26em; }
+  @media (min-width: 768px) {
+    .pf-feature { grid-template-columns: repeat(2, 1fr); }
+    .pf-feature .pf-f1 { grid-column: 1 / -1; }
+    .pf-feature .pf-f1 .pf-thumb { aspect-ratio: 16 / 9; }
+  }
+  @media (min-width: 992px) {
+    .pf-feature { --fh: clamp(520px, 42vw, 660px); grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+    .pf-feature .pf-f1 { grid-column: 1; grid-row: 1 / span 2; }
+    .pf-feature .pf-f1 .pf-thumb { aspect-ratio: auto; height: var(--fh); }
+    .pf-feature .pf-f2, .pf-feature .pf-f3 { grid-column: 2; }
+    .pf-feature .pf-f2 .pf-thumb, .pf-feature .pf-f3 .pf-thumb { aspect-ratio: auto; height: calc((var(--fh) - 16px) / 2); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pf-card:hover .pf-thumb :global(img), .pf-card:hover .pf-thumb :global(svg) { transform: none; }
+    .pf-card:active { transform: none; }
+  }
+</style>
