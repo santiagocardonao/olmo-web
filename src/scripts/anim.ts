@@ -71,14 +71,31 @@ export function init() {
     });
   });
 
-  /* ---------- Entradas suaves (P2, T3 y bloques internos) ---------- */
-  mm.add('(min-width: 768px)', () => {
-    gsap.utils.toArray<HTMLElement>('[data-fade]').forEach((el) => {
-      gsap.from(el, {
-        y: 24, opacity: 0, duration: 0.6, ease: P3,
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+  /* ---------- Revelado de imágenes: la máscara sube y la foto se asienta ----------
+     Una sola vez por imagen. Las del hero de página no, porque llegan con la transición. */
+  const media = gsap.utils.toArray<HTMLElement>('main .media-frame').filter((m) => !m.closest('.phero, .hero'));
+  media.forEach((m) => {
+    const inner = m.querySelector('img, svg');
+    const tl = gsap.timeline({ scrollTrigger: { trigger: m, start: 'top 90%', once: true } });
+    tl.from(m, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.05, ease: 'expo.out', clearProps: 'clipPath' });
+    if (inner) tl.from(inner, { scale: 1.12, duration: 1.4, ease: 'expo.out', clearProps: 'transform' }, 0);
+  });
+
+  /* ---------- Entradas suaves en cascada (P2, T3 y bloques internos) ----------
+     Lo que entra a la vez (una fila de tarjetas) aparece escalonado, no en bloque. */
+  mm.add({ sm: '(max-width: 767px)', lg: '(min-width: 768px)' }, (ctx) => {
+    const y = ctx.conditions?.sm ? 14 : 24;
+    const fades = gsap.utils.toArray<HTMLElement>('[data-fade]').filter((el) => !el.closest('.phero-aside'));
+    // Si el bloque trae una imagen que ya se revela, solo sube: la opacidad apagaría la máscara.
+    const withMedia = new Set(fades.filter((el) => media.some((m) => el === m || el.contains(m))));
+    fades.forEach((el) => gsap.set(el, withMedia.has(el) ? { y } : { y, opacity: 0 }));
+    ScrollTrigger.batch(fades, {
+      start: 'top 90%',
+      once: true,
+      onEnter: (batch) => gsap.to(batch, {
+        y: 0, opacity: 1, duration: 0.8, ease: 'expo.out', stagger: 0.07, overwrite: true,
         clearProps: 'transform,opacity',
-      });
+      }),
     });
   });
 

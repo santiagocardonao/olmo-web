@@ -30,7 +30,7 @@ const T = lang === 'es'
             return (
               <li data-fade class={big ? `pf-f${i + 1}` : undefined}>
                 <a class:list={['pf-card', big && 'is-big']} href={r(PROJECT_ROUTE[id], lang)} data-cursor={T.view}>
-                  <span class="media-frame pf-thumb">
+                  <span class="media-frame pf-thumb" style={`view-transition-name: pj-${id}; view-transition-class: pj`}>
                     <Cover id={id} lang={lang} alt={`${T.cover} ${p.name}`} eager={gi === 0}
                       sizes={big ? (i === 0 ? '(min-width: 992px) 60vw, 92vw' : '(min-width: 992px) 38vw, 92vw') : '(min-width: 1200px) 340px, (min-width: 992px) 31vw, (min-width: 768px) 46vw, 92vw'} />
                   </span>

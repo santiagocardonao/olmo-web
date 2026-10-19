@@ -15,7 +15,7 @@ const split = Astro.slots.has('aside');
         {lead && <p class="phero-lead support" data-fade>{lead}</p>}
         <div class="phero-actions" data-fade><slot /></div>
       </div>
-      {split && <div class="phero-aside" data-fade><slot name="aside" /></div>}
+      {split && <div class="phero-aside"><slot name="aside" /></div>}
     </div>
   </div>
 </section>

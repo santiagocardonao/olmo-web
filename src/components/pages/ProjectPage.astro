@@ -30,7 +30,7 @@ const L = es
   <PageHero label={`${L.label} · ${n}`} right={p.tag} title={p.headline!} lead={p.lead}>
     {p.live && <Btn href={p.live.href} label={`${L.see} · ${p.live.label}`} external />}
     {p.repo && <Btn href={repoUrl(p.repo)} label={L.code} variant="sec" external />}
-    <div slot="aside" class="media-frame pj-cover">
+    <div slot="aside" class="media-frame pj-cover" style={`view-transition-name: pj-${id}; view-transition-class: pj`}>
       <Cover id={id} lang={lang} alt={`${L.cover} ${p.name}`} sizes="(min-width: 992px) 50vw, 96vw" eager />
     </div>
   </PageHero>
