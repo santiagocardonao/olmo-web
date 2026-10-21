@@ -77,8 +77,10 @@ export function init() {
   media.forEach((m) => {
     const inner = m.querySelector('img, svg');
     const tl = gsap.timeline({ scrollTrigger: { trigger: m, start: 'top 90%', once: true } });
-    tl.from(m, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.05, ease: 'expo.out', clearProps: 'clipPath' });
-    if (inner) tl.from(inner, { scale: 1.12, duration: 1.4, ease: 'expo.out', clearProps: 'transform' }, 0);
+    // Si algo interrumpe la animación, la imagen queda entera y no a medio destapar.
+    const reveal = () => { gsap.set(m, { clearProps: 'clipPath' }); if (inner) gsap.set(inner, { clearProps: 'transform' }); };
+    tl.from(m, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.05, ease: 'expo.out', clearProps: 'clipPath', onInterrupt: reveal });
+    if (inner) tl.from(inner, { scale: 1.12, duration: 1.4, ease: 'expo.out', clearProps: 'transform', onInterrupt: reveal }, 0);
   });
 
   /* ---------- Entradas suaves en cascada (P2, T3 y bloques internos) ----------
@@ -93,7 +95,8 @@ export function init() {
       start: 'top 90%',
       once: true,
       onEnter: (batch) => gsap.to(batch, {
-        y: 0, opacity: 1, duration: 0.8, ease: 'expo.out', stagger: 0.07, overwrite: true,
+        // 'auto' y no true: true mataba también la máscara de las imágenes y la foto quedaba a medio destapar.
+        y: 0, opacity: 1, duration: 0.8, ease: 'expo.out', stagger: 0.07, overwrite: 'auto',
         clearProps: 'transform,opacity',
       }),
     });

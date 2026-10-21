@@ -23,8 +23,8 @@ const shots = Object.entries(import.meta.glob<{ default: ImageMetadata }>('../..
   .map(([, m]) => m.default);
 const n = String(ORDER.indexOf(id) + 1).padStart(2, '0');
 const L = es
-  ? { label: 'Portafolio', about: 'El proyecto', did: 'Qué hice', see: 'Ver sitio', code: 'Código en GitHub', next: 'Siguiente proyecto', all: 'Ver todo el portafolio', cta: 'Cotiza tu proyecto por WhatsApp', cover: 'Portada de', shots: 'Capturas', shot: 'Captura del sitio de', more: 'Más detalle del proyecto, capturas y resultados.' }
-  : { label: 'Portfolio', about: 'The project', did: 'What I did', see: 'Visit site', code: 'Code on GitHub', next: 'Next project', all: 'See the full portfolio', cta: 'Get a project quote on WhatsApp', cover: 'Cover for', shots: 'Screenshots', shot: 'Screenshot of the site for', more: 'More project detail, screenshots and results.' };
+  ? { label: 'Portafolio', about: 'El proyecto', did: 'Qué hice', see: 'Ver sitio', code: 'Código en GitHub', next: 'Siguiente proyecto', all: 'Ver todo el portafolio', cta: 'Cotiza tu proyecto por WhatsApp', cover: 'Portada de', shots: 'Capturas', shot: 'Captura del sitio de', photo: 'Foto de producto de', more: 'Más detalle del proyecto, capturas y resultados.' }
+  : { label: 'Portfolio', about: 'The project', did: 'What I did', see: 'Visit site', code: 'Code on GitHub', next: 'Next project', all: 'See the full portfolio', cta: 'Get a project quote on WhatsApp', cover: 'Cover for', shots: 'Screenshots', shot: 'Screenshot of the site for', photo: 'Product photo for', more: 'More project detail, screenshots and results.' };
 ---
 <Base lang={lang} route={PROJECT_ROUTE[id]} title={p.meta!.title} description={p.meta!.description}>
   <PageHero label={`${L.label} · ${n}`} right={p.tag} title={p.headline!} lead={p.lead}>
@@ -77,8 +77,9 @@ const L = es
         <div class="labels"><h2 class="lbl-h">{L.shots}</h2><span aria-hidden="true">02</span></div>
         <ul class="pj-shots">
           {shots.map((img, i) => (
-            <li class="media-frame" data-fade>
-              <Picture src={img} alt={`${L.shot} ${p.name} (${i + 1})`} widths={[700, 1100, 1600]} sizes="(min-width: 992px) 80vw, 96vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
+            <li class:list={['media-frame', img.width / img.height < 1.3 && 'is-square']} data-fade>
+              <Picture src={img} alt={`${img.width / img.height < 1.3 ? L.photo : L.shot} ${p.name} (${i + 1})`} widths={[700, 1100, 1600]}
+                sizes={img.width / img.height < 1.3 ? '(min-width: 768px) 30vw, 46vw' : '(min-width: 992px) 80vw, 96vw'} formats={['avif']} fallbackFormat="webp" loading="lazy" />
             </li>
           ))}
         </ul>
@@ -126,8 +127,11 @@ const L = es
   .pj-did li + li { border-top: 1px solid var(--borde); }
   .pj-did h4 { font: 600 clamp(18px, 1.5vw, 21px)/1.3 var(--f-sans); letter-spacing: -0.015em; color: var(--tinta); margin-bottom: 6px; }
   .pj-did p { font: 400 clamp(16px, 1.2vw, 18px)/1.6 var(--f-sans); color: var(--gris-700); max-width: 40em; }
-  .pj-shots { display: grid; gap: clamp(16px, 2vw, 30px); }
-  .pj-shots li { display: block; }
+  /* Capturas anchas a todo el ancho; fotos cuadradas de a 3 (2 en celular). */
+  .pj-shots { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(16px, 2vw, 30px); }
+  .pj-shots li { display: block; grid-column: span 6; }
+  .pj-shots li.is-square { grid-column: span 3; }
+  @media (min-width: 768px) { .pj-shots li.is-square { grid-column: span 2; } }
   .pj-shots :global(img) { width: 100%; height: auto; display: block; }
   .next { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; border-top: 1px solid var(--borde); padding-top: 24px; }
   .next-link { display: flex; flex-direction: column; gap: 6px; }
