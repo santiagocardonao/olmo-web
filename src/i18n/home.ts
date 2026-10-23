@@ -159,6 +159,7 @@ const es: HomeText = {
     button: 'Más sobre mí',
     milestones: [
       { date: '2017–2025', place: 'Vieli', role: 'Cofundador y COO. 30 personas, 100+ proyectos por referidos.' },
+      { date: '5 años', place: 'silBe', role: 'Growth y producto.' },
       { date: '6 años', place: 'CESDE', role: 'Docente de UX/UI.' },
       { date: 'Desde 2025', place: 'Olmo', role: 'Asesoría independiente.' },
     ],
@@ -304,6 +305,7 @@ const en: HomeText = {
     button: 'More about me',
     milestones: [
       { date: '2017–2025', place: 'Vieli', role: 'Co-founder & COO. 30 people, 100+ projects from referrals.' },
+      { date: '5 years', place: 'silBe', role: 'Growth & product.' },
       { date: '6 years', place: 'CESDE', role: 'UX/UI instructor.' },
       { date: 'Since 2025', place: 'Olmo', role: 'Independent advisory.' },
     ],
