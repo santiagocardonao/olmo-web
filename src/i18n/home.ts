@@ -184,7 +184,7 @@ const es: HomeText = {
   },
   footer: {
     eyebrow: '¿Tu marca se estancó?',
-    title: 'Escríbeme antes de que pase otro *trimestre*.',
+    title: 'Escríbeme antes de que la tecnología te coja *vuelta*.',
     button: 'Escríbeme por WhatsApp',
     pills: ['Asesoría', 'Portafolio', 'Herramientas', 'Sobre mí', 'Términos', 'Privacidad'],
     tools: 'Herramientas gratis que hice →',
@@ -330,7 +330,7 @@ const en: HomeText = {
   },
   footer: {
     eyebrow: 'Has your brand stalled?',
-    title: 'Message me before another *quarter* slips by.',
+    title: 'Message me before technology leaves you *behind*.',
     button: 'Message me on WhatsApp',
     pills: ['Advisory', 'Portfolio', 'Tools', 'About me', 'Terms', 'Privacy'],
     tools: 'Free tools I built →',
