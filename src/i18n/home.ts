@@ -155,7 +155,7 @@ const es: HomeText = {
   about: {
     label: 'Sobre mí',
     title: 'Hablas con quien hace el *trabajo*.',
-    body: 'Soy Santiago Cardona Ortiz y trabajo solo, desde Medellín, con marcas de Colombia y del exterior. Entre 2017 y 2025 cofundé Vieli, un estudio de 30 personas, y fui su director de operaciones (COO): hicimos más de 100 proyectos, todos por referidos. Desde 2020 acompaño a silBe. Durante 6 años enseñé UX/UI (diseño de interfaces y experiencia de usuario) en CESDE, y para Bancolombia diseñé FIDI, un prototipo de educación financiera con videos por WhatsApp.',
+    body: 'Soy Santiago Cardona Ortiz y trabajo solo, desde Medellín, con marcas de Colombia y del exterior. Entre 2017 y 2025 cofundé Vieli, un estudio de 30 personas, y fui su director de operaciones (COO): hicimos más de 100 proyectos, todos por referidos. De 2020 a 2026 acompañé a silBe. Durante 6 años enseñé UX/UI (diseño de interfaces y experiencia de usuario) en CESDE, y para Bancolombia diseñé FIDI, un prototipo de educación financiera con videos por WhatsApp.',
     button: 'Más sobre mí',
     milestones: [
       { date: '2017–2025', place: 'Vieli', role: 'Cofundador y COO. 30 personas, 100+ proyectos por referidos.' },
@@ -301,7 +301,7 @@ const en: HomeText = {
   about: {
     label: 'About',
     title: 'You talk to the person doing the *work*.',
-    body: "I'm Santiago Cardona Ortiz. I work on my own, from Medellín, with brands in Colombia and abroad. From 2017 to 2025 I was co-founder and COO of Vieli, a 30-person studio: we delivered 100+ projects, all of them from referrals. I've worked with silBe since 2020. I taught UX/UI design at CESDE for six years, and for Bancolombia I designed FIDI, a financial-education prototype built on WhatsApp videos.",
+    body: "I'm Santiago Cardona Ortiz. I work on my own, from Medellín, with brands in Colombia and abroad. From 2017 to 2025 I was co-founder and COO of Vieli, a 30-person studio: we delivered 100+ projects, all of them from referrals. From 2020 to 2026 I worked with silBe. I taught UX/UI design at CESDE for six years, and for Bancolombia I designed FIDI, a financial-education prototype built on WhatsApp videos.",
     button: 'More about me',
     milestones: [
       { date: '2017–2025', place: 'Vieli', role: 'Co-founder & COO. 30 people, 100+ projects from referrals.' },
