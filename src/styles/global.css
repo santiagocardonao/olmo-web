@@ -72,6 +72,7 @@
   --max: 1440px;
   --sec-y: clamp(60px, 7vw, 112px);
   --header-h: 84px;
+  --topbar-h: 52px; /* dos líneas en móvil; 40px desde 768 */
 
   --sombra: 0 4px 12px rgba(17, 17, 17, 0.05), 0 2px 4px rgba(17, 17, 17, 0.04);
   --sombra-lg: 0 20px 30px -8px rgba(19, 19, 22, 0.1);
@@ -345,3 +346,5 @@ a.pill:active { transform: scale(.96); }
   details[open]::details-content { block-size: auto; opacity: 1; }
   @media (prefers-reduced-motion: reduce) { details::details-content { transition: none; } }
 }
+
+@media (min-width: 768px) { :root { --topbar-h: 40px; } }

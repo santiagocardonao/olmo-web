@@ -13,7 +13,7 @@ export interface HomeText {
   meta: { title: string; description: string; ogTitle: string; ogDescription: string; ogAlt: string };
   ui: {
     skip: string; logoLabel: string; nav: string[]; langLabel: string; cta: string; ctaLabel: string; waCta: string; waCtaLabel: string;
-    menuOpen: string; menuClose: string; menuItems: string[]; newTab: string;
+    menuOpen: string; menuClose: string; menuItems: string[]; newTab: string; closed: string;
   };
   hero: {
     h1: string; sub: string; primary: string; secondary: string; secondaryHref: string;
@@ -64,6 +64,7 @@ const es: HomeText = {
   },
   ui: {
     skip: 'Saltar al contenido',
+    closed: 'No estamos aceptando nuevas solicitudes de clientes',
     logoLabel: 'olmo, ir al inicio',
     nav: ['Servicios', 'Portafolio', 'Herramientas', 'Sobre mí'],
     langLabel: 'Cambiar a inglés',
@@ -210,6 +211,7 @@ const en: HomeText = {
   },
   ui: {
     skip: 'Skip to content',
+    closed: 'We\'re no longer accepting new customers',
     logoLabel: 'olmo, go to home',
     nav: ['Services', 'Portfolio', 'Tools', 'About me'],
     langLabel: 'Switch to Spanish',

@@ -14,7 +14,7 @@ window.addEventListener('scroll', onScroll, { passive: true });
 /* ---------- Menú offcanvas (M2–M6) ---------- */
 const menu = document.getElementById('menu') as HTMLElement | null;
 const menuBtn = document.querySelector<HTMLButtonElement>('.menu-btn');
-const outside = () => Array.from(document.querySelectorAll<HTMLElement>('.site-header, #main, .cta, .site-footer, .skip'));
+const outside = () => Array.from(document.querySelectorAll<HTMLElement>('.topbar, .site-header, #main, .cta, .site-footer, .skip'));
 let lastFocus: HTMLElement | null = null;
 
 function focusables(): HTMLElement[] {

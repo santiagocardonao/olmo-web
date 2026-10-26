@@ -44,7 +44,7 @@ const isActive = (id: RouteId | 'services') =>
 
 <style>
   .site-header {
-    position: absolute; inset: 0 0 auto 0; z-index: 50;
+    position: absolute; inset: var(--topbar-h) 0 auto 0; z-index: 50;
     height: var(--header-h);
     display: flex; align-items: center;
   }
@@ -71,13 +71,14 @@ const isActive = (id: RouteId | 'services') =>
 
   /* Botón redondo violeta (M1). Escritorio: aparece al bajar 120 px. Móvil/tableta: siempre visible. */
   .menu-btn {
-    position: fixed; top: 14px; right: var(--gutter); z-index: 120;
+    position: fixed; top: calc(14px + var(--topbar-h)); right: var(--gutter); z-index: 120;
     width: 56px; height: 56px; border-radius: 50%;
     background: var(--violeta); color: #fff;
     display: grid; place-items: center;
     box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.6), 0 8px 20px rgba(109, 40, 217, 0.28);
     transition: transform .3s var(--ease-p3), opacity .3s var(--ease-p3), background-color .2s;
   }
+  :global(.scrolled) .menu-btn, .menu-btn[aria-expanded='true'] { top: 14px; }
   .menu-btn:hover { background: var(--violeta-hover); }
   .menu-btn:focus-visible { outline-offset: 4px; border-radius: 50%; }
   .menu-btn-lines { position: relative; width: 20px; height: 12px; display: block; }
@@ -92,7 +93,7 @@ const isActive = (id: RouteId | 'services') =>
   .menu-btn[aria-expanded='true'] .menu-btn-lines i:last-child { top: 5px; left: 0; width: 20px; transform: rotate(-45deg); }
 
   @media (min-width: 1200px) {
-    .menu-btn { top: 20px; width: 60px; height: 60px; transform: scale(.5); opacity: 0; pointer-events: none; }
+    .menu-btn { top: 20px !important; width: 60px; height: 60px; transform: scale(.5); opacity: 0; pointer-events: none; }
     :global(html:not(.js)) .menu-btn { display: none; }
     :global(.scrolled) .menu-btn, .menu-btn[aria-expanded='true'] { transform: scale(1); opacity: 1; pointer-events: auto; }
   }

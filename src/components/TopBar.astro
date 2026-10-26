@@ -1,0 +1,30 @@
+---
+import type { Lang } from '../config';
+import { HOME } from '../i18n/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<div class="topbar" role="note">
+  <p>{HOME[lang].ui.closed}</p>
+</div>
+
+<style>
+  /* Aviso fijo arriba de todo: no se reciben clientes nuevos. Empuja el header (--topbar-h). */
+  .topbar {
+    position: relative; z-index: 60;
+    height: var(--topbar-h);
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 var(--gutter);
+    background: linear-gradient(90deg, #3b0a8f 0%, #6d28d9 35%, #7c3aed 65%, #a970ff 100%);
+    color: #fff; text-align: center;
+  }
+  .topbar p {
+    margin: 0;
+    font: 600 11px/1.45 var(--f-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+  @media (min-width: 768px) {
+    .topbar p { font-size: 12px; letter-spacing: 0.28em; }
+  }
+</style>
