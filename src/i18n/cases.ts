@@ -1,7 +1,6 @@
 /**
- * Casos con página propia. Contenido de 12_contenido_casos.md (cifras aprobadas).
- * Solo se publican cifras aprobadas por Santiago; cualquier cifra nueva necesita su visto bueno.
- * El inglés es traducción de Olmo sobre el texto aprobado (pendiente de revisión de Santiago).
+ * Casos con página propia: silBe, Undergold e Ideal Team.
+ * Solo se publican cifras aprobadas; cualquier cifra nueva necesita aprobación antes de salir.
  */
 import type { Lang } from '../config';
 import type { RouteId } from './routes';

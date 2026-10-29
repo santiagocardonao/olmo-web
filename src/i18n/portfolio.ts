@@ -1,8 +1,7 @@
 /**
- * Portafolio: 14 proyectos. Orden de Santiago (15 oct 2026) + Ideal Team e ILMIN (agregados el mismo día).
+ * Portafolio: 14 proyectos, en el orden en que aparecen.
  * silBe, Undergold e Ideal Team enlazan a su caso completo; el resto tiene ficha propia en /portafolio/<slug>/.
- * Solo se publican cifras y enlaces aprobados por Santiago; cualquier dato nuevo necesita su visto bueno.
- * El inglés es traducción de Olmo (pendiente de revisión de Santiago).
+ * Solo se publican cifras y enlaces aprobados; cualquier dato nuevo necesita aprobación antes de salir.
  */
 import type { Lang } from '../config';
 import type { RouteId } from './routes';
@@ -46,7 +45,6 @@ export interface Project {
   stats?: { v: string; k: string }[];
   live?: { href: string; label: string };
   repo?: string;
-  pending?: boolean; // faltan textos e imágenes de Santiago
   // Las capturas de la galería salen de src/assets/galerias/<id>/ (ver ProjectPage).
   meta?: { title: string; description: string };
 }
@@ -65,7 +63,6 @@ const es: Record<ProjectId, Project> = {
     facts: [{ k: 'Rol', v: 'Diseño y desarrollo web' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Moda' }],
     did: ['Diseñé el sitio y el recorrido de compra.', 'Desarrollé la tienda en Shopify.'],
     live: { href: 'https://balparaiso.com/', label: 'balparaiso.com' },
-    pending: true,
     meta: { title: 'Balparaiso: diseño y desarrollo web | Olmo', description: 'Diseño y desarrollo de la tienda en Shopify de Balparaiso, marca de moda masculina de alta gama de Medellín.' },
   },
   miaplus: {
@@ -240,7 +237,6 @@ const en: Record<ProjectId, Project> = {
     facts: [{ k: 'Role', v: 'Web design & development' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Fashion' }],
     did: ['I designed the site and the path to purchase.', 'I built the store on Shopify.'],
     live: { href: 'https://balparaiso.com/', label: 'balparaiso.com' },
-    pending: true,
     meta: { title: 'Balparaiso: web design & development | Olmo', description: 'Design and development of the Shopify store for Balparaiso, a high-end menswear brand from Medellín.' },
   },
   miaplus: {
@@ -404,7 +400,7 @@ const en: Record<ProjectId, Project> = {
 };
 
 /**
- * Títulos de cada fila de "Qué hice" y cifras de la franja (aprobados por Santiago, 15 oct 2026).
+ * Títulos de cada fila de "Qué hice" y cifras de la franja.
  * Los títulos van en el mismo orden que `did`. Vieli los tiene directamente en su ficha.
  */
 const TITLES: Record<Lang, Partial<Record<ProjectId, string[]>>> = {

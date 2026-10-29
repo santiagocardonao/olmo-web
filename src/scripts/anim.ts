@@ -1,4 +1,4 @@
-// Animaciones con GSAP (15_animaciones.md). Solo se carga sin prefers-reduced-motion.
+// Animaciones con GSAP. Solo se carga sin prefers-reduced-motion.
 // Regla: el estado oculto lo pone JS (gsap.from), nunca CSS; si esto falla, todo queda visible.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

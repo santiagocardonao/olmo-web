@@ -18,7 +18,7 @@ const T = lang === 'es'
       groups: { cases: 'Featured results', brands: 'Brands and stores', tools: 'Tools and AI skills' } };
 ---
 <Base lang={lang} route="portfolio" title={T.meta.title} description={T.meta.description}>
-  <PageHero label={T.label} right={`( ${ORDER.length} )`} title={T.title} lead={T.lead} pending />
+  <PageHero label={T.label} right={`( ${ORDER.length} )`} title={T.title} lead={T.lead} />
   {GROUPS.map((g, gi) => (
     <section class={`pf pf-${g.id}`} aria-labelledby={`pf-${g.id}`}>
       <div class="wrap">

@@ -1,4 +1,4 @@
-# olmo.agency · sitio nuevo
+# olmo.agency
 
 Sitio estático en Astro 7 (Node ≥ 22.22) + TypeScript, sin frameworks de UI. Animaciones con GSAP (ScrollTrigger + SplitText) solo cuando el visitante no pide `prefers-reduced-motion`.
 En producción en **https://olmo.agency** desde el 16 de octubre de 2026. `pruebas.olmo.agency` se vació y redirige (301) a olmo.agency.
@@ -13,8 +13,6 @@ npm run preview    # sirve dist/ tal como quedará en el servidor
 npx astro check    # revisa tipos
 ```
 
-Si npm falla por permisos de caché: `npm install --cache /ruta/temporal/npmcache`.
-
 ## Desplegar
 
 ```sh
@@ -22,22 +20,21 @@ npm run deploy     # = sh scripts/deploy.sh
 ```
 
 El script construye con `SITE_URL=https://olmo.agency` y `PUBLIC_NOINDEX=false` y sube `dist/` con `rsync --delete` a `www/olmo.agency/public_html/` en SiteGround, sin tocar `.well-known` (certificado SSL).
-Los datos de conexión están en `.env.deploy` (copiado de olmo-metricas, **no se versiona**): `SG_USER`, `SG_HOST`, `SG_PORT` y, opcional, `SG_KEY` (por defecto `~/.ssh/siteground_olmo`).
+Los datos de conexión están en `.env.deploy` (**no se versiona**): `SG_USER`, `SG_HOST`, `SG_PORT` y, opcional, `SG_KEY` (por defecto `~/.ssh/siteground_olmo`).
 El script se niega a subir a cualquier otro destino.
 
 ## Dónde están los textos
 
 | Qué | Archivo |
 |---|---|
-| Home ES/EN (literal de `13_textos_es_en/home.md`) | `src/i18n/home.ts` |
-| Mensajes de WhatsApp (WA-1 a WA-6), teléfono, correo, redes | `src/config.ts` |
-| Casos silBe, Undergold, Ideal Team (de `12_contenido_casos.md`) | `src/i18n/cases.ts` |
+| Home ES/EN | `src/i18n/home.ts` |
+| Mensajes de WhatsApp, teléfono, correo, redes | `src/config.ts` |
+| Casos silBe, Undergold, Ideal Team | `src/i18n/cases.ts` |
 | Rutas ES ↔ EN (selector de idioma, hreflang, sitemap) | `src/i18n/routes.ts` |
 | Páginas internas (cada una trae su texto ES/EN arriba) | `src/components/pages/*.astro` |
 | Redirecciones 301 de Framer | `public/.htaccess` |
 
 `*palabra*` en un texto = la palabra en Source Serif 4 cursiva violeta.
-El sitio no tiene lorem ipsum. Lo que falta por decidir queda como comentario `<!-- PENDIENTE -->` en el HTML (no se ve en la página): `grep -rn "PENDIENTE" src`.
 
 ## Estructura
 
