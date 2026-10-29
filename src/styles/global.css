@@ -1,7 +1,6 @@
 /* =========================================================
    Olmo · estilos globales
-   Colores y tipos de Olmo (lámina D) + diagramación Cunnet.
-   Tokens: 14_diseno.md §3
+   Colores, tipografía y retícula de Olmo.
    ========================================================= */
 
 @font-face {
@@ -138,7 +137,7 @@ table { border-collapse: collapse; }
 @media (min-width: 1200px) { .grid12 { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 30px; } }
 .sec { padding-block: var(--sec-y); }
 
-/* Rótulos de sección estilo Cunnet: borde superior + texto a los lados */
+/* Rótulos de sección: borde superior + texto a los lados */
 .labels {
   display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
   border-top: 1px solid var(--borde);
@@ -266,7 +265,7 @@ a.pill:active { transform: scale(.96); }
 /* ---------- Reveal genérico (estado oculto lo pone JS) ---------- */
 .no-anim [data-anim] { opacity: 1 !important; transform: none !important; filter: none !important; }
 
-/* Fallback global de movimiento (15_animaciones.md §1.8) */
+/* Fallback global de movimiento */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within { scroll-behavior: auto; }
   *, *::before, *::after {

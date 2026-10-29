@@ -1,6 +1,5 @@
 /**
- * Textos de la home, tomados LITERAL de 13_textos_es_en/home.md
- * (el bloque "Ajustes aprobados" y la ronda 9 de 06 mandan).
+ * Textos de la home en español e inglés.
  * Convención: *palabra* = Source Serif 4 cursiva violeta (máx. una por titular).
  */
 import type { Lang, WaId } from '../config';

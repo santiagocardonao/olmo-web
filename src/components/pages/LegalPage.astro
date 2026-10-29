@@ -51,7 +51,6 @@ const d = kind === 'terms' ? terms : privacy;
   <PageHero label={es ? 'Legal' : 'Legal'} title={d.title} />
   <section class="block">
     <div class="wrap">
-      <Fragment set:html={'<!-- PENDIENTE: texto legal definitivo, revisado por Santiago (y un abogado si aplica) -->'} />
       <div class="prose legal">
         {d.secs.map((s, i) => (
           <Fragment>
