@@ -18,9 +18,6 @@ const items = [
   { name: 'Sara Bermúdez', role: 'CMO, Undergold',
     quote: es ? 'Ha sido un proceso sencillo. Hemos llevado un par de proyectos a distancia y siempre han entregado a tiempo. ¡Recomendadooo!'
               : "It's been an easy process. We've run a couple of projects remotely and they've always delivered on time. Highly recommended!" },
-  { name: 'Steven Hurtado', role: 'IT · Astrea',
-    quote: es ? 'Captaron la esencia de nuestra marca sin necesidad de mil reuniones, y el nivel técnico de lo que entregaron es de otro mundo.'
-              : 'They captured the essence of our brand without endless meetings, and the technical quality of what they delivered is out of this world.' },
   { name: 'Andrés Felipe Roldán', role: es ? 'Productor y sonidista de cine' : 'Film producer and sound engineer',
     quote: es ? 'Buscábamos una web que funcionara como pieza de portafolio en sí misma. Nos dieron criterio estético y una ejecución rapidísima, sin mil vueltas.'
               : 'We wanted a website that worked as a portfolio piece in its own right. They brought a strong eye and very fast execution, without endless back-and-forth.' },
@@ -53,7 +50,7 @@ const initials = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w)
     font: 600 clamp(36px, 5.2vw, 76px)/1.02 var(--f-sans); letter-spacing: -0.045em; text-wrap: balance;
   }
   .tm-grid { display: grid; gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
-  @media (min-width: 768px) { .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 960px) { .tm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .tm-card figure { height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 28px;
     padding: clamp(24px, 3vw, 40px); border-radius: var(--r-img); background: var(--blanco); }
   .tm-card blockquote p { position: relative; font: 500 clamp(18px, 1.5vw, 22px)/1.45 var(--f-sans); letter-spacing: -0.015em; color: var(--tinta); text-wrap: pretty; }
