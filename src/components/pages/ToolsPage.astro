@@ -16,16 +16,16 @@ const tools = [
   {
     name: 'Olmo Métricas',
     text: es
-      ? 'Calculadora gratuita para negocios de suscripción: MRR, ARR, CLTV, CAC, LTV:CAC y punto de equilibrio. Los cálculos se hacen en Postgres.'
-      : 'A free calculator for subscription businesses: MRR, ARR, CLTV, CAC, LTV:CAC and break-even. The math runs in Postgres.',
+      ? 'Calculadora gratuita para negocios de suscripción: MRR, CLTV, CAC, LTV:CAC y punto de equilibrio, en 4 monedas y 2 idiomas, con links para compartir. Los cálculos corren en Postgres.'
+      : 'A free calculator for subscription businesses: MRR, CLTV, CAC, LTV:CAC and break-even, in 4 currencies and 2 languages, with shareable links. The math runs in Postgres.',
     live: 'https://metricas.olmo.agency', liveLabel: 'metricas.olmo.agency', repo: 'olmo-metricas',
     img: IMG.metricas, alt: es ? 'Calculadora Olmo Métricas con un cálculo de ingresos mensuales' : 'Olmo Métricas calculator showing a monthly revenue calculation',
   },
   {
     name: 'Olmo Cotiza',
     text: es
-      ? 'Genera cotizaciones a partir de texto libre: Claude estructura la información, Supabase la guarda y sale una propuesta A4 con link público.'
-      : 'Turns free text into quotes: Claude structures the information, Supabase stores it, and out comes an A4 proposal with a public link.',
+      ? 'Producto de IA en producción: de un alcance escrito a una propuesta con link público y PDF, en español o inglés. Claude (API de Anthropic) estructura el alcance y una Edge Function de Supabase lo guarda. La demo pide un correo y tiene límites de uso.'
+      : 'A production AI product: from a written scope to a proposal with a public link and PDF, in English or Spanish. Claude (Anthropic API) structures the scope and a Supabase Edge Function stores it. The demo asks for an email and is rate-limited.',
     live: 'https://cotiza.olmo.agency/demo', liveLabel: 'cotiza.olmo.agency/demo', repo: 'olmo-cotiza',
     img: IMG.cotiza, alt: es ? 'Demo de Olmo Cotiza con una lista de cotizaciones de ejemplo' : 'Olmo Cotiza demo with a list of sample quotes',
   },
@@ -53,8 +53,8 @@ const tools = [
   },
 ];
 const T = es
-  ? { meta: { title: 'Herramientas gratis: métricas, cotizador y skills de IA | Olmo', description: 'Olmo Métricas, Olmo Cotiza, Steady y dos skills de Claude. Código abierto en GitHub.' }, label: 'Herramientas', title: 'Herramientas *gratis*', lead: 'Herramientas que hice para mi propio trabajo y que comparto gratis. Todas tienen el código abierto en GitHub.', open: 'Abrir', code: 'Código en GitHub' }
-  : { meta: { title: 'Free tools: metrics, proposals and AI skills | Olmo', description: 'Olmo Métricas, Olmo Cotiza, Steady and two Claude skills. Open source on GitHub.' }, label: 'Tools', title: 'Free *tools*', lead: 'Tools I built for my own work and share for free. All of them are open source on GitHub.', open: 'Open', code: 'Code on GitHub' };
+  ? { meta: { title: 'Productos de IA: Olmo Cotiza, Métricas y skills de Claude | Santiago Cardona', description: 'Productos y herramientas que construí con Claude Code y Supabase: Olmo Cotiza, Olmo Métricas, Steady y dos skills de Claude. Código abierto en GitHub.' }, label: 'IA', title: 'Lo que *construyo* con IA', lead: 'Productos y herramientas que construí yo, de la idea a producción, con Claude Code y Supabase. El código de todos está en GitHub.', open: 'Abrir', code: 'Código en GitHub' }
+  : { meta: { title: 'AI builds: Olmo Cotiza, Métricas and Claude skills | Santiago Cardona', description: 'Products and tools I built with Claude Code and Supabase: Olmo Cotiza, Olmo Métricas, Steady and two Claude skills. Open source on GitHub.' }, label: 'AI builds', title: 'What I *build* with AI', lead: 'Products and tools I built myself, from idea to production, with Claude Code and Supabase. The code for all of them is on GitHub.', open: 'Open', code: 'Code on GitHub' };
 ---
 <Base lang={lang} route="tools" title={T.meta.title} description={T.meta.description}>
   <PageHero label={T.label} right="( 5 )" title={T.title}>

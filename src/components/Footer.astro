@@ -1,7 +1,7 @@
 ---
 import Btn from './Btn.astro';
 import LangSwitch from './LangSwitch.astro';
-import { wa, EMAIL, LINKS, WHATSAPP_DISPLAY, type Lang } from '../config';
+import { EMAIL, LINKS, type Lang } from '../config';
 import { HOME } from '../i18n/home';
 import { r, type RouteId } from '../i18n/routes';
 import { emph } from '../lib/util';
@@ -9,16 +9,17 @@ interface Props { lang: Lang; route: RouteId | null }
 const { lang, route } = Astro.props;
 const f = HOME[lang].footer;
 const ui = HOME[lang].ui;
-const pillIds: RouteId[] = ['advisory', 'portfolio', 'tools', 'about', 'terms', 'privacy'];
+const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
 const letters = [...f.bigWord];
 ---
 <div class="ft-zone" data-dark>
-<section class="cta sec" aria-labelledby="cta-title">
+<section class="cta sec" id={lang === 'es' ? 'contacto' : 'contact'} aria-labelledby="cta-title">
   <div class="wrap">
     <p class="cta-eyebrow">{f.eyebrow}</p>
     <h2 id="cta-title" class="big-title cta-title" data-split-lines set:html={emph(f.title)} />
     <div class="cta-btn" data-fade>
-      <Btn href={wa(lang, 'WA5')} label={f.button} ariaLabel={`${f.button} ${ui.newTab}`} variant="light" external data-cta="wa5-footer" />
+      <Btn href={`mailto:${EMAIL}`} label={f.button} ariaLabel={ui.ctaLabel} variant="light" data-cta="email-footer" />
+      <Btn href={LINKS.linkedin} label="LinkedIn" variant="sec" external ariaLabel={`LinkedIn ${ui.newTab}`} data-cta="linkedin-footer" />
     </div>
   </div>
 </section>
@@ -39,15 +40,14 @@ const letters = [...f.bigWord];
         <p class="ft-h">{f.emailLabel}</p>
         <a class="ft-email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
         <p class="ft-data small">
-          <a class="tlink" href={wa(lang, 'WA5')} target="_blank" rel="noopener">{f.whatsapp} {WHATSAPP_DISPLAY}<span class="sr-only"> {ui.newTab}</span></a>
-          <span aria-hidden="true"> · </span>{f.city}<span class="ft-clock" hidden><span aria-hidden="true"> · </span><time data-clock data-lang={lang}></time> {f.inCity}</span>
+          {f.city}<span class="ft-clock" hidden><span aria-hidden="true"> · </span><time data-clock data-lang={lang}></time> {f.inCity}</span>
         </p>
       </div>
     </div>
 
     <div class="ft-row ft-big">
       <a class="logo-word ft-logo" href={r('home', lang)} aria-label={ui.logoLabel}>olmo</a>
-      <a class="ft-word" href={wa(lang, 'WA5')} target="_blank" rel="noopener" aria-label={f.bigLabel} data-stretch>
+      <a class="ft-word" href={`mailto:${EMAIL}`} aria-label={f.bigLabel} data-stretch>
         {letters.map((ch) => (ch === ' ' ? <span class="sp" aria-hidden="true">&nbsp;</span> : <span class="ch" aria-hidden="true">{ch}</span>))}
       </a>
     </div>
@@ -95,7 +95,7 @@ const letters = [...f.bigWord];
   .cta { padding-block: clamp(72px, 9vw, 140px) clamp(56px, 7vw, 100px); }
   .cta-eyebrow { font: 500 16px/1.3 var(--f-sans); color: #fff; margin-bottom: 18px; }
   .cta-title { max-width: 16.5em; }
-  .cta-btn { margin-top: 40px; }
+  .cta-btn { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px; }
   .site-footer { padding-bottom: 28px; }
   .ft-row { border-top: 1px solid var(--borde-z); }
   .ft-links {

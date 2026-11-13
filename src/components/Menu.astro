@@ -1,13 +1,14 @@
 ---
 import LangSwitch from './LangSwitch.astro';
-import { wa, EMAIL, LINKS, type Lang } from '../config';
+import { EMAIL, LINKS, type Lang } from '../config';
 import { HOME } from '../i18n/home';
-import { r, SERVICES_ANCHOR, type RouteId } from '../i18n/routes';
+import { r, CONTACT_ANCHOR, type RouteId } from '../i18n/routes';
 interface Props { lang: Lang; route: RouteId | null }
 const { lang, route } = Astro.props;
 const t = HOME[lang].ui;
-const ids: (RouteId | 'services')[] = ['services', 'portfolio', 'tools', 'about'];
-const href = (id: RouteId | 'services') => (id === 'services' ? SERVICES_ANCHOR[lang] : r(id, lang));
+type NavId = 'portfolio' | 'tools' | 'about' | 'contact';
+const ids: NavId[] = ['portfolio', 'tools', 'about', 'contact'];
+const href = (id: NavId) => (id === 'contact' ? CONTACT_ANCHOR[lang] : r(id, lang));
 ---
 <div id="menu" class="menu" role="dialog" aria-modal="true" aria-label={lang === 'es' ? 'Menú' : 'Menu'} hidden>
   <div class="menu-panel">
@@ -15,13 +16,12 @@ const href = (id: RouteId | 'services') => (id === 'services' ? SERVICES_ANCHOR[
     <nav aria-label={lang === 'es' ? 'Menú principal' : 'Main menu'}>
       <ul class="menu-list">
         {ids.map((id, i) => (
-          <li><span class="menu-mask"><a href={href(id)} aria-current={route === id ? 'page' : undefined}>{t.menuItems[i]}</a></span></li>
+          <li><span class="menu-mask"><a href={href(id)} aria-current={route === id ? 'page' : undefined} data-menu-link>{t.menuItems[i]}</a></span></li>
         ))}
       </ul>
     </nav>
     <div class="menu-foot">
       <a class="tlink" href={`mailto:${EMAIL}`}>{EMAIL}</a>
-      <a class="tlink" href={wa(lang, 'WA5')} target="_blank" rel="noopener">WhatsApp <span class="sr-only">{t.newTab}</span></a>
       <a class="tlink" href={LINKS.linkedin} target="_blank" rel="noopener">LinkedIn <span class="sr-only">{t.newTab}</span></a>
       <LangSwitch lang={lang} route={route} />
     </div>

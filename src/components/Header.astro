@@ -1,21 +1,25 @@
 ---
 import Btn from './Btn.astro';
 import LangSwitch from './LangSwitch.astro';
-import { wa, type Lang } from '../config';
+import { EMAIL, type Lang } from '../config';
 import { HOME } from '../i18n/home';
-import { r, SERVICES_ANCHOR, type RouteId } from '../i18n/routes';
+import { r, CONTACT_ANCHOR, type RouteId } from '../i18n/routes';
 interface Props { lang: Lang; route: RouteId | null }
 const { lang, route } = Astro.props;
 const t = HOME[lang].ui;
-const navIds: (RouteId | 'services')[] = ['services', 'portfolio', 'tools', 'about'];
-const href = (id: RouteId | 'services') => (id === 'services' ? SERVICES_ANCHOR[lang] : r(id, lang));
-const isActive = (id: RouteId | 'services') =>
+type NavId = 'portfolio' | 'tools' | 'about' | 'contact';
+const navIds: NavId[] = ['portfolio', 'tools', 'about', 'contact'];
+const href = (id: NavId) => (id === 'contact' ? CONTACT_ANCHOR[lang] : r(id, lang));
+const isActive = (id: NavId) =>
   route === id
   || (id === 'portfolio' && (!!route?.startsWith('pf') || route === 'silbe' || route === 'undergold' || route === 'idealTeam'));
 ---
 <header class="site-header">
   <div class="wrap hdr">
-    <a class="logo-word hdr-logo grad-text" href={r('home', lang)} aria-label={t.logoLabel}>olmo</a>
+    <a class="hdr-brand" href={r('home', lang)} aria-label={t.logoLabel}>
+      <span class="logo-word hdr-logo grad-text" aria-hidden="true">olmo</span>
+      <span class="hdr-name" aria-hidden="true">{t.logoName}</span>
+    </a>
     <nav class="hdr-nav" aria-label={lang === 'es' ? 'Principal' : 'Main'}>
       <ul>
         {navIds.map((id, i) => (
@@ -25,7 +29,7 @@ const isActive = (id: RouteId | 'services') =>
     </nav>
     <div class="hdr-right">
       <LangSwitch lang={lang} route={route} />
-      <Btn class="hdr-cta" href={wa(lang, 'WA5')} label={t.waCta} ariaLabel={t.waCtaLabel} external size="sm" data-cta="wa5-header" />
+      <Btn class="hdr-cta" href={`mailto:${EMAIL}`} label={t.cta} ariaLabel={t.ctaLabel} size="sm" data-cta="email-header" />
     </div>
   </div>
 </header>
@@ -49,7 +53,10 @@ const isActive = (id: RouteId | 'services') =>
     display: flex; align-items: center;
   }
   .hdr { display: flex; align-items: center; gap: 16px; }
+  .hdr-brand { display: inline-flex; align-items: baseline; gap: 10px; }
   .hdr-logo { font-size: 30px; color: var(--tinta); padding-bottom: 4px; }
+  .hdr-name { font: 600 15px/1 var(--f-sans); letter-spacing: -0.02em; color: var(--tinta); white-space: nowrap; }
+  .hdr-name::before { content: '·'; margin-right: 10px; color: var(--gris-700); }
   .hdr-nav { display: none; margin-inline: auto; }
   .hdr-nav ul {
     display: flex; gap: 2px; padding: 5px;

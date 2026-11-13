@@ -9,8 +9,8 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const es = lang === 'es';
 const T = es
-  ? { left: 'Testimonios', title: 'No me creas a mí. *Créeles* a ellos.', aria: 'Testimonios de clientes' }
-  : { left: 'Testimonials', title: "Don't take my word for it. *Take* theirs.", aria: 'Client testimonials' };
+  ? { left: 'Referencias', title: 'Lo que dicen quienes *trabajaron* conmigo.', aria: 'Referencias de personas que trabajaron con Santiago' }
+  : { left: 'References', title: 'From the people I *worked* with.', aria: 'References from people who worked with Santiago' };
 const items = [
   { name: 'Esteban García', role: es ? 'Director de producto, silBe by Silvy' : 'Head of Product, silBe by Silvy',
     quote: es ? 'Llevo años trabajando con ellos, especialmente con Santi. Siempre nos ha ido perfecto y nos han acompañado en todo el crecimiento de la marca.'

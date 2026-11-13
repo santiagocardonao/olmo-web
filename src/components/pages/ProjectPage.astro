@@ -5,7 +5,7 @@ import PageHero from '../PageHero.astro';
 import Cover from '../Cover.astro';
 import Btn from '../Btn.astro';
 import { Picture } from 'astro:assets';
-import { wa, type Lang } from '../../config';
+import { EMAIL, type Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import { ORDER, PROJECTS, PROJECT_ROUTE, repoUrl, type ProjectId } from '../../i18n/portfolio';
 import { r } from '../../i18n/routes';
@@ -95,7 +95,7 @@ const L = es
       </a>
       <div class="next-btns">
         <Btn href={r('portfolio', lang)} label={L.all} variant="sec" arrow="none" />
-        <Btn href={wa(lang, 'WA4')} label={L.cta} ariaLabel={`${L.cta} ${ui.newTab}`} external />
+        <Btn href={`mailto:${EMAIL}`} label={ui.cta} ariaLabel={ui.ctaLabel} data-cta="email-case" />
       </div>
     </div>
   </section>

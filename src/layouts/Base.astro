@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import TopBar from '../components/TopBar.astro';
 import Menu from '../components/Menu.astro';
 import Footer from '../components/Footer.astro';
-import { NOINDEX, GTM_ID, EMAIL, LINKS, WHATSAPP_NUMBER, type Lang } from '../config';
+import { NOINDEX, GTM_ID, EMAIL, LINKS, type Lang } from '../config';
 import { ROUTES, type RouteId } from '../i18n/routes';
 import { HOME } from '../i18n/home';
 
@@ -16,35 +16,33 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   hash?: string;
+  /** Páginas de precios: se comparten por link directo y no deben salir en Google. */
+  noindex?: boolean;
 }
-const { lang, route, title, description, ogTitle, ogDescription } = Astro.props;
+const { lang, route, title, description, ogTitle, ogDescription, noindex = false } = Astro.props;
 const t = HOME[lang];
 const site = Astro.site!;
 const alt = route ? ROUTES[route] : ROUTES.home;
 const canonical = new URL(route ? alt[lang] : Astro.url.pathname, site).href;
 const ogImage = new URL(lang === 'es' ? '/og-es.jpg' : '/og-en.jpg', site).href;
-// Datos estructurados (schema.org) solo en la home: quién presta el servicio y dónde.
+// Datos estructurados (schema.org) solo en la home: la persona detrás del portafolio.
 const ld = route === 'home' ? JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  '@id': new URL('/#olmo', site).href,
-  name: 'Olmo',
+  '@type': 'ProfilePage',
   url: new URL(alt[lang], site).href,
+  name: title,
   description,
-  image: ogImage,
-  logo: new URL('/apple-touch-icon.png', site).href,
-  email: EMAIL,
-  telephone: `+${WHATSAPP_NUMBER}`,
-  areaServed: ['CO', 'Worldwide'],
-  availableLanguage: ['es', 'en'],
-  address: { '@type': 'PostalAddress', addressLocality: 'Medellín', addressRegion: 'Antioquia', addressCountry: 'CO' },
-  founder: {
+  mainEntity: {
     '@type': 'Person',
+    '@id': new URL('/#santiago', site).href,
     name: 'Santiago Cardona Ortiz',
-    jobTitle: lang === 'es' ? 'Asesor de crecimiento digital' : 'Digital growth advisor',
+    jobTitle: 'Growth Marketer, CRO & AI Builder',
+    email: `mailto:${EMAIL}`,
+    image: ogImage,
+    address: { '@type': 'PostalAddress', addressLocality: 'Medellín', addressCountry: 'CO' },
+    knowsAbout: ['Growth marketing', 'Conversion rate optimization', 'A/B testing', 'Subscription pricing', 'Claude Code', 'Supabase'],
     sameAs: [LINKS.linkedin, LINKS.github, LINKS.behance],
   },
-  sameAs: [LINKS.linkedin, LINKS.github, LINKS.behance],
 }) : null;
 ---
 <!doctype html>
@@ -63,13 +61,13 @@ const ld = route === 'home' ? JSON.stringify({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {NOINDEX && <meta name="robots" content="noindex, nofollow" />}
+    {(NOINDEX || noindex) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     {route && (
       <>
         <link rel="alternate" hreflang="es" href={new URL(alt.es, site).href} />
         <link rel="alternate" hreflang="en" href={new URL(alt.en, site).href} />
-        <link rel="alternate" hreflang="x-default" href={new URL(alt.es, site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(alt.en, site).href} />
       </>
     )}
     {ld && <script type="application/ld+json" set:html={ld} />}

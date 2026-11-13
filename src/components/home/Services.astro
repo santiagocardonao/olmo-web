@@ -1,6 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
-import { wa, type Lang } from '../../config';
+import { EMAIL, type Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import { link } from '../../lib/util';
 import asesoria from '../../assets/servicios/asesoria.jpg';
@@ -31,12 +31,13 @@ const tape = [...s.marquee, ...s.marquee, ...s.marquee];
         <li class:list={['svc-item', i === 0 && 'is-active']} data-svc>
           <a class="svc-link" href={link(lang, it.href)}>
             <span class="svc-title">{it.title}</span>
+            <span class="svc-meta">{it.kind} · <strong>{it.meta}</strong></span>
           </a>
         </li>
       ))}
     </ul>
 
-    <a class="svc-tape" href={wa(lang, 'WA5')} target="_blank" rel="noopener" aria-label={`${s.marquee[0]} ${HOME[lang].ui.newTab}`} data-cta="wa5-services">
+    <a class="svc-tape" href={`mailto:${EMAIL}`} aria-label={`${s.marquee[0]}: ${HOME[lang].ui.ctaLabel}`} data-cta="email-services">
       <span class="svc-track" aria-hidden="true">
         {[0, 1].map(() => (
           <span class="svc-run">
@@ -78,11 +79,19 @@ const tape = [...s.marquee, ...s.marquee, ...s.marquee];
   .svc-list { margin-block: clamp(32px, 6vh, 72px) auto; display: flex; flex-direction: column; gap: clamp(14px, 2.4vh, 28px); }
   .svc-link { display: block; }
   .svc-title {
+    display: block;
     font: 600 clamp(38px, 6.2vw, 108px)/.95 var(--f-sans); letter-spacing: -0.055em;
     text-transform: uppercase; text-wrap: balance;
     color: rgba(255, 255, 255, .46); transition: color .4s var(--ease-p2);
   }
   .svc-item.is-active .svc-title { color: #fff; }
+  .svc-meta {
+    display: block; margin-top: 8px; max-width: 46ch;
+    font: 400 clamp(14px, 1.1vw, 17px)/1.4 var(--f-sans); letter-spacing: 0;
+    color: rgba(255, 255, 255, .62); transition: color .4s var(--ease-p2);
+  }
+  .svc-meta strong { font-weight: 600; }
+  .svc-item.is-active .svc-meta { color: rgba(255, 255, 255, .92); }
   .svc-link:focus-visible { outline: 2px solid #fff; outline-offset: 6px; border-radius: 4px; }
 
   .svc-tape {

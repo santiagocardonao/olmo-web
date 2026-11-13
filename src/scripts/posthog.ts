@@ -15,14 +15,24 @@ async function start() {
     person_profiles: 'identified_only',
   });
 
-  // Clics a WhatsApp con nombre propio: es la conversión del sitio.
+  // Conversiones del portafolio: correo y LinkedIn (WhatsApp solo queda en las páginas de precios).
+  const EVENTS: [string, string][] = [
+    ['a[href^="mailto:"]', 'email_click'],
+    ['a[href*="linkedin.com/"]', 'linkedin_click'],
+    ['a[href*="wa.me/"]', 'whatsapp_click'],
+  ];
   document.addEventListener('click', (e) => {
-    const a = (e.target as Element | null)?.closest?.('a[href*="wa.me/"]') as HTMLAnchorElement | null;
-    if (!a) return;
-    posthog.capture('whatsapp_click', {
-      lang: document.body.dataset.lang,
-      link_text: a.textContent?.trim().slice(0, 80),
-    });
+    const el = e.target as Element | null;
+    for (const [sel, name] of EVENTS) {
+      const a = el?.closest?.(sel) as HTMLAnchorElement | null;
+      if (!a) continue;
+      posthog.capture(name, {
+        lang: document.documentElement.lang,
+        cta: a.dataset.cta,
+        link_text: a.textContent?.trim().slice(0, 80),
+      });
+      return;
+    }
   });
 }
 

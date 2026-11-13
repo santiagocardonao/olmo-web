@@ -2,8 +2,8 @@
 import Btn from '../Btn.astro';
 import Cover from '../Cover.astro';
 import { ORDER, PROJECTS, PROJECT_ROUTE } from '../../i18n/portfolio';
-import { r, SERVICES_ANCHOR } from '../../i18n/routes';
-import { LINKS, type Lang } from '../../config';
+import { r } from '../../i18n/routes';
+import { LINKS, EMAIL, type Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import { emph } from '../../lib/util';
 interface Props { lang: Lang }
@@ -15,25 +15,30 @@ const P = PROJECTS[lang];
 ---
 <section class="hero" aria-labelledby="hero-h1">
   <div class="wrap hero-inner">
-    <p class="hero-logo logo-word" aria-hidden="true">
-      {['o', 'l', 'm', 'o'].map((c) => <span class="lo"><span class="li">{c}</span></span>)}
+    <div class="hero-copy">
+      <p class="hero-eyebrow" data-hero>{h.eyebrow}</p>
+      <h1 id="hero-h1" class="hero-h1" data-hero set:html={emph(h.h1)} />
+      <p class="hero-sub support" data-hero>{h.sub}</p>
+    </div>
+
+    <ul class="hero-stats" data-hero aria-label={lang === 'es' ? 'Resultados' : 'Results'}>
+      {h.stats.map((s) => (
+        <li><span class="hs-v tnum">{s.v}</span><span class="hs-k">{s.k}</span></li>
+      ))}
+    </ul>
+    <p class="hero-press small" data-hero>
+      <a class="tlink" href={LINKS.forbes} target="_blank" rel="noopener">{h.press} ↗<span class="sr-only"> {ui.newTab}</span></a>
     </p>
 
-    <div class="grid12 hero-row">
-      <div class="hero-copy">
-        <h1 id="hero-h1" class="hero-h1" data-hero set:html={emph(h.h1)} />
-        <p class="hero-sub support" data-hero>{h.sub}</p>
+    <div class="hero-actions" data-hero>
+      <div class="hero-btns">
+        <Btn href={`mailto:${EMAIL}`} label={h.primary} ariaLabel={ui.ctaLabel} data-cta="email-hero" />
+        <Btn href={LINKS.linkedin} label="LinkedIn" variant="sec" external ariaLabel={h.linkedinLabel} data-cta="linkedin-hero" />
       </div>
-      <div class="hero-btns" data-hero>
-        <Btn href={SERVICES_ANCHOR[lang]} label={h.primary} data-cta="servicios-hero" />
-        <Btn href={h.secondaryHref} label={h.secondary} variant="sec" arrow="none" />
-      </div>
-      <div class="hero-side" data-hero>
-        <p class="hero-social small">
-          <a class="tlink" href={LINKS.linkedin} target="_blank" rel="noopener" aria-label={h.linkedinLabel}>LinkedIn ↗</a>
-          <a class="tlink" href={LINKS.github} target="_blank" rel="noopener" aria-label={h.githubLabel}>GitHub ↗</a>
-        </p>
-      </div>
+      <p class="hero-social small">
+        <a class="tlink" href={r('portfolio', lang)}>{h.secondary} →</a>
+        <a class="tlink" href={LINKS.github} target="_blank" rel="noopener" aria-label={h.githubLabel}>GitHub ↗</a>
+      </p>
     </div>
 
     <nav class="strip" aria-label={lang === 'es' ? 'Portafolio' : 'Portfolio'} data-hero>
@@ -61,53 +66,32 @@ const P = PROJECTS[lang];
   @media (min-width: 1200px) {
     .hero { min-height: min(100svh, 940px); display: flex; flex-direction: column; justify-content: flex-end; }
   }
-  .hero-logo {
-    text-align: center;
-    font-size: clamp(120px, 24vw, 330px);
-    line-height: .86;
-    letter-spacing: -0.035em;
-    color: var(--tinta);
-    margin-bottom: clamp(24px, 3vw, 44px);
-    user-select: none;
+  .hero-copy { max-width: 1100px; }
+  .hero-eyebrow {
+    font: 600 12px/1.4 var(--f-sans); letter-spacing: .18em; text-transform: uppercase;
+    color: var(--violeta); margin-bottom: 18px;
   }
-  .hero-logo .lo, .hero-logo .li { display: inline-block; }
-  /* Cada letra se mueve sola, así que cada una lleva el degradado de la palabra entera
-     desplazado a su posición (medidas en em de Cal Sans con este letter-spacing). */
-  .hero-logo .li {
-    background: var(--grad-olmo) no-repeat;
-    background-size: 2.25em 100%;
-    /* El letter-spacing negativo deja la caja más angosta que la letra y el clip cortaba la curva de la "o". */
-    padding-right: 0.08em; margin-right: -0.08em;
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .hero-logo .lo:nth-child(2) .li { background-position: -0.559em 0; }
-  .hero-logo .lo:nth-child(3) .li { background-position: -0.739em 0; }
-  .hero-logo .lo:nth-child(4) .li { background-position: -1.614em 0; }
-  .hero-row { row-gap: 28px; align-items: start; }
-  .hero-copy { grid-column: 1 / -1; }
   .hero-h1 {
-    font: 600 clamp(26px, 2.2vw, 32px)/1.15 var(--f-sans);
-    letter-spacing: -0.03em;
-    margin-bottom: 14px;
-    max-width: 22ch; text-wrap: balance;
+    font: 700 clamp(36px, 5.4vw, 80px)/1.02 var(--f-sans);
+    letter-spacing: -0.045em;
+    max-width: 17ch; text-wrap: balance;
   }
-  .hero-sub { font-size: 17px; line-height: 1.6; max-width: 46ch; }
-  .hero-btns { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px; }
-  .hero-side { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .hero-social { display: flex; gap: 18px; width: 100%; }
+  .hero-sub { margin-top: 20px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.55; max-width: 52ch; }
+  .hero-stats {
+    display: grid; gap: 0; margin-top: clamp(28px, 3.5vw, 48px);
+    border-top: 1px solid var(--borde);
+  }
+  .hero-stats li { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--borde); }
+  .hs-v { font: 700 clamp(28px, 3vw, 44px)/1 var(--f-sans); letter-spacing: -0.04em; }
+  .hs-k { font: 400 15px/1.4 var(--f-sans); color: var(--gris-700); }
   @media (min-width: 768px) {
-    .hero-copy { grid-column: 1 / span 5; }
-    .hero-btns { grid-column: 6 / span 3; flex-direction: column; align-items: flex-start; }
-    .hero-side { grid-column: 1 / -1; }
+    .hero-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 30px; border-bottom: 1px solid var(--borde); }
+    .hero-stats li { border-bottom: 0; }
   }
-  @media (min-width: 1200px) {
-    .hero-logo { text-align: center; }
-    .hero-copy { grid-column: 1 / span 4; }
-    .hero-btns { grid-column: 5 / span 4; flex-direction: row; justify-content: center; padding-top: 4px; }
-    .hero-side { grid-column: 9 / span 4; flex-direction: column; align-items: flex-end; text-align: right; padding-top: 4px; }
-    .hero-social { justify-content: flex-end; }
-  }
+  .hero-press { margin-top: 12px; color: var(--gris-700); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; margin-top: 28px; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero-social { display: flex; gap: 18px; }
 
   /* Tira de miniaturas (H4/H5): fila manual con scroll-snap, sin carrusel automático */
   .strip { margin-top: clamp(32px, 4vw, 56px); }

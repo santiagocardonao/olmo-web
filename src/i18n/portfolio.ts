@@ -1,5 +1,5 @@
 /**
- * Portafolio: 14 proyectos, en el orden en que aparecen.
+ * Portafolio: 8 proyectos, en el orden en que aparecen.
  * silBe, Undergold e Ideal Team enlazan a su caso completo; el resto tiene ficha propia en /portafolio/<slug>/.
  * Solo se publican cifras y enlaces aprobados; cualquier dato nuevo necesita aprobación antes de salir.
  */
@@ -7,25 +7,22 @@ import type { Lang } from '../config';
 import type { RouteId } from './routes';
 
 export type ProjectId =
-  | 'silbe' | 'undergold' | 'ideal' | 'balparaiso' | 'miaplus' | 'zafiro'
-  | 'vieli' | 'sarabe' | 'ilmin' | 'itaca' | 'metricas' | 'cotiza' | 'espanol' | 'dsa';
+  | 'silbe' | 'cotiza' | 'ilmin' | 'undergold' | 'ideal' | 'metricas' | 'espanol' | 'dsa';
 
 export const ORDER: ProjectId[] = [
-  'silbe', 'undergold', 'ideal',
-  'balparaiso', 'miaplus', 'zafiro', 'vieli', 'sarabe', 'ilmin', 'itaca',
-  'metricas', 'cotiza', 'espanol', 'dsa',
+  'silbe', 'ilmin', 'undergold', 'ideal',
+  'cotiza', 'metricas', 'espanol', 'dsa',
 ];
 
 /** Ruta de cada proyecto: caso completo o ficha del portafolio. */
 export const PROJECT_ROUTE: Record<ProjectId, RouteId> = {
   silbe: 'silbe', undergold: 'undergold', ideal: 'idealTeam', ilmin: 'pfIlmin',
-  balparaiso: 'pfBalparaiso', miaplus: 'pfMiaplus', zafiro: 'pfZafiro', vieli: 'pfVieli', sarabe: 'pfSarabe', itaca: 'pfItaca',
   metricas: 'pfMetricas', cotiza: 'pfCotiza', espanol: 'pfEspanol', dsa: 'pfDsa',
 };
 
 /** Slug de la ficha (igual en ES y EN). */
 export const SLUG: Partial<Record<ProjectId, string>> = {
-  balparaiso: 'balparaiso', miaplus: 'mia-plus', zafiro: 'zafiro', vieli: 'vieli', sarabe: 'sarabe', ilmin: 'ilmin', itaca: 'itaca',
+  ilmin: 'ilmin',
   metricas: 'olmo-metricas', cotiza: 'olmo-cotiza', espanol: 'espanol-natural', dsa: 'design-system-adherence',
 };
 
@@ -52,121 +49,30 @@ export interface Project {
 const GH = 'https://github.com/santiagocardonao/';
 
 const es: Record<ProjectId, Project> = {
-  silbe: { name: 'silBe by Silvy', tag: 'Growth y producto · 2020–2026' },
-  undergold: { name: 'Undergold', tag: 'Marketplace B2B · Concepto y desarrollo con IA' },
-  ideal: { name: 'Ideal Team', tag: 'Agencia con 40+ clientes · Web y operación' },
-  balparaiso: {
-    name: 'Balparaiso',
-    tag: 'Diseño y desarrollo web',
-    headline: 'Moda de Medellín, *vestida* para vender.',
-    lead: 'Marca de moda masculina de alta gama de Medellín. Mezcla prêt-à-porter y streetwear con esencia latinoamericana.',
-    facts: [{ k: 'Rol', v: 'Diseño y desarrollo web' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Moda' }],
-    did: ['Diseñé el sitio y el recorrido de compra.', 'Desarrollé la tienda en Shopify.'],
-    live: { href: 'https://balparaiso.com/', label: 'balparaiso.com' },
-    meta: { title: 'Balparaiso: diseño y desarrollo web | Olmo', description: 'Diseño y desarrollo de la tienda en Shopify de Balparaiso, marca de moda masculina de alta gama de Medellín.' },
-  },
-  miaplus: {
-    name: 'Mía+',
-    tag: 'Diseño y desarrollo web',
-    headline: 'Una farmacia que se *entiende* en línea.',
-    lead: 'Farmacia Mía+ está en Puerto Rico. Su equipo de farmacéuticos prepara medicamentos a la medida de cada paciente.',
-    facts: [{ k: 'Rol', v: 'Diseño, desarrollo y automatización' }, { k: 'Plataforma', v: 'Shopify, Make y Fillout' }, { k: 'Sector', v: 'Salud, Puerto Rico' }],
-    about: 'Tenían un sitio básico en WordPress. No solo lo rediseñé en Shopify: también armé un portal de compra exclusivo para médicos verificados y un sistema de pedidos para clientes B2B.',
-    did: [
-      { t: 'De WordPress a Shopify', d: 'Rediseñé el sitio y lo migré a Shopify, con sus servicios explicados de forma clara.' },
-      { t: 'Portal para médicos', d: 'Diseñé un acceso exclusivo para profesionales: con automatizaciones en Make, solo los médicos verificados entran a su propio portal de compra.' },
-      { t: 'Pedidos B2B', d: 'Monté con Fillout los formularios para que los clientes B2B hagan sus pedidos sin llamadas ni correos de ida y vuelta.' },
-    ],
-    live: { href: 'https://farmaciamiapr.com/', label: 'farmaciamiapr.com' },
-    meta: { title: 'Mía+: diseño y desarrollo web | Olmo', description: 'Farmacia Mía+ (Puerto Rico): de WordPress a Shopify, con un portal de compra para médicos verificados y pedidos B2B automatizados.' },
-  },
-  zafiro: {
-    name: 'Zafiro Clothing Corp',
-    tag: 'Diseño y desarrollo web',
-    headline: 'Más de 30 marcas en *una sola* tienda.',
-    lead: 'Tienda multimarca de ropa masculina en Puerto Rico, con tiendas físicas y venta online a Puerto Rico y Estados Unidos.',
-    facts: [{ k: 'Rol', v: 'Estrategia, diseño y desarrollo web' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Moda, Puerto Rico' }],
-    about: 'Tenían un sitio muy básico en WordPress. Reorganicé todo el catálogo, migré la tienda a Shopify y la dejé lista para sumar nuevas marcas.',
-    did: [
-      { t: 'Catálogo reorganizado', d: 'Recategoricé todos los productos y reconstruí el menú para que cada cliente encuentre rápido su marca y su talla.' },
-      { t: 'Nueva navegación', d: 'Diseñé un sistema de navegación por marca y por categoría.' },
-      { t: 'Más marcas', d: 'Sumamos alianzas con marcas nuevas que querían vender en el marketplace.' },
-      { t: 'De WordPress a Shopify', d: 'Migré toda la tienda a Shopify.' },
-    ],
-    live: { href: 'https://www.zafiroshop.com/', label: 'zafiroshop.com' },
-    meta: { title: 'Zafiro Clothing: diseño y desarrollo web | Olmo', description: 'Zafiro Clothing (Puerto Rico): catálogo recategorizado, nueva navegación por marca, nuevas marcas aliadas y migración de WordPress a Shopify.' },
-  },
-  vieli: {
-    name: 'Vieli',
-    tag: 'Cofundador y COO · 8 años',
-    headline: 'Ocho años dirigiendo *un estudio*.',
-    lead: 'Estudio digital de 30 personas que cofundé en Medellín y dirigí como COO de 2017 a 2025, con clientes en Colombia, Puerto Rico y Argentina.',
-    facts: [{ k: 'Rol', v: 'Cofundador y COO' }, { k: 'Años', v: '2017–2025' }, { k: 'Equipo', v: '30 personas' }],
-    about: 'En Vieli hicimos sitios web, apps, tiendas online y marcas. Más de 100 proyectos entregados, y todos los clientes llegaron por referidos o aliados: nunca pagamos para conseguir clientes.',
-    stats: [
-      { v: '+100', k: 'proyectos entregados' },
-      { v: '100 %', k: 'de los clientes llegaron por referidos' },
-      { v: '300.000', k: 'personas en la comunidad de una creadora de yoga, que empezó en 10.000' },
-    ],
-    did: [
-      { t: 'Entrada de clientes', d: 'Recibía a cada cliente nuevo: evaluaba si encajaba, definía el alcance, cotizaba y pasaba el proyecto al equipo.' },
-      { t: 'Del pedido a los requisitos', d: 'Traducía lo que pedía el cliente en requisitos para diseño y desarrollo, y cuidaba el alcance hasta el lanzamiento.' },
-      { t: 'Un estudio que no dependía de mí', d: 'Documenté cómo trabajaba el estudio, de la primera conversación a la entrega, para que un equipo remoto de 30 personas funcionara sin depender de mí.' },
-      { t: 'Apps y comunidad', d: 'Lanzamos apps con Hotmart y FitBudd, y llevamos la comunidad de una creadora de yoga de 10.000 a más de 300.000 personas.' },
-    ],
-    live: { href: 'https://vieli.com.co/', label: 'vieli.com.co' },
-    meta: { title: 'Vieli: cofundador y COO durante 8 años | Olmo', description: 'Estudio digital de 30 personas que cofundé y dirigí como COO de 2017 a 2025: más de 100 proyectos, todos por referidos.' },
-  },
-  sarabe: {
-    name: 'SaraBe',
-    tag: 'Escritora y conferencista · Web',
-    headline: 'Una web con un camino de compra *para cada* servicio.',
-    lead: 'Sara Betancur es escritora y conferencista. Sus servicios estaban regados en varios canales y costaba entender qué ofrecía.',
-    facts: [{ k: 'Rol', v: 'Estrategia, diseño y desarrollo web' }, { k: 'Ventas', v: 'Shopify y WhatsApp' }, { k: 'Sector', v: 'Marca personal' }],
-    about: 'Reuní toda la información en una sola web para que sus servicios fueran fáciles de verificar y de entender.',
-    did: [
-      'Cada servicio lleva un llamado a la acción directo: los productos físicos se compran en Shopify y las asesorías se agendan por WhatsApp.',
-      'Redirigí tráfico de todos los canales a Patreon y a sus podcasts y entrevistas en Spotify.',
-    ],
-    live: { href: 'https://sarabetancur.com/', label: 'sarabetancur.com' },
-    meta: { title: 'SaraBe: una web para cada servicio | Olmo', description: 'Web de Sara Betancur, escritora y conferencista: cada servicio con su camino de compra, en Shopify o por WhatsApp.' },
-  },
+  silbe: { name: 'silBe by Silvy', tag: 'Growth, CRO y producto · 2020–2026' },
+  undergold: { name: 'Undergold', tag: 'Catálogo B2B · Shopify, Supabase y Vercel' },
+  ideal: { name: 'Ideal Team', tag: 'Rendimiento web · 14 sitios' },
   ilmin: {
     name: 'ILMIN',
-    tag: 'Perfumes · Asesoría de marca y e-commerce',
+    tag: 'Perfumería · Líder de marketing y e-commerce',
     headline: '+25 % en ventas digitales *en tres* meses.',
-    lead: 'ILMIN es una marca de perfumería nicho de Medellín. Además de su tienda online, asumí la dirección de toda su estrategia de marketing.',
-    facts: [{ k: 'Rol', v: 'Asesoría de marca, marketing y e-commerce' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Perfumería nicho' }],
-    about: 'Empecé por el e-commerce y hoy hago una asesoría general de marca: fortalecer a ILMIN en Colombia y prepararla para abrir mercados internacionales.',
+    lead: 'ILMIN es una marca de perfumería nicho de Medellín. Lidero su marketing y su e-commerce, y en los primeros 3 meses las ventas digitales crecieron 25 %.',
+    facts: [{ k: 'Rol', v: 'Líder de marketing y e-commerce' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Perfumería nicho' }],
+    about: 'Empecé por la tienda online y hoy respondo por todo el marketing de la marca: crecer en Colombia y dejarla lista para mercados internacionales.',
     did: [
-      { t: 'Estrategia de marketing', d: 'Dirijo toda la estrategia de marketing de la marca.' },
-      { t: 'Tienda online', d: 'Me encargo de la tienda en Shopify y del canal digital, que creció 25 % en ventas en los primeros 3 meses.' },
-      { t: 'Tiendas físicas', d: 'Acompaño la apertura de tres tiendas físicas.' },
-      { t: 'Portafolio y mercados', d: 'Depuramos el portafolio de productos y preparamos la marca para salir a mercados internacionales.' },
+      { t: 'Estrategia de marketing', d: 'Defino y dirijo la estrategia de marketing de la marca.' },
+      { t: 'Tienda online', d: 'Me hago cargo de la tienda en Shopify y del canal digital, que creció 25 % en ventas en los primeros 3 meses.' },
+      { t: 'Portafolio y mercados', d: 'Ayudé a depurar el portafolio de productos y a preparar la marca para mercados internacionales.' },
     ],
     live: { href: 'https://www.ilmin.com/', label: 'ilmin.com' },
-    meta: { title: 'ILMIN: +25 % en ventas digitales en 3 meses | Olmo', description: 'Dirección de marketing y e-commerce para ILMIN, perfumería nicho de Medellín: +25 % en ventas digitales en los primeros 3 meses.' },
-  },
-  itaca: {
-    name: 'Ítaca Clothing',
-    tag: 'Diseño y desarrollo web',
-    headline: 'Ropa de ciclismo, *probada* en la montaña.',
-    lead: 'Marca de ropa para MTB: jerseys, pantalones y guantes para enduro, gravel, XC y ruta, desarrollados y probados por el ciclista Marcelo Gutiérrez.',
-    facts: [{ k: 'Rol', v: 'Diseño y desarrollo web' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Ropa deportiva' }],
-    about: 'Ítaca era una marca nueva que apenas salía al mercado. Diseñé desde cero su tienda en Shopify para mostrar la experiencia de Marcelo, su fundador, y dar confianza a quien compra ropa de mountain bike y ciclismo por primera vez.',
-    did: [
-      { t: 'Tienda desde cero', d: 'Diseñé y desarrollé el e-commerce completo en Shopify.' },
-      { t: 'La experiencia del fundador', d: 'El sitio cuenta que cada prenda la prueba Marcelo en la montaña, para que el comprador confíe en una marca nueva.' },
-    ],
-    live: { href: 'https://itacaclothing.com/', label: 'itacaclothing.com' },
-    meta: { title: 'Ítaca Clothing: diseño y desarrollo web | Olmo', description: 'Tienda en Shopify diseñada desde cero para Ítaca Clothing, marca nueva de ropa MTB probada por Marcelo Gutiérrez.' },
+    meta: { title: 'ILMIN: +25 % en ventas digitales en 3 meses | Santiago Cardona', description: 'Lidero el marketing y el e-commerce de ILMIN, perfumería nicho de Medellín: +25 % en ventas digitales en los primeros 3 meses.' },
   },
   metricas: {
     name: 'Olmo Métricas',
     tag: 'Calculadora de suscripciones',
     headline: 'Las cuentas de una suscripción, *en minutos*.',
-    lead: 'Calculadora gratuita para negocios de suscripción: apps, streaming, música y SaaS.',
-    facts: [{ k: 'Tipo', v: 'Herramienta gratuita' }, { k: 'Tecnología', v: 'React y Supabase (Postgres)' }, { k: 'Idiomas', v: 'Español e inglés' }],
+    lead: 'Una calculadora gratuita que construí para negocios de suscripción: apps, streaming, música y SaaS.',
+    facts: [{ k: 'Tipo', v: 'Herramienta gratuita, en producción' }, { k: 'Tecnología', v: 'React y Supabase (Postgres)' }, { k: 'Idiomas', v: 'Español e inglés' }],
     about: 'Pones usuarios, churn, precio, comisiones de pago, crecimiento y costos, y te devuelve MRR, ingresos anuales, CLTV, CAC, LTV:CAC, recuperación de la inversión, utilidad y punto de equilibrio. Incluye un semáforo de diagnóstico y un PDF de dos páginas.',
     did: [
       'Todos los cálculos viven en una sola función de Postgres, así que hay una única fuente de verdad.',
@@ -175,23 +81,23 @@ const es: Record<ProjectId, Project> = {
     ],
     live: { href: 'https://metricas.olmo.agency/', label: 'metricas.olmo.agency' },
     repo: 'olmo-metricas',
-    meta: { title: 'Olmo Métricas: calculadora de suscripciones | Olmo', description: 'Calculadora gratuita de MRR, CLTV, CAC, LTV:CAC y punto de equilibrio para negocios de suscripción.' },
+    meta: { title: 'Olmo Métricas: calculadora de suscripciones | Santiago Cardona', description: 'Calculadora gratuita de MRR, CLTV, CAC, LTV:CAC y punto de equilibrio para negocios de suscripción.' },
   },
   cotiza: {
     name: 'Olmo Cotiza',
-    tag: 'Cotizaciones con IA',
-    headline: 'Del texto libre a una *propuesta* lista.',
-    lead: 'Generador de cotizaciones: escribes el alcance y los precios en texto libre, y sale una propuesta con la marca de Olmo, link público y PDF.',
-    facts: [{ k: 'Tipo', v: 'Herramienta propia, en uso con clientes' }, { k: 'Tecnología', v: 'Supabase, Edge Functions y la API de Claude' }],
-    about: 'Claude ordena la información, las reglas del negocio la validan y las plantillas del sistema de diseño de Olmo arman la propuesta. Todo queda guardado en Postgres, así que se puede consultar cuánto se cotizó, a quién, qué se abrió y qué se cerró.',
+    tag: 'Producto de IA en producción · Claude + Supabase',
+    headline: 'Un alcance escrito entra, una *propuesta* sale.',
+    lead: 'Un producto de IA que construí de principio a fin con Claude Code. Escribes el alcance en texto libre y devuelve una propuesta con link público y PDF, en español o en inglés. Está en producción y se ha usado para propuestas reales.',
+    facts: [{ k: 'Mi rol', v: 'Producto, diseño y código, de principio a fin' }, { k: 'Tecnología', v: 'Claude (API de Anthropic), Supabase Postgres y una Edge Function' }, { k: 'Estado', v: 'En producción, código abierto' }],
+    about: 'Claude ordena el alcance, las reglas del negocio lo validan y las plantillas del sistema de diseño arman la propuesta. Todo queda en Postgres, así que se puede consultar qué se cotizó, a quién, qué se abrió y qué se cerró.',
     did: [
-      'Lo construí con Claude Code sobre Supabase: Postgres con seguridad por filas, Edge Functions y tareas programadas.',
-      'El modelo redacta y estructura; las plantillas mandan en el diseño, así que cada propuesta sale consistente.',
-      'Las propuestas salen en español o en inglés.',
+      'Lo construí con Claude Code sobre Supabase: Postgres con seguridad por filas y una Edge Function (generate-quote) que llama a la API de Claude.',
+      'La demo pública pide un correo y tiene límites: 3 cotizaciones al día por correo y 40 en total. Las cotizaciones de visitantes se borran solas a los 7 días.',
+      'El modelo redacta y estructura; las plantillas mandan en el diseño, así que cada propuesta sale igual de consistente en español y en inglés.',
     ],
     live: { href: 'https://cotiza.olmo.agency/demo', label: 'cotiza.olmo.agency/demo' },
     repo: 'olmo-cotiza',
-    meta: { title: 'Olmo Cotiza: cotizaciones con IA | Olmo', description: 'Generador de cotizaciones con Claude y Supabase: del texto libre a una propuesta con link público y PDF.' },
+    meta: { title: 'Olmo Cotiza: producto de IA con Claude y Supabase | Santiago Cardona', description: 'Producto de IA que construí con Claude Code: de un alcance escrito a una propuesta con link público y PDF, en producción.' },
   },
   espanol: {
     name: 'Español natural',
@@ -206,7 +112,7 @@ const es: Record<ProjectId, Project> = {
       'Un banco de calcos y muletillas, con contraejemplos para no corregir de más.',
     ],
     repo: 'espanol-natural',
-    meta: { title: 'Español natural: skill para Claude | Olmo', description: 'Skill de código abierto para que Claude escriba en español nativo, no en traducción del inglés.' },
+    meta: { title: 'Español natural: skill para Claude | Santiago Cardona', description: 'Skill de código abierto para que Claude escriba en español nativo, no en traducción del inglés.' },
   },
   dsa: {
     name: 'Design System Adherence',
@@ -221,126 +127,35 @@ const es: Record<ProjectId, Project> = {
       'La severidad se calcula: dos corridas con los mismos datos dan el mismo resultado.',
     ],
     repo: 'design-system-adherence',
-    meta: { title: 'Design System Adherence: skill para Claude | Olmo', description: 'Skill de Claude que audita si un entregable sigue su design system, con color y contraste medidos por scripts.' },
+    meta: { title: 'Design System Adherence: skill para Claude | Santiago Cardona', description: 'Skill de Claude que audita si un entregable sigue su design system, con color y contraste medidos por scripts.' },
   },
 };
 
 const en: Record<ProjectId, Project> = {
-  silbe: { name: 'silBe by Silvy', tag: 'Growth & product · 2020–2026' },
-  undergold: { name: 'Undergold', tag: 'B2B marketplace · Concept & AI development' },
-  ideal: { name: 'Ideal Team', tag: 'Agency with 40+ clients · Web & operations' },
-  balparaiso: {
-    name: 'Balparaiso',
-    tag: 'Web design & development',
-    headline: 'Medellín fashion, *dressed* to sell.',
-    lead: 'A high-end menswear brand from Medellín. It blends prêt-à-porter and streetwear with a Latin American feel.',
-    facts: [{ k: 'Role', v: 'Web design & development' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Fashion' }],
-    did: ['I designed the site and the path to purchase.', 'I built the store on Shopify.'],
-    live: { href: 'https://balparaiso.com/', label: 'balparaiso.com' },
-    meta: { title: 'Balparaiso: web design & development | Olmo', description: 'Design and development of the Shopify store for Balparaiso, a high-end menswear brand from Medellín.' },
-  },
-  miaplus: {
-    name: 'Mía+',
-    tag: 'Web design & development',
-    headline: 'A pharmacy that makes *sense* online.',
-    lead: 'Farmacia Mía+ is in Puerto Rico. Its team of pharmacists prepares medication tailored to each patient.',
-    facts: [{ k: 'Role', v: 'Design, development & automation' }, { k: 'Platform', v: 'Shopify, Make & Fillout' }, { k: 'Industry', v: 'Health, Puerto Rico' }],
-    about: 'They had a basic WordPress site. I didn\'t just redesign it on Shopify: I also built a private store for verified doctors and an ordering system for B2B clients.',
-    did: [
-      { t: 'From WordPress to Shopify', d: 'I redesigned the site and moved it to Shopify, with its services explained clearly.' },
-      { t: 'A portal for doctors', d: 'I designed private access for professionals: with Make automations, only verified doctors get into their own store.' },
-      { t: 'B2B orders', d: 'I set up Fillout forms so B2B clients can place orders without back-and-forth calls or emails.' },
-    ],
-    live: { href: 'https://farmaciamiapr.com/', label: 'farmaciamiapr.com' },
-    meta: { title: 'Mía+: web design & development | Olmo', description: 'Farmacia Mía+ (Puerto Rico): from WordPress to Shopify, with a private store for verified doctors and automated B2B orders.' },
-  },
-  zafiro: {
-    name: 'Zafiro Clothing Corp',
-    tag: 'Web design & development',
-    headline: '30+ brands in *one* store.',
-    lead: 'A multi-brand menswear retailer in Puerto Rico, with physical stores and online sales to Puerto Rico and the US.',
-    facts: [{ k: 'Role', v: 'Web strategy, design & development' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Fashion, Puerto Rico' }],
-    about: 'They had a very basic WordPress site. I reorganized the whole catalog, moved the store to Shopify and set it up to add new brands.',
-    did: [
-      { t: 'A reorganized catalog', d: 'I recategorized every product and rebuilt the menu so shoppers find their brand and size fast.' },
-      { t: 'New navigation', d: 'I designed a way to browse by brand and by category.' },
-      { t: 'More brands', d: 'We brought in partnerships with new brands that wanted to sell on the marketplace.' },
-      { t: 'From WordPress to Shopify', d: 'I moved the whole store to Shopify.' },
-    ],
-    live: { href: 'https://www.zafiroshop.com/', label: 'zafiroshop.com' },
-    meta: { title: 'Zafiro Clothing: web design & development | Olmo', description: 'Zafiro Clothing (Puerto Rico): a recategorized catalog, browsing by brand, new partner brands and a move from WordPress to Shopify.' },
-  },
-  vieli: {
-    name: 'Vieli',
-    tag: 'Co-founder & COO · 8 years',
-    headline: 'Eight years running *a studio*.',
-    lead: 'A 30-person digital studio I co-founded in Medellín and ran as COO from 2017 to 2025, with clients in Colombia, Puerto Rico and Argentina.',
-    facts: [{ k: 'Role', v: 'Co-founder & COO' }, { k: 'Years', v: '2017–2025' }, { k: 'Team', v: '30 people' }],
-    about: 'At Vieli we built websites, apps, online stores and brands. 100+ projects delivered, and every client came through a referral or a partner: we never paid for acquisition.',
-    stats: [
-      { v: '100+', k: 'projects delivered' },
-      { v: '100%', k: 'of clients came through referrals' },
-      { v: '300,000', k: "people in a yoga creator's community, up from 10,000" },
-    ],
-    did: [
-      { t: 'Client intake', d: 'I took in every new client: checked the fit, scoped the work, priced it and handed it to the team.' },
-      { t: 'From brief to requirements', d: 'I turned client needs into requirements for design and development, and kept scope in check through launch.' },
-      { t: "A studio that didn't need me", d: 'I documented how the studio worked, from first conversation to delivery, so a remote team of 30 could run without depending on me.' },
-      { t: 'Apps and community', d: "We launched apps with Hotmart and FitBudd, and grew a yoga creator's community from 10,000 to more than 300,000 people." },
-    ],
-    live: { href: 'https://vieli.com.co/', label: 'vieli.com.co' },
-    meta: { title: 'Vieli: co-founder & COO for 8 years | Olmo', description: 'A 30-person digital studio I co-founded and ran as COO from 2017 to 2025: 100+ projects, all from referrals.' },
-  },
-  sarabe: {
-    name: 'SaraBe',
-    tag: 'Writer and speaker · Web',
-    headline: 'One website with a path to purchase *for each* service.',
-    lead: 'Sara Betancur is a writer and speaker. Her services were spread across several channels, and it was hard to tell what she offered.',
-    facts: [{ k: 'Role', v: 'Strategy, web design & development' }, { k: 'Sales', v: 'Shopify and WhatsApp' }, { k: 'Industry', v: 'Personal brand' }],
-    about: 'I brought everything together on one website so her services were easy to verify and understand.',
-    did: [
-      'Every service has a direct call to action: people buy physical products on Shopify and book consultations over WhatsApp.',
-      'I routed traffic from every channel to Patreon and to her podcasts and interviews on Spotify.',
-    ],
-    live: { href: 'https://sarabetancur.com/', label: 'sarabetancur.com' },
-    meta: { title: 'SaraBe: one website for every service | Olmo', description: 'Website for Sara Betancur, writer and speaker: every service has its own path to purchase, on Shopify or over WhatsApp.' },
-  },
+  silbe: { name: 'silBe by Silvy', tag: 'Growth, CRO & product · 2020–2026' },
+  undergold: { name: 'Undergold', tag: 'B2B catalog · Shopify, Supabase & Vercel' },
+  ideal: { name: 'Ideal Team', tag: 'Web performance · 14 sites' },
   ilmin: {
     name: 'ILMIN',
-    tag: 'Fragrance · Brand advisory & e-commerce',
+    tag: 'Fragrance · Marketing & e-commerce lead',
     headline: '+25% digital sales *in three* months.',
-    lead: 'ILMIN is a niche fragrance brand from Medellín. Beyond their online store, I took over their whole marketing strategy.',
-    facts: [{ k: 'Role', v: 'Brand advisory, marketing & e-commerce' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Niche fragrance' }],
-    about: 'I started with the online store. Today I advise the whole brand: making ILMIN stronger in Colombia and getting it ready for international markets.',
+    lead: 'ILMIN is a niche fragrance brand from Medellín. I lead its marketing and e-commerce, and digital sales grew 25% in the first 3 months.',
+    facts: [{ k: 'Role', v: 'Marketing & e-commerce lead' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Niche fragrance' }],
+    about: 'I started with the online store. Now I own the brand\'s marketing: growing ILMIN in Colombia and getting it ready for international markets.',
     did: [
-      { t: 'Marketing strategy', d: 'I lead the brand\'s whole marketing strategy.' },
-      { t: 'Online store', d: 'I run the Shopify store and the digital channel, where sales grew 25% in the first 3 months.' },
-      { t: 'Physical stores', d: 'I\'m helping open three physical stores.' },
-      { t: 'Products and markets', d: 'We trimmed the product range and are getting the brand ready for international markets.' },
+      { t: 'Marketing strategy', d: 'I set and run the brand\'s marketing strategy.' },
+      { t: 'Online store', d: 'I own the Shopify store and the digital channel, where sales grew 25% in the first 3 months.' },
+      { t: 'Products and markets', d: 'I helped trim the product range and get the brand ready for international markets.' },
     ],
     live: { href: 'https://www.ilmin.com/', label: 'ilmin.com' },
-    meta: { title: 'ILMIN: +25% digital sales in 3 months | Olmo', description: 'Marketing leadership and e-commerce for ILMIN, a niche fragrance brand from Medellín: +25% digital sales in the first 3 months.' },
-  },
-  itaca: {
-    name: 'Ítaca Clothing',
-    tag: 'Web design & development',
-    headline: 'Cycling apparel, *tested* on the trail.',
-    lead: 'An MTB apparel brand: jerseys, pants and gloves for enduro, gravel, XC and road, developed and tested by rider Marcelo Gutiérrez.',
-    facts: [{ k: 'Role', v: 'Web design & development' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Sportswear' }],
-    about: 'Ítaca was a brand-new label just coming to market. I designed its Shopify store from scratch to show the experience of Marcelo, its founder, and give first-time buyers of mountain bike and cycling gear a reason to trust it.',
-    did: [
-      { t: 'A store from scratch', d: 'I designed and built the whole Shopify store.' },
-      { t: 'The founder\'s experience', d: 'The site shows that Marcelo tests every piece on the trail, so buyers can trust a new brand.' },
-    ],
-    live: { href: 'https://itacaclothing.com/', label: 'itacaclothing.com' },
-    meta: { title: 'Ítaca Clothing: web design & development | Olmo', description: 'A Shopify store designed from scratch for Ítaca Clothing, a new MTB apparel brand tested by Marcelo Gutiérrez.' },
+    meta: { title: 'ILMIN: +25% digital sales in 3 months | Santiago Cardona', description: 'I lead marketing and e-commerce for ILMIN, a niche fragrance brand from Medellín: +25% digital sales in the first 3 months.' },
   },
   metricas: {
     name: 'Olmo Métricas',
     tag: 'Subscription calculator',
     headline: 'Subscription math, *in minutes*.',
-    lead: 'A free calculator for subscription businesses: apps, streaming, music and SaaS.',
-    facts: [{ k: 'Type', v: 'Free tool' }, { k: 'Stack', v: 'React and Supabase (Postgres)' }, { k: 'Languages', v: 'Spanish and English' }],
+    lead: 'A free calculator I built for subscription businesses: apps, streaming, music and SaaS.',
+    facts: [{ k: 'Type', v: 'Free tool, live' }, { k: 'Stack', v: 'React and Supabase (Postgres)' }, { k: 'Languages', v: 'Spanish and English' }],
     about: 'Enter users, churn, price, payment fees, growth and costs, and get MRR, annual revenue, CLTV, CAC, LTV:CAC, payback, profit and break-even. It includes a traffic-light diagnosis and a two-page PDF.',
     did: [
       'All the math lives in a single Postgres function, so there is one source of truth.',
@@ -349,23 +164,23 @@ const en: Record<ProjectId, Project> = {
     ],
     live: { href: 'https://metricas.olmo.agency/', label: 'metricas.olmo.agency' },
     repo: 'olmo-metricas',
-    meta: { title: 'Olmo Métricas: subscription calculator | Olmo', description: 'A free MRR, CLTV, CAC, LTV:CAC and break-even calculator for subscription businesses.' },
+    meta: { title: 'Olmo Métricas: subscription calculator | Santiago Cardona', description: 'A free MRR, CLTV, CAC, LTV:CAC and break-even calculator for subscription businesses.' },
   },
   cotiza: {
     name: 'Olmo Cotiza',
-    tag: 'AI quote builder',
-    headline: 'From free text to a *ready* proposal.',
-    lead: 'A quote generator: you write the scope and prices in plain text, and out comes an Olmo-branded proposal with a public link and a PDF.',
-    facts: [{ k: 'Type', v: 'In-house tool, used with clients' }, { k: 'Stack', v: 'Supabase, Edge Functions and the Claude API' }],
-    about: 'Claude structures the information, business rules validate it, and templates from the Olmo design system assemble the proposal. Everything is stored in Postgres, so you can see what was quoted, to whom, what was opened and what was closed.',
+    tag: 'Production AI product · Claude + Supabase',
+    headline: 'A written scope in, a *proposal* out.',
+    lead: 'A production AI product I shipped end to end with Claude Code. You write the scope in plain text and get back a proposal with a public link and a PDF, in English or Spanish. It is live and has been used for real proposals.',
+    facts: [{ k: 'My role', v: 'Product, design and code, end to end' }, { k: 'Stack', v: 'Claude (Anthropic API), Supabase Postgres and an Edge Function' }, { k: 'Status', v: 'Live, open source' }],
+    about: 'Claude structures the scope, business rules validate it, and design-system templates lay out the proposal. Everything is stored in Postgres, so you can see what was quoted, to whom, what was opened and what was closed.',
     did: [
-      'I built it with Claude Code on Supabase: Postgres with row-level security, Edge Functions and scheduled jobs.',
-      'The model drafts and structures; the templates own the design, so every proposal comes out consistent.',
-      'Proposals come out in Spanish or English.',
+      'I built it with Claude Code on Supabase: Postgres with row-level security and an Edge Function (generate-quote) that calls the Claude API.',
+      'The public demo asks for an email and is rate-limited: 3 quotes a day per email and 40 in total. Visitor quotes delete themselves after 7 days.',
+      'The model drafts and structures; the templates own the layout, so every proposal comes out consistent in English and Spanish.',
     ],
     live: { href: 'https://cotiza.olmo.agency/demo', label: 'cotiza.olmo.agency/demo' },
     repo: 'olmo-cotiza',
-    meta: { title: 'Olmo Cotiza: AI quote builder | Olmo', description: 'A quote generator built on Claude and Supabase: from plain text to a proposal with a public link and PDF.' },
+    meta: { title: 'Olmo Cotiza: an AI product on Claude and Supabase | Santiago Cardona', description: 'A production AI product I built with Claude Code: from a written scope to a proposal with a public link and PDF.' },
   },
   espanol: {
     name: 'Español natural',
@@ -380,7 +195,7 @@ const en: Record<ProjectId, Project> = {
       'A bank of calques from English and filler phrases, with counterexamples so it doesn\'t over-correct.',
     ],
     repo: 'espanol-natural',
-    meta: { title: 'Español natural: a Claude skill | Olmo', description: 'An open-source skill that makes Claude write native Spanish, not translated English.' },
+    meta: { title: 'Español natural: a Claude skill | Santiago Cardona', description: 'An open-source skill that makes Claude write native Spanish, not translated English.' },
   },
   dsa: {
     name: 'Design System Adherence',
@@ -395,7 +210,7 @@ const en: Record<ProjectId, Project> = {
       'Severity is calculated: two runs on the same inputs give the same answer.',
     ],
     repo: 'design-system-adherence',
-    meta: { title: 'Design System Adherence: a Claude skill | Olmo', description: 'A Claude skill that audits whether a deliverable follows its design system, with color and contrast measured by scripts.' },
+    meta: { title: 'Design System Adherence: a Claude skill | Santiago Cardona', description: 'A Claude skill that audits whether a deliverable follows its design system, with color and contrast measured by scripts.' },
   },
 };
 
@@ -405,26 +220,16 @@ const en: Record<ProjectId, Project> = {
  */
 const TITLES: Record<Lang, Partial<Record<ProjectId, string[]>>> = {
   es: {
-    balparaiso: ['Diseño del sitio', 'Tienda en Shopify'],
-    miaplus: ['Servicios claros', 'Tienda en Shopify'],
-    zafiro: ['Navegación por marcas', 'Tienda en Shopify'],
-    sarabe: ['Un camino por servicio', 'Tráfico a Patreon y Spotify'],
     ilmin: ['Estrategia de marketing', 'Tienda online', 'Canal digital'],
-    itaca: ['Diseño del sitio', 'Tienda en Shopify'],
     metricas: ['Una sola fuente de verdad', 'Estudios con link', 'Cuatro monedas'],
-    cotiza: ['Construido con Claude Code', 'Propuestas consistentes', 'Español e inglés'],
+    cotiza: ['Construido con Claude Code', 'Una demo con límites', 'Propuestas consistentes'],
     espanol: ['Tres modos', 'Cinco dialectos', 'Sin corregir de más'],
     dsa: ['Tu sistema es la vara', 'Medido, no adivinado', 'Resultados repetibles'],
   },
   en: {
-    balparaiso: ['Site design', 'Shopify store'],
-    miaplus: ['Clear services', 'Shopify store'],
-    zafiro: ['Browse by brand', 'Shopify store'],
-    sarabe: ['A path for each service', 'Traffic to Patreon and Spotify'],
     ilmin: ['Marketing strategy', 'Online store', 'Digital channel'],
-    itaca: ['Site design', 'Shopify store'],
     metricas: ['One source of truth', 'Shareable links', 'Four currencies'],
-    cotiza: ['Built with Claude Code', 'Consistent proposals', 'Spanish and English'],
+    cotiza: ['Built with Claude Code', 'A demo with guardrails', 'Consistent proposals'],
     espanol: ['Three modes', 'Five dialects', 'No over-correcting'],
     dsa: ['Your system sets the bar', 'Measured, not guessed', 'Repeatable results'],
   },
@@ -434,12 +239,14 @@ const STATS: Record<Lang, Partial<Record<ProjectId, { v: string; k: string }[]>>
   es: {
     ilmin: [{ v: '+25 %', k: 'en ventas digitales en los primeros 3 meses' }],
     metricas: [{ v: '8', k: 'indicadores (MRR, CLTV, CAC…)' }, { v: '4', k: 'monedas' }, { v: '2', k: 'idiomas' }],
+    cotiza: [{ v: '2', k: 'idiomas: español e inglés' }, { v: '3 / día', k: 'cotizaciones de demo por correo' }, { v: '7 días', k: 'antes de borrar las cotizaciones de visitantes' }],
     espanol: [{ v: '5', k: 'dialectos' }, { v: '3', k: 'modos' }],
     dsa: [{ v: '4', k: 'cosas que mide: color, tipografía, tamaños y contraste' }],
   },
   en: {
     ilmin: [{ v: '+25%', k: 'digital sales in the first 3 months' }],
     metricas: [{ v: '8', k: 'metrics (MRR, CLTV, CAC…)' }, { v: '4', k: 'currencies' }, { v: '2', k: 'languages' }],
+    cotiza: [{ v: '2', k: 'languages: English and Spanish' }, { v: '3 / day', k: 'demo quotes per email' }, { v: '7 days', k: 'before visitor quotes are deleted' }],
     espanol: [{ v: '5', k: 'dialects' }, { v: '3', k: 'modes' }],
     dsa: [{ v: '4', k: 'things it measures: color, type, sizes and contrast' }],
   },
@@ -448,25 +255,26 @@ const STATS: Record<Lang, Partial<Record<ProjectId, { v: string; k: string }[]>>
 /** Cifra de la tarjeta del índice (las mismas aprobadas de la home). */
 const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
   es: {
-    silbe: 'USD 400k y 5.000 suscriptores en la primera semana (Forbes, 2021)',
+    silbe: 'USD 400k y 5.000 suscriptores en la primera semana (Forbes Colombia, 2021)',
     undergold: '+14 h a la semana ahorradas',
     ideal: '−60 % en tiempo de carga',
     ilmin: '+25 % en ventas digitales en 3 meses',
+    cotiza: 'En producción · de un alcance escrito a propuesta con PDF',
   },
   en: {
-    silbe: 'USD 400k and 5,000 subscribers in the first week (Forbes, 2021)',
+    silbe: 'USD 400k and 5,000 subscribers in the first week (Forbes Colombia, 2021)',
     undergold: '14+ hours a week saved',
     ideal: 'Load times cut by 60%',
     ilmin: '+25% digital sales in 3 months',
+    cotiza: 'Live · from a written scope to a proposal and PDF',
   },
 };
 
 /** Grupos del índice del portafolio, en orden. */
 /** Debe seguir el mismo orden que ORDER. */
-export const GROUPS: { id: 'cases' | 'brands' | 'tools'; ids: ProjectId[] }[] = [
-  { id: 'cases', ids: ['silbe', 'undergold', 'ideal'] },
-  { id: 'brands', ids: ['balparaiso', 'miaplus', 'zafiro', 'vieli', 'sarabe', 'ilmin', 'itaca'] },
-  { id: 'tools', ids: ['metricas', 'cotiza', 'espanol', 'dsa'] },
+export const GROUPS: { id: 'cases' | 'tools'; ids: ProjectId[] }[] = [
+  { id: 'cases', ids: ['silbe', 'ilmin', 'undergold', 'ideal'] },
+  { id: 'tools', ids: ['cotiza', 'metricas', 'espanol', 'dsa'] },
 ];
 
 for (const [lang, set] of [['es', es], ['en', en]] as const) {
@@ -475,7 +283,6 @@ for (const [lang, set] of [['es', es], ['en', en]] as const) {
     const titles = TITLES[lang][id];
     if (titles && p.did) p.did = p.did.map((d, i) => (typeof d === 'string' && titles[i] ? { t: titles[i], d } : d));
     if (FIGURES[lang][id]) p.figure = FIGURES[lang][id];
-    if (id === 'zafiro') p.short = 'Zafiro';
     const stats = STATS[lang][id];
     if (stats) p.stats = stats;
   }

@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../PageHero.astro';
 import Btn from '../Btn.astro';
 import Visual from '../Visual.astro';
-import { wa, LINKS, type Lang } from '../../config';
+import { EMAIL, LINKS, type Lang } from '../../config';
 import { CASES, type CaseId } from '../../i18n/cases';
 import { HOME } from '../../i18n/home';
 import { r } from '../../i18n/routes';
@@ -22,8 +22,8 @@ const n = String(ORDER.indexOf(pid) + 1).padStart(2, '0');
 const ui = HOME[lang].ui;
 const es = lang === 'es';
 const L = es
-  ? { label: 'Portafolio', story: 'La historia completa', stall: 'El estancamiento', did: 'Qué hice', changed: 'Qué cambió', next: 'Siguiente proyecto', all: 'Ver todo el portafolio', cta: 'Cotiza tu proyecto por WhatsApp', figures: 'Cifras', source: 'Fuente: Forbes Colombia ↗', illustrative: 'Recreación ilustrativa' }
-  : { label: 'Portfolio', story: 'The full story', stall: 'The plateau', did: 'What I did', changed: 'What changed', next: 'Next project', all: 'See the full portfolio', cta: 'Get a project quote on WhatsApp', figures: 'Figures', source: 'Source: Forbes Colombia ↗', illustrative: 'Illustrative recreation' };
+  ? { label: 'Trabajo', story: 'El caso, paso a paso', stall: 'El problema', did: 'Qué hice', changed: 'Resultados', next: 'Siguiente proyecto', all: 'Ver todo el trabajo', cta: 'Escríbeme', figures: 'Cifras', source: 'Fuente: Forbes Colombia ↗', illustrative: 'Recreación ilustrativa' }
+  : { label: 'Work', story: 'The case, step by step', stall: 'The problem', did: 'What I did', changed: 'Results', next: 'Next project', all: 'See all work', cta: 'Email me', figures: 'Figures', source: 'Source: Forbes Colombia ↗', illustrative: 'Illustrative recreation' };
 const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silbePaywall];
 ---
 <Base lang={lang} route={id} title={c.meta.title} description={c.meta.description}>
@@ -145,7 +145,7 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
       </a>
       <div class="next-btns">
         <Btn href={r('portfolio', lang)} label={L.all} variant="sec" arrow="none" />
-        <Btn href={wa(lang, 'WA4')} label={L.cta} ariaLabel={`${L.cta} ${ui.newTab}`} external />
+        <Btn href={`mailto:${EMAIL}`} label={ui.cta} ariaLabel={ui.ctaLabel} data-cta="email-case" />
       </div>
     </div>
   </section>

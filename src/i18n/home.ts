@@ -1,256 +1,114 @@
 /**
- * Textos de la home en español e inglés.
+ * Textos de la home en inglés y español.
+ * El sitio es el portafolio personal de Santiago (Growth, CRO, AI builder). No vende servicios.
  * Convención: *palabra* = Source Serif 4 cursiva violeta (máx. una por titular).
  */
-import type { Lang, WaId } from '../config';
+import type { Lang } from '../config';
 
-type Service = { word: string; support: string; href: string; img: string; alt: string };
-type Card = { name: string; tag: string; figure: string; alt: string; href: string; note?: string };
-type Row = { name: string; detail: string; amount: string };
+type Pillar = { title: string; kind: string; meta: string; href: string; img: 'asesoria' | 'ia' | 'web' | 'mensualidad' };
+type Card = { name: string; tag: string; figure: string; alt: string; href: string };
+type LegacyService = { word: string; support: string; href: string; img: string; alt: string };
 
 export interface HomeText {
   meta: { title: string; description: string; ogTitle: string; ogDescription: string; ogAlt: string };
   ui: {
-    skip: string; logoLabel: string; nav: string[]; langLabel: string; cta: string; ctaLabel: string; waCta: string; waCtaLabel: string;
-    menuOpen: string; menuClose: string; menuItems: string[]; newTab: string; closed: string;
+    skip: string; logoLabel: string; logoName: string; nav: string[]; langLabel: string;
+    cta: string; ctaLabel: string; menuOpen: string; menuClose: string; menuItems: string[]; newTab: string; closed: string;
   };
   hero: {
-    h1: string; sub: string; primary: string; secondary: string; secondaryHref: string;
+    eyebrow: string; h1: string; sub: string;
+    stats: { v: string; k: string }[]; press: string;
+    primary: string; secondary: string;
     linkedinLabel: string; githubLabel: string;
   };
   clients: { label: string; aria: string };
-  big: { h2: string; body: string; button: string; footer: string };
+  big: { h2: string; body: string; steps: { t: string; d: string }[]; button: string };
   services: {
-    left: string; right: string; aria: string; button: string; items: Service[];
-    /** Sección de la home: 4 productos con foto de fondo. `items` sigue alimentando la página de asesoría. */
-    offer: { title: string; kind: string; meta: string; href: string; img: 'asesoria' | 'ia' | 'web' | 'mensualidad' }[];
+    left: string; aria: string;
+    /** Pilares de la home (sin precios). */
+    offer: Pillar[];
     marquee: string[];
+    /** Solo para la página de precios (/advisory), que se comparte por link directo. */
+    items: LegacyService[];
   };
   work: {
     line1: string; line2: string; cursor: string; button: string; source: string;
-    illustrative: string; viewCase: string; cards: Card[];
-  };
-  pricing: {
-    left: string; right: string; title: string; lead: string; aria: string;
-    rows: Row[]; total: Row; links: { label: string; wa?: WaId; href?: string }[];
-    currencyNote: string; paymentNote: string; legalNote: string; cta: string;
+    viewCase: string; cards: Card[];
   };
   about: {
-    label: string; title: string; body: string; button: string;
+    label: string; title: string; body: string; intent: string; button: string;
     milestones: { date: string; place: string; role: string }[];
-    cv: string; cvLabel: string; cvPending: string; linkedin: string; photoAlt: string;
-  };
-  notDo: {
-    left: string; right: string; srPrefix: string;
-    items: { word: string; support: string }[]; closing: string; link: string;
+    stackLabel: string; stack: string[];
+    linkedin: string; photoAlt: string;
   };
   footer: {
     eyebrow: string; title: string; button: string; pills: string[]; tools: string;
-    emailLabel: string; whatsapp: string; city: string; inCity: string; bigWord: string;
+    emailLabel: string; city: string; inCity: string; bigWord: string;
     bigLabel: string; copyright: string;
   };
 }
 
-const es: HomeText = {
-  meta: {
-    title: 'Olmo · Asesoría para marcas estancadas | Santiago Cardona',
-    description:
-      'Tu marca vende, pero dejó de crecer. Trabajo con tu equipo hasta que se note en ventas, conversión o tiempo. Escríbeme por WhatsApp.',
-    ogTitle: 'Tu marca vende. ¿Se estancó?',
-    ogDescription:
-      'Asesoría de Santiago Cardona para marcas que ya venden online y dejaron de crecer. Medellín, Colombia.',
-    ogAlt: 'Olmo: Tu marca vende. ¿Se estancó?',
-  },
-  ui: {
-    skip: 'Saltar al contenido',
-    closed: 'No estamos aceptando nuevas solicitudes de clientes',
-    logoLabel: 'olmo, ir al inicio',
-    nav: ['Servicios', 'Portafolio', 'Herramientas', 'Sobre mí'],
-    langLabel: 'Cambiar a inglés',
-    cta: 'Escríbeme por WhatsApp',
-    ctaLabel: 'Escríbeme por WhatsApp (se abre en otra pestaña)',
-    waCta: 'Escríbeme',
-    waCtaLabel: 'Escríbeme por WhatsApp (se abre en otra pestaña)',
-    menuOpen: 'Abrir menú',
-    menuClose: 'Cerrar menú',
-    menuItems: ['Servicios', 'Portafolio', 'Herramientas', 'Sobre mí'],
-    newTab: '(se abre en otra pestaña)',
-  },
-  hero: {
-    h1: 'Tu marca vende. ¿Se *estancó*?',
-    sub: 'Asesoro marcas que ya venden online y dejaron de crecer. Entro a trabajar con tu equipo, encuentro dónde se frena la venta y me quedo hasta que se note en conversión, ventas o tiempo.',
-    primary: 'Ver servicios',
-    secondary: 'Ver portafolio',
-    secondaryHref: '/portafolio/',
-    linkedinLabel: 'LinkedIn de Santiago Cardona (se abre en otra pestaña)',
-    githubLabel: 'GitHub de Santiago Cardona (se abre en otra pestaña)',
-  },
-  clients: { label: 'Desde 2017 trabajando con:', aria: 'Marcas con las que he trabajado' },
-  big: {
-    h2: 'No desaparezco dos semanas para volver con un *entregable*.',
-    body: 'Trabajo dentro de tu equipo, con todas las áreas, para encontrar dónde se frena la venta. Y me quedo hasta que el cambio se note en la conversión (cuántas visitas terminan comprando), en las ventas o en las horas que tu equipo se ahorra.',
-    button: 'Cómo trabajo',
-    footer: 'Cómo trabajo',
-  },
-  services: {
-    left: 'Lo que hago',
-    right: '( 5 )',
-    aria: 'Servicios',
-    offer: [
-      { title: 'Asesoría & Consultoría', kind: 'Estrategia y acompañamiento', meta: 'Desde COP 320.000 la hora', href: 'advisory', img: 'asesoria' },
-      { title: 'IA & Automatización', kind: 'Agentes, flujos y datos', meta: '+14 h a la semana en Undergold', href: 'advisory#sistemas', img: 'ia' },
-      { title: 'Web & Apps', kind: 'Sitios, tiendas y apps', meta: '−60 % de carga en Ideal Team', href: 'portfolio', img: 'web' },
-      { title: 'Mensualidad', kind: 'WhatsApp diario y 1 h semanal', meta: 'COP 1.900.000 · USD 700 / mes', href: 'monthly', img: 'mensualidad' },
-    ],
-    marquee: ['Escríbeme por WhatsApp', 'Disponible para nuevos proyectos'],
-    button: 'Ver precios y cómo trabajo',
-    items: [
-      { word: 'Asesoría', support: 'Mensualidad: WhatsApp todos los días y una reunión de 1 h cada semana.', href: 'advisory', img: 'santiago', alt: 'Santiago Cardona en una reunión con el portátil abierto' },
-      { word: 'Funnels', support: 'El funnel es el camino de la primera visita al pago: preregistro, landing, checkout, correos y automatizaciones. En silBe la conversión pasó de 3 % a 4 %.', href: 'advisory#funnels', img: 'funnel', alt: 'Diagrama de un funnel: preregistro, landing, checkout, correo y automatización' },
-      { word: 'Producto', support: 'De la primera versión a la app: registro, pantalla de pago, planes y prueba gratis.', href: 'advisory#producto', img: 'steady', alt: 'App Steady abierta en un celular' },
-      { word: 'Sistemas', support: 'Conecto tus plataformas para que los datos se suban una sola vez. En Undergold: más de 14 h a la semana ahorradas.', href: 'advisory#sistemas', img: 'systems', alt: 'Diagrama de la conexión entre Shopify, Supabase y Vercel' },
-      { word: 'Web', support: 'Velocidad, carga en celular, posicionamiento en Google (SEO) y migraciones. En Ideal Team: −60 % en tiempo de carga.', href: 'advisory#web', img: 'speed', alt: 'Comparación de velocidad antes y después: 60 % menos tiempo de carga' },
-    ],
-  },
-  work: {
-    line1: 'Resultados *con nombre*',
-    line2: 'y cifras',
-    cursor: 'Ver proyecto',
-    button: 'Ver todo el portafolio',
-    source: 'Cifra de silBe: Forbes Colombia, 7 de febrero de 2021',
-    illustrative: 'Recreación ilustrativa',
-    viewCase: 'Ver proyecto',
-    cards: [
-      { name: 'silBe by Silvy', tag: 'Suscripción fitness', figure: 'USD 400k y 5.000 suscriptores en la primera semana (Forbes, 2021)', alt: 'Capturas de la app y el sitio web de silBe', href: 'silbe' },
-      { name: 'Undergold', tag: 'Moda, venta B2B', figure: '+14 h a la semana ahorradas', alt: 'Recreación ilustrativa del catálogo B2B de Undergold', href: 'undergold' },
-      { name: 'Ideal Team', tag: 'Agencia, 14 sitios', figure: '−60 % en tiempo de carga', alt: 'Mosaico de sitios web con su tablero de rendimiento', href: 'idealTeam' },
-      { name: 'ILMIN', tag: 'Perfumes', figure: '+25 % en ventas digitales en 3 meses', alt: 'Perfume de ILMIN, foto de su tienda online', href: 'pfIlmin' },
-      { name: 'SaraBe', tag: 'Escritora y conferencista', figure: 'Una web con un camino de compra para cada servicio', alt: 'Sitio de SaraBe en un portátil y un celular', href: 'pfSarabe' },
-    ],
-  },
-  pricing: {
-    left: 'Precios',
-    right: '( COP · USD )',
-    title: 'Precios *a la vista*.',
-    lead: 'Publico lo que cobro para que sepas cuánto cuesta antes de escribirme.',
-    aria: 'Precios de Olmo',
-    rows: [
-      { name: 'Asesoría mensual', detail: 'WhatsApp todos los días y 4 reuniones de 1 h al mes.', amount: 'COP 1.900.000 · USD 700 / mes' },
-      { name: 'Hora adicional', detail: 'Para clientes con asesoría mensual.', amount: 'COP 160.000 · USD 60' },
-      { name: 'Hora suelta', detail: 'Sin mensualidad, para resolver algo puntual.', amount: 'COP 320.000 · USD 100' },
-      { name: 'Proyecto cerrado', detail: 'Cuando el proyecto completo queda en mis manos.', amount: 'Cotización a la medida' },
-    ],
-    total: { name: 'Para empezar', detail: 'Una hora suelta', amount: 'COP 320.000 · USD 100' },
-    cta: 'Escríbeme por WhatsApp',
-    links: [
-      { label: 'Preguntar por la asesoría', wa: 'WA2' },
-      { label: 'Reservar una hora suelta', wa: 'WA3' },
-      { label: 'Cotizar un proyecto', wa: 'WA4' },
-      { label: 'Ver qué incluye cada opción →', href: 'advisory' },
-    ],
-    currencyNote: 'Precios en pesos para Colombia y en dólares para clientes del exterior.',
-    paymentNote: 'El pago se coordina por WhatsApp.',
-    legalNote: 'No cobro IVA. Sin permanencia mínima. 50 % de anticipo.',
-  },
-  about: {
-    label: 'Sobre mí',
-    title: 'Hablas con quien hace el *trabajo*.',
-    body: 'Soy Santiago Cardona Ortiz y trabajo solo, desde Medellín, con marcas de Colombia y del exterior. Entre 2017 y 2025 cofundé Vieli, un estudio de 30 personas, y fui su director de operaciones (COO): hicimos más de 100 proyectos, todos por referidos. De 2020 a 2026 acompañé a silBe. Durante 6 años enseñé UX/UI (diseño de interfaces y experiencia de usuario) en CESDE, y para Bancolombia diseñé FIDI, un prototipo de educación financiera con videos por WhatsApp.',
-    button: 'Más sobre mí',
-    milestones: [
-      { date: '2017–2025', place: 'Vieli', role: 'Cofundador y COO. 30 personas, 100+ proyectos por referidos.' },
-      { date: '5 años', place: 'silBe', role: 'Growth y producto.' },
-      { date: '6 años', place: 'CESDE', role: 'Docente de UX/UI.' },
-      { date: 'Desde 2025', place: 'Olmo', role: 'Asesoría independiente.' },
-    ],
-    cv: 'Descargar CV (en inglés)',
-    cvLabel: 'Descargar el CV de Santiago Cardona, en inglés, PDF',
-    cvPending: 'Próximamente',
-    linkedin: 'LinkedIn',
-    photoAlt: 'Retrato de Santiago Cardona Ortiz',
-  },
-  notDo: {
-    left: 'Lo que no hago',
-    right: '( 4 )',
-    srPrefix: 'No hago:',
-    items: [
-      { word: 'Redes sociales', support: 'Publicar y responder en tus redes.' },
-      { word: 'Pauta / Ads', support: 'Montar y vigilar anuncios todos los días.' },
-      { word: 'Branding', support: 'Identidad visual desde cero.' },
-      { word: 'WordPress websites', support: 'Soporte mensual de WordPress. La velocidad y las migraciones sí las hago.' },
-    ],
-    closing: 'Te digo qué comprar, aunque no sea lo mío. Y si necesitas algo de esta lista, te digo a quién buscar.',
-    link: 'Preguntarme a quién buscar',
-  },
-  footer: {
-    eyebrow: '¿Tu marca se estancó?',
-    title: 'Escríbeme antes de que la tecnología te coja *vuelta*.',
-    button: 'Escríbeme por WhatsApp',
-    pills: ['Asesoría', 'Portafolio', 'Herramientas', 'Sobre mí', 'Términos', 'Privacidad'],
-    tools: 'Herramientas gratis que hice →',
-    emailLabel: '¿Prefieres correo?',
-    whatsapp: 'WhatsApp',
-    city: 'Medellín, Colombia',
-    inCity: 'en Medellín',
-    bigWord: 'Hablemos',
-    bigLabel: 'Hablemos por WhatsApp (se abre en otra pestaña)',
-    copyright: '© 2026 Olmo · Santiago Cardona Ortiz',
-  },
-};
-
 const en: HomeText = {
   meta: {
-    title: 'Olmo · Advisory for brands on a plateau | Santiago Cardona',
+    title: 'Santiago Cardona · Growth Marketer, CRO & AI Builder',
     description:
-      'Your brand sells, but growth stalled. I work inside your team until it shows in sales, conversion or time saved. Message me on WhatsApp.',
-    ogTitle: 'Your brand sells. Has it hit a plateau?',
+      'Growth and conversion lead with 8 years of subscription launches, checkout CRO and AI tools I build myself with Claude and Supabase. Remote from Medellín, Colombia.',
+    ogTitle: 'Santiago Cardona · Growth Marketer, CRO & AI Builder',
     ogDescription:
-      'Advisory by Santiago Cardona for brands that already sell online and have stopped growing. Medellín, Colombia.',
-    ogAlt: 'Olmo: Your brand sells. Has it hit a plateau?',
+      'USD 800k in one subscription launch, conversion from 3% to 4%, and AI products shipped end to end. Open to full-time remote roles.',
+    ogAlt: 'Santiago Cardona · Growth Marketer, CRO & AI Builder',
   },
   ui: {
     skip: 'Skip to content',
-    closed: 'We\'re no longer accepting new customers',
-    logoLabel: 'olmo, go to home',
-    nav: ['Services', 'Portfolio', 'Tools', 'About me'],
+    closed: 'Open to full-time remote roles · Growth, CRO & AI',
+    logoLabel: 'Santiago Cardona, go to home',
+    logoName: 'Santiago Cardona',
+    nav: ['Work', 'AI builds', 'About', 'Contact'],
     langLabel: 'Switch to Spanish',
-    cta: 'Message me on WhatsApp',
-    ctaLabel: 'Message me on WhatsApp (opens in a new tab)',
-    waCta: 'Message me',
-    waCtaLabel: 'Message me on WhatsApp (opens in a new tab)',
+    cta: 'Email me',
+    ctaLabel: 'Email Santiago Cardona',
     menuOpen: 'Open menu',
     menuClose: 'Close menu',
-    menuItems: ['Services', 'Portfolio', 'Tools', 'About me'],
+    menuItems: ['Work', 'AI builds', 'About', 'Contact'],
     newTab: '(opens in a new tab)',
   },
   hero: {
-    h1: 'Your brand sells. Has it hit a *plateau*?',
-    sub: 'I advise brands that already sell online and have stopped growing. I work inside your team, find where sales are getting stuck, and stay until it shows in conversion, revenue or time saved.',
-    primary: 'See services',
-    secondary: 'See the portfolio',
-    secondaryHref: '/en/portfolio/',
+    eyebrow: 'Santiago Cardona · Growth Marketer, CRO & AI Builder',
+    h1: 'I grow subscription and e-commerce revenue, and I build the *funnel* myself.',
+    sub: '8 years running launches, checkouts, paywalls and pricing, now shipping AI products with Claude Code and Supabase. Remote from Medellín, Colombia (UTC-5).',
+    stats: [
+      { v: 'USD 800k', k: 'in one subscription launch at silBe (internal data)' },
+      { v: '3% → 4%', k: 'purchase conversion after my funnel changes' },
+      { v: 'USD 29 → 39', k: 'monthly price, with no rise in churn' },
+    ],
+    press: 'Forbes Colombia, 2021: USD 400k and 5,000 subscribers in the first week.',
+    primary: 'Email me',
+    secondary: 'See my work',
     linkedinLabel: 'Santiago Cardona on LinkedIn (opens in a new tab)',
     githubLabel: 'Santiago Cardona on GitHub (opens in a new tab)',
   },
-  clients: { label: "Since 2017, I've worked with:", aria: 'Brands I have worked with' },
+  clients: { label: "Brands I've grown or built for since 2017:", aria: 'Brands I have worked with' },
   big: {
-    h2: "I don't vanish for two weeks and come back with a *deliverable*.",
-    body: 'I work inside your team, across every area, to find where sales are getting stuck. And I stay until the change shows up in conversion (how many visitors end up buying), in revenue, or in hours your team gets back.',
-    button: 'How I work',
-    footer: 'How I work',
+    h2: 'I test before I guess, and I *measure* what ships.',
+    body: 'Every change starts as a hypothesis with a number attached. I set up the tracking, run the test, read the result and keep what wins. I write it all down in English, async, so the team can follow without a meeting.',
+    steps: [
+      { t: 'Hypothesis', d: 'Where the funnel leaks and what should move.' },
+      { t: 'Experiment', d: 'A/B test or staged rollout on real buyers.' },
+      { t: 'Instrumentation', d: 'GA4, GTM and PostHog events before launch.' },
+      { t: 'Decision', d: 'Ship the winner, write down why.' },
+    ],
+    button: 'Read the silBe case',
   },
   services: {
     left: 'What I do',
-    right: '( 5 )',
-    aria: 'Services',
+    aria: 'What I do',
     offer: [
-      { title: 'Advisory & Consulting', kind: 'Strategy and hands-on support', meta: 'From USD 100 an hour', href: 'advisory', img: 'asesoria' },
-      { title: 'AI & Automation', kind: 'Agents, workflows and data', meta: '14+ hours a week saved at Undergold', href: 'advisory#systems', img: 'ia' },
-      { title: 'Web & Apps', kind: 'Websites, stores and apps', meta: 'Load times cut 60% at Ideal Team', href: 'portfolio', img: 'web' },
-      { title: 'Monthly advisory', kind: 'Daily WhatsApp and a weekly 1-hour call', meta: 'USD 700 / month', href: 'monthly', img: 'mensualidad' },
+      { title: 'Growth marketing', kind: 'Launches, lifecycle and paid strategy', meta: 'USD 800k launch at silBe', href: 'silbe', img: 'mensualidad' },
+      { title: 'CRO', kind: 'Checkout, paywall, pricing and A/B tests', meta: 'Conversion 3% → 4%', href: 'silbe', img: 'asesoria' },
+      { title: 'AI building', kind: 'Products shipped with Claude Code and Supabase', meta: 'Olmo Cotiza, live', href: 'pfCotiza', img: 'ia' },
+      { title: 'Web performance', kind: 'Speed, tracking and site architecture', meta: '−60% load time at Ideal Team', href: 'idealTeam', img: 'web' },
     ],
-    marquee: ['Message me on WhatsApp', 'Available for new projects'],
-    button: 'See pricing and how I work',
+    marquee: ['Open to full-time remote roles', 'Growth · CRO · AI Builder'],
     items: [
       { word: 'Advisory', support: 'Monthly advisory: WhatsApp every day and a 1-hour meeting every week.', href: 'advisory', img: 'santiago', alt: 'Santiago Cardona in a meeting with his laptop open' },
       { word: 'Funnels', support: 'A funnel is the path from first visit to payment: waitlist, landing page, checkout, emails and automations. At silBe, conversion went from 3% to 4%.', href: 'advisory#funnels', img: 'funnel', alt: 'Funnel diagram: waitlist, landing page, checkout, email and automation' },
@@ -260,88 +118,165 @@ const en: HomeText = {
     ],
   },
   work: {
-    line1: 'Results *with names*',
-    line2: '& numbers',
-    cursor: 'View project',
-    button: 'See the full portfolio',
-    source: 'silBe figures: Forbes Colombia, February 7, 2021',
-    illustrative: 'Illustrative recreation',
-    viewCase: 'View project',
+    line1: 'Work *with numbers*',
+    line2: 'and my role in it',
+    cursor: 'View case',
+    button: 'See all work',
+    source: 'silBe first-week figure: Forbes Colombia, Feb 7, 2021',
+    viewCase: 'View case',
     cards: [
-      { name: 'silBe by Silvy', tag: 'Fitness subscription', figure: 'USD 400k and 5,000 subscribers in the first week (Forbes, 2021)', alt: 'Screenshots of the silBe app and website', href: 'silbe' },
-      { name: 'Undergold', tag: 'Fashion, B2B sales', figure: '14+ hours a week saved', alt: "Illustrative recreation of Undergold's B2B catalog", href: 'undergold' },
-      { name: 'Ideal Team', tag: 'Agency, 14 websites', figure: 'Load times cut by 60%', alt: 'Website mosaic with its performance dashboard', href: 'idealTeam' },
-      { name: 'ILMIN', tag: 'Fragrance', figure: '+25% digital sales in 3 months', alt: 'ILMIN perfume, photo from their online store', href: 'pfIlmin' },
-      { name: 'SaraBe', tag: 'Writer and speaker', figure: 'One website with a path to purchase for each service', alt: "SaraBe's website on a laptop and a phone", href: 'pfSarabe' },
+      { name: 'silBe by Silvy', tag: 'Growth & CRO lead · Subscription fitness', figure: 'USD 800k launch · conversion 3% → 4%', alt: 'Screenshots of the silBe app and website', href: 'silbe' },
+      { name: 'Olmo Cotiza', tag: 'AI product I built · Claude + Supabase', figure: 'From a written scope to a proposal link and PDF', alt: 'Olmo Cotiza proposal screen', href: 'pfCotiza' },
+      { name: 'ILMIN', tag: 'Marketing & e-commerce lead · Fragrance', figure: '+25% digital sales in 3 months', alt: 'ILMIN perfume, from its online store', href: 'pfIlmin' },
+      { name: 'Undergold', tag: 'B2B automation · Fashion', figure: '14+ hours a week saved', alt: 'Illustrative recreation of the Undergold B2B catalog', href: 'undergold' },
+      { name: 'Ideal Team', tag: 'Web performance · 14 sites', figure: 'Load times cut by 60%', alt: 'Grid of websites with their performance dashboard', href: 'idealTeam' },
     ],
-  },
-  pricing: {
-    left: 'Pricing',
-    right: '( USD )',
-    title: 'Prices, *upfront*.',
-    lead: 'My prices are public, so you know the cost before you message me.',
-    aria: 'Olmo pricing',
-    rows: [
-      { name: 'Monthly advisory', detail: 'WhatsApp every day and four 1-hour meetings a month.', amount: 'USD 700 / month' },
-      { name: 'Extra hour', detail: 'For monthly advisory clients.', amount: 'USD 60' },
-      { name: 'Single hour', detail: 'Without monthly advisory, for a one-off question.', amount: 'USD 100' },
-      { name: 'Fixed project', detail: 'When you hand me the whole project.', amount: 'Custom quote' },
-    ],
-    total: { name: 'To start', detail: 'A single hour', amount: 'USD 100' },
-    cta: 'Message me on WhatsApp',
-    links: [
-      { label: 'Ask about advisory', wa: 'WA2' },
-      { label: 'Book a single hour', wa: 'WA3' },
-      { label: 'Get a project quote', wa: 'WA4' },
-      { label: 'See what each option includes →', href: 'advisory' },
-    ],
-    currencyNote: 'Prices in US dollars. Clients in Colombia pay in pesos.',
-    paymentNote: 'Payment is arranged over WhatsApp.',
-    legalNote: 'No VAT charged. No minimum term. 50% upfront.',
   },
   about: {
     label: 'About',
-    title: 'You talk to the person doing the *work*.',
-    body: "I'm Santiago Cardona Ortiz. I work on my own, from Medellín, with brands in Colombia and abroad. From 2017 to 2025 I was co-founder and COO of Vieli, a 30-person studio: we delivered 100+ projects, all of them from referrals. From 2020 to 2026 I worked with silBe. I taught UX/UI design at CESDE for six years, and for Bancolombia I designed FIDI, a financial-education prototype built on WhatsApp videos.",
+    title: 'Founder habits, now looking for an *in-house* team.',
+    body: "I'm Santiago Cardona Ortiz. From 2020 to June 2026 I led growth, tech and conversion for silBe by Silvy, reporting results to its founder and working with her team and FitBudd's developers. From 2017 to 2025 I co-founded Vieli and ran operations as COO for a 30-person studio, with 100+ projects that all came from referrals. I taught UX/UI at CESDE for six years.",
+    intent: 'Vieli closed in 2025. Now I want to own a growth or CRO number inside a product team, full time.',
     button: 'More about me',
     milestones: [
-      { date: '2017–2025', place: 'Vieli', role: 'Co-founder & COO. 30 people, 100+ projects from referrals.' },
-      { date: '5 years', place: 'silBe', role: 'Growth & product.' },
+      { date: '2020–2026', place: 'silBe by Silvy', role: 'Growth, tech & conversion lead.' },
+      { date: '2017–2025', place: 'Vieli', role: 'Co-founder & COO. 30 people, 100+ projects.' },
+      { date: 'Since 2025', place: 'Olmo', role: 'My lab for AI tools: Cotiza, Métricas.' },
       { date: '6 years', place: 'CESDE', role: 'UX/UI instructor.' },
-      { date: 'Since 2025', place: 'Olmo', role: 'Independent advisory.' },
     ],
-    cv: 'Download CV',
-    cvLabel: "Download Santiago Cardona's CV, PDF",
-    cvPending: 'Coming soon',
+    stackLabel: 'Stack',
+    stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Meta & Google Ads strategy'],
     linkedin: 'LinkedIn',
     photoAlt: 'Portrait of Santiago Cardona Ortiz',
   },
-  notDo: {
-    left: "What I don't do",
-    right: '( 4 )',
-    srPrefix: "I don't do:",
-    items: [
-      { word: 'Social media', support: 'Posting and replying on your social accounts.' },
-      { word: 'Paid ads', support: 'Setting up and watching ads day to day.' },
-      { word: 'Branding', support: 'Visual identity from scratch.' },
-      { word: 'WordPress websites', support: 'Monthly WordPress support. Speed fixes and migrations, yes.' },
-    ],
-    closing: "I'll tell you what to buy, even when it isn't something I do. And if you need something on this list, I'll point you to someone who does it.",
-    link: 'Ask me who to call',
-  },
   footer: {
-    eyebrow: 'Has your brand stalled?',
-    title: 'Message me before technology leaves you *behind*.',
-    button: 'Message me on WhatsApp',
-    pills: ['Advisory', 'Portfolio', 'Tools', 'About me', 'Terms', 'Privacy'],
-    tools: 'Free tools I built →',
-    emailLabel: 'Prefer email?',
-    whatsapp: 'WhatsApp',
-    city: 'Medellín, Colombia',
+    eyebrow: 'Open to full-time remote roles',
+    title: 'Hiring for growth, CRO or a *product builder*?',
+    button: 'Email me',
+    pills: ['Work', 'AI builds', 'About', 'Terms', 'Privacy'],
+    tools: 'AI tools I built →',
+    emailLabel: 'Email',
+    city: 'Medellín, Colombia · UTC-5',
     inCity: 'in Medellín',
     bigWord: "Let's talk",
-    bigLabel: "Let's talk on WhatsApp (opens in a new tab)",
-    copyright: '© 2026 Olmo · Santiago Cardona Ortiz',
+    bigLabel: "Let's talk: email Santiago Cardona",
+    copyright: '© 2026 Santiago Cardona Ortiz · Olmo',
+  },
+};
+
+const es: HomeText = {
+  meta: {
+    title: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+    description:
+      'Lidero growth y conversión: 8 años de lanzamientos por suscripción, CRO de checkout y herramientas de IA que construyo yo con Claude y Supabase. Remoto desde Medellín.',
+    ogTitle: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+    ogDescription:
+      'USD 800k en un lanzamiento por suscripción, conversión de 3 % a 4 % y productos de IA de principio a fin. Abierto a roles remotos de tiempo completo.',
+    ogAlt: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+  },
+  ui: {
+    skip: 'Saltar al contenido',
+    closed: 'Abierto a roles remotos de tiempo completo · Growth, CRO e IA',
+    logoLabel: 'Santiago Cardona, ir al inicio',
+    logoName: 'Santiago Cardona',
+    nav: ['Trabajo', 'IA', 'Sobre mí', 'Contacto'],
+    langLabel: 'Cambiar a inglés',
+    cta: 'Escríbeme',
+    ctaLabel: 'Escribirle un correo a Santiago Cardona',
+    menuOpen: 'Abrir menú',
+    menuClose: 'Cerrar menú',
+    menuItems: ['Trabajo', 'IA', 'Sobre mí', 'Contacto'],
+    newTab: '(se abre en otra pestaña)',
+  },
+  hero: {
+    eyebrow: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+    h1: 'Hago crecer ventas por suscripción y e-commerce, y el *funnel* lo construyo yo.',
+    sub: '8 años con lanzamientos, checkouts, paywalls y precios. Hoy también lanzo productos de IA con Claude Code y Supabase. Remoto desde Medellín, Colombia (UTC-5).',
+    stats: [
+      { v: 'USD 800k', k: 'en un lanzamiento por suscripción en silBe (dato interno)' },
+      { v: '3 % → 4 %', k: 'de conversión a compra tras mis cambios al funnel' },
+      { v: 'USD 29 → 39', k: 'de precio mensual, sin subir la cancelación' },
+    ],
+    press: 'Forbes Colombia, 2021: USD 400k y 5.000 suscriptores en la primera semana.',
+    primary: 'Escríbeme',
+    secondary: 'Ver mi trabajo',
+    linkedinLabel: 'LinkedIn de Santiago Cardona (se abre en otra pestaña)',
+    githubLabel: 'GitHub de Santiago Cardona (se abre en otra pestaña)',
+  },
+  clients: { label: 'Marcas que he hecho crecer o para las que he construido desde 2017:', aria: 'Marcas con las que he trabajado' },
+  big: {
+    h2: 'Pruebo antes de suponer y *mido* lo que sale.',
+    body: 'Cada cambio empieza como una hipótesis con un número. Monto la medición, corro la prueba, leo el resultado y me quedo con lo que gana. Lo dejo por escrito para que el equipo lo siga sin tener que reunirse.',
+    steps: [
+      { t: 'Hipótesis', d: 'Dónde se pierde la venta y qué debería moverse.' },
+      { t: 'Experimento', d: 'Prueba A/B o lanzamiento por etapas con compradores reales.' },
+      { t: 'Medición', d: 'Eventos en GA4, GTM y PostHog antes de lanzar.' },
+      { t: 'Decisión', d: 'Sale lo que gana, y anoto por qué.' },
+    ],
+    button: 'Leer el caso de silBe',
+  },
+  services: {
+    left: 'Lo que hago',
+    aria: 'Lo que hago',
+    offer: [
+      { title: 'Growth marketing', kind: 'Lanzamientos, lifecycle y estrategia de pauta', meta: 'Lanzamiento de USD 800k en silBe', href: 'silbe', img: 'mensualidad' },
+      { title: 'CRO', kind: 'Checkout, paywall, precios y pruebas A/B', meta: 'Conversión de 3 % a 4 %', href: 'silbe', img: 'asesoria' },
+      { title: 'Productos con IA', kind: 'Hechos con Claude Code y Supabase', meta: 'Olmo Cotiza, en producción', href: 'pfCotiza', img: 'ia' },
+      { title: 'Rendimiento web', kind: 'Velocidad, medición y arquitectura', meta: '−60 % de carga en Ideal Team', href: 'idealTeam', img: 'web' },
+    ],
+    marquee: ['Abierto a roles remotos de tiempo completo', 'Growth · CRO · AI Builder'],
+    items: [
+      { word: 'Asesoría', support: 'Mensualidad: WhatsApp todos los días y una reunión de 1 h cada semana.', href: 'advisory', img: 'santiago', alt: 'Santiago Cardona en una reunión con el portátil abierto' },
+      { word: 'Funnels', support: 'El funnel es el camino de la primera visita al pago: preregistro, landing, checkout, correos y automatizaciones. En silBe la conversión pasó de 3 % a 4 %.', href: 'advisory#funnels', img: 'funnel', alt: 'Diagrama de un funnel: preregistro, landing, checkout, correo y automatización' },
+      { word: 'Producto', support: 'De la primera versión a la app: registro, pantalla de pago, planes y prueba gratis.', href: 'advisory#producto', img: 'steady', alt: 'App Steady abierta en un celular' },
+      { word: 'Sistemas', support: 'Conecto tus plataformas para que los datos se suban una sola vez. En Undergold: más de 14 h a la semana ahorradas.', href: 'advisory#sistemas', img: 'systems', alt: 'Diagrama de la conexión entre Shopify, Supabase y Vercel' },
+      { word: 'Web', support: 'Velocidad, carga en celular, posicionamiento en Google (SEO) y migraciones. En Ideal Team: −60 % en tiempo de carga.', href: 'advisory#web', img: 'speed', alt: 'Comparación de velocidad antes y después: 60 % menos tiempo de carga' },
+    ],
+  },
+  work: {
+    line1: 'Trabajo *con cifras*',
+    line2: 'y lo que hice yo',
+    cursor: 'Ver caso',
+    button: 'Ver todo el trabajo',
+    source: 'Cifra de la primera semana de silBe: Forbes Colombia, 7 de febrero de 2021',
+    viewCase: 'Ver caso',
+    cards: [
+      { name: 'silBe by Silvy', tag: 'Líder de growth y CRO · Suscripción fitness', figure: 'Lanzamiento de USD 800k · conversión de 3 % a 4 %', alt: 'Capturas de la app y el sitio web de silBe', href: 'silbe' },
+      { name: 'Olmo Cotiza', tag: 'Producto de IA que hice · Claude + Supabase', figure: 'Del alcance escrito a una propuesta con link y PDF', alt: 'Pantalla de una propuesta en Olmo Cotiza', href: 'pfCotiza' },
+      { name: 'ILMIN', tag: 'Marketing y e-commerce · Perfumería', figure: '+25 % en ventas digitales en 3 meses', alt: 'Perfume de ILMIN, foto de su tienda online', href: 'pfIlmin' },
+      { name: 'Undergold', tag: 'Automatización B2B · Moda', figure: 'Más de 14 h a la semana ahorradas', alt: 'Recreación ilustrativa del catálogo B2B de Undergold', href: 'undergold' },
+      { name: 'Ideal Team', tag: 'Rendimiento web · 14 sitios', figure: '−60 % en tiempo de carga', alt: 'Mosaico de sitios web con su tablero de rendimiento', href: 'idealTeam' },
+    ],
+  },
+  about: {
+    label: 'Sobre mí',
+    title: 'Hábitos de fundador, buscando un equipo *in-house*.',
+    body: 'Soy Santiago Cardona Ortiz. De 2020 a junio de 2026 lideré growth, tecnología y conversión en silBe by Silvy: le reportaba los resultados a la fundadora y trabajaba con su equipo y con los desarrolladores de FitBudd. Entre 2017 y 2025 cofundé Vieli y dirigí la operación como COO de un estudio de 30 personas, con más de 100 proyectos que llegaron por referidos. Fui docente de UX/UI en CESDE durante seis años.',
+    intent: 'Vieli cerró en 2025. Ahora quiero hacerme cargo de una métrica de growth o de CRO dentro de un equipo de producto, de tiempo completo.',
+    button: 'Más sobre mí',
+    milestones: [
+      { date: '2020–2026', place: 'silBe by Silvy', role: 'Líder de growth, tecnología y conversión.' },
+      { date: '2017–2025', place: 'Vieli', role: 'Cofundador y COO. 30 personas, 100+ proyectos.' },
+      { date: 'Desde 2025', place: 'Olmo', role: 'Mi laboratorio de herramientas de IA: Cotiza, Métricas.' },
+      { date: '6 años', place: 'CESDE', role: 'Docente de UX/UI.' },
+    ],
+    stackLabel: 'Herramientas',
+    stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Estrategia en Meta y Google Ads'],
+    linkedin: 'LinkedIn',
+    photoAlt: 'Retrato de Santiago Cardona Ortiz',
+  },
+  footer: {
+    eyebrow: 'Abierto a roles remotos de tiempo completo',
+    title: '¿Buscas a alguien para growth, CRO o *producto*?',
+    button: 'Escríbeme',
+    pills: ['Trabajo', 'IA', 'Sobre mí', 'Términos', 'Privacidad'],
+    tools: 'Herramientas de IA que hice →',
+    emailLabel: 'Correo',
+    city: 'Medellín, Colombia · UTC-5',
+    inCity: 'en Medellín',
+    bigWord: 'Hablemos',
+    bigLabel: 'Hablemos: escríbele un correo a Santiago Cardona',
+    copyright: '© 2026 Santiago Cardona Ortiz · Olmo',
   },
 };
 

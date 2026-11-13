@@ -10,12 +10,12 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const P = PROJECTS[lang];
 const T = lang === 'es'
-  ? { meta: { title: 'Portafolio: marcas, tiendas y herramientas | Olmo', description: 'silBe, Undergold, Ideal Team, Balparaiso, Mía+, Zafiro, Vieli, SaraBe, ILMIN, Ítaca, Olmo Métricas, Olmo Cotiza y dos skills de Claude.' },
-      label: 'Portafolio', title: 'Lo que he *construido*', lead: 'Marcas, tiendas online, herramientas y skills de IA. Cada proyecto cuenta qué hice y, cuando se puede, enlaza al sitio en vivo.', view: 'Ver proyecto', cover: 'Portada de',
-      groups: { cases: 'Resultados destacados', brands: 'Marcas y tiendas', tools: 'Herramientas y skills de IA' } }
-  : { meta: { title: 'Portfolio: brands, stores and tools | Olmo', description: 'silBe, Undergold, Ideal Team, Balparaiso, Mía+, Zafiro, Vieli, SaraBe, ILMIN, Ítaca, Olmo Métricas, Olmo Cotiza and two Claude skills.' },
-      label: 'Portfolio', title: "What I've *built*", lead: 'Brands, online stores, tools and AI skills. Each project shows what I did and, where possible, links to the live site.', view: 'View project', cover: 'Cover for',
-      groups: { cases: 'Featured results', brands: 'Brands and stores', tools: 'Tools and AI skills' } };
+  ? { meta: { title: 'Trabajo: casos de growth, CRO e IA | Santiago Cardona', description: 'Casos de growth y CRO (silBe, ILMIN, Undergold, Ideal Team) y productos de IA que construí: Olmo Cotiza, Olmo Métricas y dos skills de Claude.' },
+      label: 'Trabajo', title: 'Lo que he *construido*', lead: 'Casos de growth y conversión, y productos de IA que construí yo. Cada uno dice qué hice, con qué cifras y, cuando se puede, enlaza a la versión en vivo.', view: 'Ver proyecto', cover: 'Portada de',
+      groups: { cases: 'Casos de growth y CRO', tools: 'Productos de IA y código abierto' } }
+  : { meta: { title: 'Work: growth, CRO and AI case studies | Santiago Cardona', description: 'Growth and CRO case studies (silBe, ILMIN, Undergold, Ideal Team) and AI products I built: Olmo Cotiza, Olmo Métricas and two Claude skills.' },
+      label: 'Work', title: "What I've *built*", lead: 'Growth and conversion case studies, plus AI products I built myself. Each one shows what I did, the numbers behind it and, where possible, a live link.', view: 'View project', cover: 'Cover for',
+      groups: { cases: 'Growth & CRO case studies', tools: 'AI products & open source' } };
 ---
 <Base lang={lang} route="portfolio" title={T.meta.title} description={T.meta.description}>
   <PageHero label={T.label} right={`( ${ORDER.length} )`} title={T.title} lead={T.lead} />
