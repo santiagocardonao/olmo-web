@@ -57,12 +57,12 @@ const es: Record<ProjectId, Project> = {
     name: 'ILMIN',
     tag: 'Perfumería · Líder de marketing y e-commerce',
     headline: '+25 % en ventas digitales *en tres* meses.',
-    lead: 'ILMIN es una marca de perfumería nicho de Medellín. Lideré su marketing y su e-commerce en un proyecto por contrato, ya terminado. En los primeros 3 meses las ventas digitales crecieron 25 %.',
+    lead: 'ILMIN es una marca de perfumería nicho de Medellín. Lideré su marketing y su e-commerce en un proyecto por contrato, ya terminado. En mis primeros 3 meses las ventas digitales crecieron 25 % frente a los 3 meses anteriores (datos de Shopify).',
     facts: [{ k: 'Rol', v: 'Líder de marketing y e-commerce' }, { k: 'Tipo', v: 'Proyecto por contrato, terminado' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Perfumería nicho' }],
     about: 'Empecé por la tienda online y terminé a cargo de todo el marketing de la marca: crecer en Colombia y dejarla lista para mercados internacionales.',
     did: [
       { t: 'Estrategia de marketing', d: 'Definí y dirigí la estrategia de marketing de la marca.' },
-      { t: 'Tienda online', d: 'Me hice cargo de la tienda en Shopify y del canal digital, que creció 25 % en ventas en los primeros 3 meses.' },
+      { t: 'Tienda online', d: 'Me hice cargo de la tienda en Shopify y del canal digital, que creció 25 % en ventas en mis primeros 3 meses frente a los 3 anteriores (datos de Shopify).' },
       { t: 'Portafolio y mercados', d: 'Ayudé a depurar el portafolio de productos y a preparar la marca para mercados internacionales.' },
     ],
     live: { href: 'https://www.ilmin.com/', label: 'ilmin.com' },
@@ -141,12 +141,12 @@ const en: Record<ProjectId, Project> = {
     name: 'ILMIN',
     tag: 'Fragrance · Marketing & e-commerce lead',
     headline: '+25% digital sales *in three* months.',
-    lead: 'ILMIN is a niche fragrance brand from Medellín. I led its marketing and e-commerce on a contract project, now complete. Digital sales grew 25% in the first 3 months.',
+    lead: 'ILMIN is a niche fragrance brand from Medellín. I led its marketing and e-commerce on a contract project, now complete. Digital sales grew 25% in my first 3 months vs the 3 months before I started (Shopify data).',
     facts: [{ k: 'Role', v: 'Marketing & e-commerce lead' }, { k: 'Engagement', v: 'Contract project, completed' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Niche fragrance' }],
     about: 'I started with the online store and ended up owning the brand\'s marketing: growing ILMIN in Colombia and getting it ready for international markets.',
     did: [
       { t: 'Marketing strategy', d: 'I set and ran the brand\'s marketing strategy.' },
-      { t: 'Online store', d: 'I owned the Shopify store and the digital channel, where sales grew 25% in the first 3 months.' },
+      { t: 'Online store', d: 'I owned the Shopify store and the digital channel, where sales grew 25% in my first 3 months vs the 3 months before (Shopify data).' },
       { t: 'Products and markets', d: 'I helped trim the product range and get the brand ready for international markets.' },
     ],
     live: { href: 'https://www.ilmin.com/', label: 'ilmin.com' },
@@ -240,14 +240,14 @@ const TITLES: Record<Lang, Partial<Record<ProjectId, string[]>>> = {
 
 const STATS: Record<Lang, Partial<Record<ProjectId, { v: string; k: string }[]>>> = {
   es: {
-    ilmin: [{ v: '+25 %', k: 'en ventas digitales en los primeros 3 meses' }],
+    ilmin: [{ v: '+25 %', k: 'en ventas digitales frente a los 3 meses antes de que empezara (datos de Shopify)' }],
     metricas: [{ v: '8', k: 'indicadores (MRR, CLTV, CAC…)' }, { v: '4', k: 'monedas' }, { v: '2', k: 'idiomas' }],
     cotiza: [{ v: '30+', k: 'propuestas reales enviadas' }, { v: '−45 min', k: 'por propuesta' }, { v: '2', k: 'idiomas: español e inglés' }],
     espanol: [{ v: '5', k: 'dialectos' }, { v: '3', k: 'modos' }],
     dsa: [{ v: '4', k: 'cosas que mide: color, tipografía, tamaños y contraste' }],
   },
   en: {
-    ilmin: [{ v: '+25%', k: 'digital sales in the first 3 months' }],
+    ilmin: [{ v: '+25%', k: 'digital sales vs the 3 months before I started (Shopify data)' }],
     metricas: [{ v: '8', k: 'metrics (MRR, CLTV, CAC…)' }, { v: '4', k: 'currencies' }, { v: '2', k: 'languages' }],
     cotiza: [{ v: '30+', k: 'real proposals sent' }, { v: '−45 min', k: 'per proposal' }, { v: '2', k: 'languages: English and Spanish' }],
     espanol: [{ v: '5', k: 'dialects' }, { v: '3', k: 'modes' }],
@@ -261,14 +261,14 @@ const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
     silbe: 'USD 400k y 5.000 suscriptores en la primera semana (Forbes Colombia, 2021)',
     undergold: '+14 h a la semana ahorradas',
     ideal: '−60 % en tiempo de carga',
-    ilmin: '+25 % en ventas digitales en 3 meses',
+    ilmin: '+25 % en ventas digitales frente a los 3 meses anteriores (Shopify)',
     cotiza: '30+ propuestas reales · 45 min menos en cada una',
   },
   en: {
     silbe: 'USD 400k and 5,000 subscribers in the first week (Forbes Colombia, 2021)',
     undergold: '14+ hours a week saved',
     ideal: 'Load times cut by 60%',
-    ilmin: '+25% digital sales in 3 months',
+    ilmin: '+25% digital sales vs the prior 3 months (Shopify)',
     cotiza: '30+ real proposals · 45 min saved on each',
   },
 };
