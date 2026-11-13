@@ -18,25 +18,21 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
     <p class="sec-label"><span class="n">(01)</span>{ui.nav[0]}</p>
     <h2 id="work-title" class="work-title" set:html={`${emph(w.line1)} ${w.line2}`} />
 
-    {[w.cards.slice(0, 2), w.cards.slice(2)].map((group, g) => (
-      <ul class:list={['wgrid', g === 0 ? 'wg-feat' : 'wg-rest']} aria-label={g === 1 ? w.viewCase : undefined}>
-        {group.map((c) => (
-          <li class="wcard" data-fade>
-            <a href={link(lang, c.href)} data-cursor={w.cursor} aria-label={`${c.name}: ${c.figure}. ${w.viewCase}`}>
-              {/* Cotiza e ILMIN abren una ficha con la misma portada: la imagen viaja de la tarjeta a la ficha. */}
-              <div class="wc-media" style={c.href.startsWith('pf') ? `view-transition-name: pj-${PID[c.href]}; view-transition-class: pj` : undefined}>
-                <Cover id={PID[c.href]} lang={lang} alt={c.alt} sizes={g === 0 ? '(min-width: 768px) 48vw, 92vw' : '(min-width: 768px) 31vw, 72vw'} />
-              </div>
-              <div class="wc-cap">
-                <span class="wc-name">{c.name}<span class="wc-arrow" aria-hidden="true">→</span></span>
-                <span class="wc-tag">{c.tag}</span>
-              </div>
-              <span class="wc-fig">{c.figure.replace(/ %/g, '\u00a0%')}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    ))}
+    <ul class="wgrid">
+      {w.cards.map((c) => (
+        <li class="wcard" data-fade>
+          <a href={link(lang, c.href)} data-cursor={w.cursor} aria-label={`${c.name}: ${c.figure}. ${w.viewCase}`}>
+            {/* Cotiza e ILMIN abren una ficha con la misma portada: la imagen viaja de la tarjeta a la ficha. */}
+            <div class="wc-media" style={c.href.startsWith('pf') ? `view-transition-name: pj-${PID[c.href]}; view-transition-class: pj` : undefined}>
+              <Cover id={PID[c.href]} lang={lang} alt={c.alt} sizes="(min-width: 1200px) 19vw, (min-width: 768px) 34vw, 68vw" />
+            </div>
+            <span class="wc-name">{c.name}<span class="wc-arrow" aria-hidden="true">→</span></span>
+            <span class="wc-tag">{c.tag}</span>
+            <span class="wc-fig">{c.figure.replace(/ %/g, '\u00a0%')}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
 
     <div class="work-foot">
       <Btn href={r('portfolio', lang)} label={w.button} variant="dark" />
@@ -51,41 +47,34 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
     font: 600 var(--t-xl)/1.08 var(--f-sans); letter-spacing: -0.04em; text-wrap: balance;
   }
 
-  .wgrid { display: grid; gap: 32px 24px; }
-  .wg-rest { margin-top: 40px; }
-  @media (min-width: 768px) {
-    .wg-feat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .wg-rest { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 48px; }
-  }
-  /* Celular: las dos estrellas apiladas; las otras tres en una fila que se desliza */
-  @media (max-width: 767px) {
-    .wg-rest {
-      display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  /* Una sola fila de 5: en escritorio caben todas; por debajo de 1200 px la fila se desliza. */
+  .wgrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 1199px) {
+    .wgrid {
+      display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
       margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
     }
-    .wg-rest::-webkit-scrollbar { display: none; }
-    .wg-rest .wcard { flex: none; width: 72vw; scroll-snap-align: start; }
+    .wgrid::-webkit-scrollbar { display: none; }
+    .wcard { flex: none; width: 34vw; scroll-snap-align: start; }
   }
+  @media (max-width: 767px) { .wcard { width: 68vw; } }
 
   .wcard a { display: block; transition: transform 160ms var(--ease-out); }
   .wcard a:active { transform: scale(.98); }
   .wc-media {
-    position: relative; aspect-ratio: 1; border-radius: var(--r-img); overflow: hidden; background: var(--neutro);
+    position: relative; aspect-ratio: 4 / 5; border-radius: var(--r-img); overflow: hidden; background: var(--neutro);
   }
-  .wg-feat .wc-media { aspect-ratio: 3 / 2; }
   .wc-media > :global(picture), .wc-media > :global(svg), .wc-media > :global(img) { width: 100%; height: 100%; }
   .wc-media :global(img) { width: 100%; height: 100%; object-fit: cover; }
   .wc-media :global(img), .wc-media :global(svg) { transition: transform 400ms var(--ease-p2); }
 
-  .wc-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 14px; }
-  .wc-name { font: 500 var(--t-md)/1.2 var(--f-sans); letter-spacing: -0.02em; white-space: nowrap; }
+  .wc-name { display: block; margin-top: 14px; font: 500 var(--t-md)/1.2 var(--f-sans); letter-spacing: -0.02em; }
   .wc-arrow {
     display: inline-block; margin-left: 8px; color: var(--violeta);
     opacity: 0; transform: translateX(-4px); transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
   }
-  .wc-tag { font: 400 var(--t-xs)/1.35 var(--f-sans); color: var(--gris-500); text-align: right; }
-  .wc-fig { display: block; margin-top: 4px; font: 500 var(--t-sm)/1.45 var(--f-sans); color: var(--tinta); }
-  @media (max-width: 479px) { .wc-cap { flex-direction: column; gap: 2px; } .wc-tag { text-align: left; } }
+  .wc-tag { display: block; margin-top: 4px; font: 400 var(--t-xs)/1.35 var(--f-sans); color: var(--gris-500); }
+  .wc-fig { display: block; margin-top: 8px; font: 500 var(--t-sm)/1.45 var(--f-sans); color: var(--tinta); }
 
   @media (hover: hover) and (pointer: fine) {
     .wcard a:hover .wc-media :global(img), .wcard a:hover .wc-media :global(svg) { transform: scale(1.03); }
