@@ -9,6 +9,10 @@ export const NOINDEX = (import.meta.env.PUBLIC_NOINDEX ?? 'false') === 'true';
 /** Contenedor de Google Tag Manager. GA4 se configura dentro de GTM, no en el código. Vacío = no se imprime. */
 export const GTM_ID: string = (import.meta.env.PUBLIC_GTM_ID ?? 'GTM-NF997GFC').trim();
 
+/** PostHog (analítica de producto). La clave es pública por diseño. Vacía = no se carga. */
+export const POSTHOG_KEY: string = (import.meta.env.PUBLIC_POSTHOG_KEY ?? 'phc_Cf42w8YtkAfibZSJReQXT3xUs5F4JfbYqSGCmiCk9aMR').trim();
+export const POSTHOG_HOST: string = (import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com').trim();
+
 export const WHATSAPP_NUMBER = '573193326821';
 export const WHATSAPP_DISPLAY = '+57 319 332 68 21';
 export const EMAIL = 'hola@olmo.agency';
