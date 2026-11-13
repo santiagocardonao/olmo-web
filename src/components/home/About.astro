@@ -34,15 +34,15 @@ const ui = HOME[lang].ui;
             <li><span class="ms-date">{m.date}</span><span class="ms-place">{m.place}</span><span class="ms-role">{m.role}</span></li>
           ))}
         </ol>
+        <div class="ab-stack" data-fade>
+          <h3 class="sec-label">{a.stackLabel}</h3>
+          <ul>{a.stack.map((x) => <li>{x}</li>)}</ul>
+        </div>
         <div class="ab-links" data-fade>
           <Btn href={`mailto:${EMAIL}`} label={ui.cta} variant="dark" ariaLabel={ui.ctaLabel} data-cta="email-about" />
           <Btn href={LINKS.linkedin} label={a.linkedin} variant="sec" external ariaLabel={`${a.linkedin} ${ui.newTab}`} data-cta="linkedin-about" />
         </div>
       </div>
-    </div>
-    <div class="ab-stack" data-fade>
-      <h3 class="sec-label">{a.stackLabel}</h3>
-      <ul>{a.stack.map((x) => <li>{x}</li>)}</ul>
     </div>
   </div>
 </section>
@@ -53,7 +53,8 @@ const ui = HOME[lang].ui;
   @media (min-width: 1200px) { .ab-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); } .ab-side { grid-column: 1 / span 4; } .ab-copy { grid-column: 6 / span 7; } }
   .ab-photo { border-radius: var(--r-img); overflow: hidden; aspect-ratio: 4 / 5; background: var(--neutro); max-width: 520px; }
   .ab-photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
-  .ab-title { max-width: 12em; }
+  /* Mismo tamaño que el titular de Trabajo: la foto y el texto pesan parejo. */
+  .ab-title { max-width: 16em; font-size: var(--t-xl); line-height: 1.08; letter-spacing: -0.04em; }
   .ab-body { margin-top: 28px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.6; max-width: 38em; }
   .ab-more { margin-top: 20px; font-size: 17px; }
   .ab-ms { display: grid; gap: 0; margin-top: 40px; }
@@ -63,22 +64,18 @@ const ui = HOME[lang].ui;
   .ms-place { font: 600 22px/1.2 var(--f-sans); letter-spacing: -0.03em; }
   .ms-role { font: 300 15px/1.5 var(--f-sans); color: var(--gris-700); }
   .ab-intent { margin-top: 18px; font: 600 clamp(18px, 1.5vw, 22px)/1.4 var(--f-sans); letter-spacing: -0.02em; max-width: 34em; }
-  /* Stack a todo el ancho: los reclutadores lo buscan, así que se lee de un vistazo. */
-  .ab-stack { margin-top: clamp(56px, 7vw, 104px); }
-  .ab-stack ul { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  /* Stack: pequeño, en la columna de texto, con el mismo estilo de píldora que los idiomas. */
+  .ab-stack { margin-top: 32px; }
+  .ab-stack ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   /* Idiomas: debajo de la foto, en la columna que quedaba vacía. */
   .ab-side { max-width: 520px; }
   .ab-langs { margin-top: 28px; }
   .ab-langs ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .ab-langs li {
+  .ab-langs li, .ab-stack li {
     padding: 8px 14px; border-radius: var(--pill); border: 1px solid var(--borde);
     font: 400 var(--t-sm)/1.2 var(--f-sans); color: var(--gris-700);
   }
+  .ab-stack li { color: var(--tinta); }
   .ab-langs strong { font-weight: 500; color: var(--tinta); }
-  .ab-stack li {
-    padding: 12px 20px; border-radius: var(--pill);
-    background: var(--blanco); border: 1px solid var(--borde);
-    font: 500 clamp(16px, 1.3vw, 19px)/1.2 var(--f-sans); letter-spacing: -0.01em; color: var(--tinta);
-  }
   .ab-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 </style>

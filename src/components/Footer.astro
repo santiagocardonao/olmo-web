@@ -102,6 +102,12 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
   .cta-eyebrow { font: 500 16px/1.3 var(--f-sans); color: #fff; margin-bottom: 18px; }
   .cta-title { max-width: 16.5em; }
   .cta-btn { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px; }
+  /* Escritorio: banda más baja y titular del mismo tamaño que los de sección. */
+  @media (min-width: 992px) {
+    .cta { padding-block: clamp(56px, 5vw, 80px) clamp(48px, 4.5vw, 72px); }
+    .cta-title { font-size: var(--t-xl); line-height: 1.08; letter-spacing: -0.04em; }
+    .cta-btn { margin-top: 28px; }
+  }
   .ft-zone { border-radius: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 40px) 0 0; }
 
   /* Pie oscuro en cuatro columnas, sin líneas divisorias: el espacio separa los grupos. */
