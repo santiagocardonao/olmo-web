@@ -27,7 +27,7 @@ const giseCap = { en: 'Dancer and creator. I led the organic growth of her audie
 export const PRESS: PressItem[] = [
   {
     id: 'forbes', outlet: 'Forbes Colombia', logo: forbes, h: 30, ...silvy,
-    caption: { en: 'From free Instagram workouts to a fitness subscription app. First launch: USD 400k and 5,000 subscribers in week one.', es: 'De entrenamientos gratis en Instagram a una app de suscripción fitness. Primer lanzamiento: USD 400k y 5.000 suscriptores en la primera semana.' },
+    caption: { en: 'From free Instagram workouts to a fitness subscription app. First launch: USD 400k and 5,000 subscribers in week one.', es: 'De entrenamientos gratis en Instagram a una app fitness de suscripción. Primer lanzamiento: USD 400k y 5.000 suscriptores en la primera semana.' },
     articles: [
       { url: 'https://forbes.co/editors-picks/top-creators-2025-silvana-araujo', date: '2025-12', title: { en: 'Top Creators 2025', es: 'Top Creators 2025' } },
       { url: 'https://forbes.co/editors-picks/silvy-araujo-la-creadora-fitness-que-no-se-rinde', date: '2024-12', title: { en: 'The fitness creator who never gives up', es: 'La creadora fitness que no se rinde' } },
@@ -40,7 +40,7 @@ export const PRESS: PressItem[] = [
   },
   {
     id: 'la-razon', outlet: 'La Razón', logo: laRazon, h: 24, ...gise, caption: giseCap,
-    articles: [{ url: 'https://www.larazon.es/madrid/danza-cerebro-proyecto-nazareth-gisela-prevenir-problemas-salud-mental_20241013670b86ffafcb530001e7269b.html', date: '2024-10', title: { en: 'Dance and the Brain', es: 'La Danza y el Cerebro' } }],
+    articles: [{ url: 'https://www.larazon.es/madrid/danza-cerebro-proyecto-nazareth-gisela-prevenir-problemas-salud-mental_20241013670b86ffafcb530001e7269b.html', date: '2024-10', title: { en: 'Dance and the Brain', es: 'La danza y el cerebro' } }],
   },
   {
     id: 'telefe', outlet: 'Telefe', logo: telefe, h: 24, ...gise, caption: giseCap,
@@ -72,9 +72,9 @@ export const PRESS_UI = {
     strip: 'My clients, in the press', stripAria: 'Press coverage of my clients', read: 'Read', seeCase: 'See the case',
   },
   es: {
-    meta: { title: 'Mis clientes en la prensa | Santiago Cardona', description: 'Forbes, El Mundo, Telva y más: prensa de creadores con los que trabajé, publicada mientras trabajaba con ellos.' },
+    meta: { title: 'Mis clientes en la prensa | Santiago Cardona', description: 'Forbes, El Mundo, Telva y más: notas de prensa sobre creadores con los que trabajé, publicadas mientras trabajaba con ellos.' },
     label: 'Prensa', title: 'Mis *clientes* en la prensa',
-    lead: 'Notas sobre los creadores con los que trabajé, publicadas mientras trabajaba con ellos. Las notas hablan de ellos, no de mí. Debajo de cada una: qué hice.',
-    strip: 'Mis clientes, en la prensa', stripAria: 'Prensa de mis clientes', read: 'Leer', seeCase: 'Ver el caso',
+    lead: 'Notas sobre los creadores con los que trabajé, publicadas mientras trabajaba con ellos. Las notas hablan de ellos, no de mí. Debajo de cada una cuento qué hice yo.',
+    strip: 'Mis clientes, en la prensa', stripAria: 'Notas de prensa sobre mis clientes', read: 'Leer', seeCase: 'Ver el caso',
   },
 } as const;

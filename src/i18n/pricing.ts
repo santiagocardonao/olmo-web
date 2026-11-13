@@ -30,7 +30,7 @@ const es: PricingText = {
       { name: 'Asesoría mensual', detail: 'WhatsApp todos los días y 4 reuniones de 1 h al mes.', amount: 'COP 1.900.000 · USD 700 / mes' },
       { name: 'Hora adicional', detail: 'Para clientes con asesoría mensual.', amount: 'COP 160.000 · USD 60' },
       { name: 'Hora suelta', detail: 'Sin mensualidad, para resolver algo puntual.', amount: 'COP 320.000 · USD 100' },
-      { name: 'Proyecto cerrado', detail: 'Cuando el proyecto completo queda en mis manos.', amount: 'Cotización a la medida' },
+      { name: 'Proyecto cerrado', detail: 'Cuando me encargas el proyecto completo.', amount: 'Cotización a la medida' },
     ],
     total: { name: 'Para empezar', detail: 'Una hora suelta', amount: 'COP 320.000 · USD 100' },
     cta: 'Escríbeme por WhatsApp',
@@ -50,12 +50,12 @@ const es: PricingText = {
     srPrefix: 'No hago:',
     items: [
       { word: 'Redes sociales', support: 'Publicar y responder en tus redes.' },
-      { word: 'Pauta / Ads', support: 'Montar y vigilar anuncios todos los días.' },
+      { word: 'Pauta / Ads', support: 'Montar y vigilar anuncios en el día a día.' },
       { word: 'Branding', support: 'Identidad visual desde cero.' },
-      { word: 'WordPress websites', support: 'Soporte mensual de WordPress. La velocidad y las migraciones sí las hago.' },
+      { word: 'Sitios en WordPress', support: 'Soporte mensual de WordPress. La velocidad y las migraciones sí las hago.' },
     ],
-    closing: 'Te digo qué comprar, aunque no sea lo mío. Y si necesitas algo de esta lista, te digo a quién buscar.',
-    link: 'Preguntarme a quién buscar',
+    closing: 'Te digo qué comprar, aunque no sea algo que yo haga. Y si necesitas algo de esta lista, te recomiendo a alguien que sí lo haga.',
+    link: 'Pregúntame a quién llamar',
   },
 };
 

@@ -9,10 +9,10 @@ const es = lang === 'es';
 type Sec = { h: string; p: string };
 const terms: { title: string; meta: string; secs: Sec[] } = es
   ? { title: 'Términos de uso', meta: 'Términos de uso del portafolio personal de Santiago Cardona Ortiz.', secs: [
-      { h: 'Qué es este sitio', p: `Es el portafolio personal de Santiago Cardona Ortiz, desde Medellín, Colombia. Muestra mi trabajo y mis proyectos. Contacto: ${EMAIL}.` },
-      { h: 'Contenido', p: 'El contenido es informativo. Las cifras marcadas como dato interno vienen de los equipos con los que trabajé; las de prensa citan su fuente.' },
-      { h: 'Marcas de terceros', p: 'Los nombres, logos y capturas de otras marcas pertenecen a sus dueños y aparecen con su permiso para mostrar el trabajo que hice con ellas.' },
-      { h: 'Código y herramientas', p: 'Las herramientas y skills de código abierto tienen su propia licencia en GitHub. El resto del contenido es mío y no se puede copiar sin permiso.' },
+      { h: 'Qué es este sitio', p: `Este sitio es el portafolio personal de Santiago Cardona Ortiz, con sede en Medellín, Colombia, y presenta su trabajo y sus proyectos. Contacto: ${EMAIL}.` },
+      { h: 'Contenido', p: 'El contenido del sitio tiene fines informativos. Las cifras identificadas como dato interno provienen de los equipos con los que trabajó el autor; las cifras de prensa citan su fuente.' },
+      { h: 'Marcas de terceros', p: 'Los nombres, logos y capturas de pantalla de otras marcas pertenecen a sus respectivos titulares y se incluyen con su autorización para ilustrar el trabajo realizado con ellas.' },
+      { h: 'Código y herramientas', p: 'Las herramientas y skills de código abierto se rigen por la licencia publicada en su repositorio de GitHub. El resto del contenido pertenece a Santiago Cardona Ortiz y no puede copiarse sin su autorización.' },
       { h: 'Ley aplicable', p: 'Estos términos se rigen por las leyes de Colombia.' },
     ] }
   : { title: 'Terms of use', meta: 'Terms of use for the personal portfolio of Santiago Cardona Ortiz.', secs: [
@@ -23,13 +23,13 @@ const terms: { title: string; meta: string; secs: Sec[] } = es
       { h: 'Governing law', p: 'These terms are governed by the laws of Colombia.' },
     ] };
 const privacy: typeof terms = es
-  ? { title: 'Política de privacidad', meta: 'Cómo trato los datos personales de quienes visitan este portafolio o me escriben.', secs: [
-      { h: 'Responsable', p: `Santiago Cardona Ortiz (Olmo), Medellín, Colombia. Contacto: ${EMAIL}.` },
-      { h: 'Qué datos recojo', p: 'Este sitio no tiene formularios. Si me escribes, uso lo que me cuentas solo para responderte.' },
-      { h: 'Analítica', p: 'Uso Google Analytics 4, cargado a través de Google Tag Manager, para saber cuántas personas visitan el sitio y qué páginas leen. Google Analytics usa cookies y no guarda tu dirección IP. También uso PostHog para ver de forma agregada cómo se navega el sitio: páginas vistas y clics. No uso estos datos para identificarte ni para mostrarte publicidad.' },
-      { h: 'Tus derechos', p: `Según la Ley 1581 de 2012, puedes conocer, actualizar, corregir o pedir que borre tus datos personales cuando quieras. Escríbeme a ${EMAIL} y te respondo en máximo 15 días hábiles.` },
-      { h: 'Conservación de los datos', p: 'Guardo tus mensajes solo mientras sean útiles para la conversación. Después los borro.' },
-      { h: 'Cambios a esta política', p: 'Si cambio esta política, publico la nueva versión en esta misma página.' },
+  ? { title: 'Política de privacidad', meta: 'Cómo se tratan los datos personales de quienes visitan este portafolio o escriben a su autor.', secs: [
+      { h: 'Responsable del tratamiento', p: `Santiago Cardona Ortiz (Olmo), Medellín, Colombia. Contacto: ${EMAIL}.` },
+      { h: 'Datos que se recogen', p: 'Este sitio no tiene formularios. Los datos que una persona comparte al escribir se usan únicamente para responderle.' },
+      { h: 'Analítica', p: 'El sitio usa Google Analytics 4, cargado mediante Google Tag Manager, para medir cuántas personas lo visitan y qué páginas leen. Google Analytics usa cookies y no almacena la dirección IP del visitante. También se usa PostHog para analizar de forma agregada la navegación en el sitio: páginas vistas y clics. Estos datos no se usan para identificar a ninguna persona ni para mostrarle publicidad.' },
+      { h: 'Derechos del titular', p: `De acuerdo con la Ley 1581 de 2012, el titular puede conocer, actualizar y rectificar sus datos personales, o solicitar su supresión, en cualquier momento. Para ejercer estos derechos puede escribir a ${EMAIL}; la respuesta se enviará en un plazo máximo de 15 días hábiles.` },
+      { h: 'Conservación de los datos', p: 'Los mensajes se conservan solo mientras sean útiles para la conversación. Después se eliminan.' },
+      { h: 'Cambios a esta política', p: 'Cualquier cambio a esta política se publicará en esta misma página.' },
     ] }
   : { title: 'Privacy policy', meta: 'How I handle the personal data of people who visit this portfolio or email me.', secs: [
       { h: 'Controller', p: `Santiago Cardona Ortiz (Olmo), Medellín, Colombia. Contact: ${EMAIL}.` },

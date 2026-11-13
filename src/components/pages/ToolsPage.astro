@@ -33,10 +33,10 @@ const tools = [
   {
     name: 'Steady',
     text: es
-      ? 'Registro de gimnasio hecho para un usuario real, mi papá. React y Supabase, PWA instalable.'
+      ? 'App para registrar el gimnasio, hecha para un usuario real: mi papá. React y Supabase, PWA instalable.'
       : 'A gym log built for one real user, my dad. React and Supabase, installable PWA.',
     live: 'https://steady-gym.lovable.app', liveLabel: 'steady-gym.lovable.app', repo: 'steady',
-    img: IMG.steady, alt: es ? 'Pantalla de inicio de la app Steady' : 'Steady app sign-in screen', phone: true,
+    img: IMG.steady, alt: es ? 'Pantalla de inicio de sesión de la app Steady' : 'Steady app sign-in screen', phone: true,
   },
   {
     name: 'Español natural',
@@ -54,8 +54,8 @@ const tools = [
   },
 ];
 const T = es
-  ? { meta: { title: 'Productos de IA: Olmo Cotiza, Métricas y skills de Claude | Santiago Cardona', description: 'Productos y herramientas que construí con Claude Code y Supabase: Olmo Cotiza, Olmo Métricas, Steady y dos skills de Claude. Código abierto en GitHub.' }, label: 'IA', title: 'Lo que *construyo* con IA', lead: 'Productos y herramientas que construí yo, de la idea a producción, con Claude Code y Supabase. El código de todos está en GitHub.', open: 'Abrir', code: 'Código en GitHub' }
-  : { meta: { title: 'AI builds: Olmo Cotiza, Métricas and Claude skills | Santiago Cardona', description: 'Products and tools I built with Claude Code and Supabase: Olmo Cotiza, Olmo Métricas, Steady and two Claude skills. Open source on GitHub.' }, label: 'AI builds', title: 'What I *build* with AI', lead: 'Products and tools I built myself, from idea to production, with Claude Code and Supabase. The code for all of them is on GitHub.', open: 'Open', code: 'Code on GitHub' };
+  ? { meta: { title: 'Productos de IA y skills de Claude | Santiago Cardona', description: 'Productos y herramientas que construí con Claude Code y Supabase: Olmo Cotiza, Olmo Métricas, Steady y dos skills de Claude. Código abierto en GitHub.' }, label: 'IA', title: 'Lo que *construyo* con IA', lead: 'Productos y herramientas que construí yo mismo, de la idea a producción, con Claude Code y Supabase. El código de todos está en GitHub.', open: 'Abrir', code: 'Código en GitHub' }
+  : { meta: { title: 'AI products and Claude skills | Santiago Cardona', description: 'Products and tools I built with Claude Code and Supabase: Olmo Cotiza, Olmo Métricas, Steady and two Claude skills. Open source on GitHub.' }, label: 'AI builds', title: 'What I *build* with AI', lead: 'Products and tools I built myself, from idea to production, with Claude Code and Supabase. The code for all of them is on GitHub.', open: 'Open', code: 'Code on GitHub' };
 ---
 <Base lang={lang} dark route="tools" title={T.meta.title} description={T.meta.description}>
   <PageHero label={T.label} title={T.title} lead={T.lead} />

@@ -1,0 +1,32 @@
+# Santiago Cardona Ortiz
+
+> Growth marketer, CRO specialist and AI builder based in Medellín, Colombia (UTC-5). Open to full-time remote roles where he owns a growth or conversion number inside a product team. Site in English (/) and Spanish (/es/).
+
+- 2020 to June 2026: led growth, tech and conversion for silBe by Silvy, a fitness subscription app. USD 800k in one subscription launch; purchase conversion from 3% to 4%; monthly price from USD 29 to 39 with no rise in churn (internal data). Forbes Colombia, 2021: USD 400k and 5,000 subscribers in the first week.
+- 2017 to 2025: co-founder and COO of Vieli, a 30-person studio with 100+ projects, all from referrals. He left in 2025.
+- Six years teaching UX/UI at CESDE.
+- Builds AI products with Claude Code and Supabase (Olmo Cotiza, Olmo Métricas) and publishes Claude skills.
+
+## Case studies
+
+- [silBe: from a free community to a subscription](https://santiagocardonaortiz.com/portfolio/silbe/)
+- [Radhi Yoga: 10x revenue per launch](https://santiagocardonaortiz.com/portfolio/radhi-yoga/)
+- [ILMIN: +25% digital sales in 3 months](https://santiagocardonaortiz.com/portfolio/ilmin/)
+- [Undergold: a B2B catalog without double entry](https://santiagocardonaortiz.com/portfolio/undergold/)
+- [Ideal Team: 14 faster websites](https://santiagocardonaortiz.com/portfolio/ideal-team/)
+- [All work](https://santiagocardonaortiz.com/portfolio/)
+
+## AI products
+
+- [Olmo Cotiza: AI quoting product on Claude and Supabase](https://santiagocardonaortiz.com/portfolio/olmo-cotiza/)
+- [Olmo Métricas: subscription calculator](https://santiagocardonaortiz.com/portfolio/olmo-metricas/)
+- [Español natural: a Claude skill](https://santiagocardonaortiz.com/portfolio/espanol-natural/)
+- [Design System Adherence: a Claude skill](https://santiagocardonaortiz.com/portfolio/design-system-adherence/)
+- [AI products overview](https://santiagocardonaortiz.com/tools/)
+
+## About and contact
+
+- [About](https://santiagocardonaortiz.com/about/)
+- [Clients in the press](https://santiagocardonaortiz.com/press/)
+- [LinkedIn](https://www.linkedin.com/in/scardonaortiz)
+- [GitHub](https://github.com/santiagocardonao)

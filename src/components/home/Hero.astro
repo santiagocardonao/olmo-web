@@ -27,7 +27,7 @@ const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); retur
         <div class="fc-scroll" data-fc-scroll>
           <div class="fc-drift">
             <a class="fc-card" href={r(PROJECT_ROUTE[id], lang)} aria-label={P[id].name} data-fc>
-              <Cover id={id} lang={lang} alt="" sizes="(min-width: 768px) 20vw, 36vw" eager={i < 2} />
+              <Cover id={id} lang={lang} alt={P[id].name} sizes="(min-width: 768px) 20vw, 36vw" eager={i < 2} />
             </a>
           </div>
         </div>

@@ -27,8 +27,8 @@ const site = Astro.site!;
 const alt = route ? ROUTES[route] : ROUTES.home;
 const canonical = new URL(route ? alt[lang] : Astro.url.pathname, site).href;
 const ogImage = new URL(lang === 'es' ? '/og-es.jpg' : '/og-en.jpg', site).href;
-// Datos estructurados (schema.org) solo en la home: la persona detrás del portafolio.
-const ld = route === 'home' ? JSON.stringify({
+// Datos estructurados (schema.org) en la home y en Sobre mí: la persona detrás del portafolio.
+const ld = route === 'home' || route === 'about' ? JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   url: new URL(alt[lang], site).href,
@@ -38,6 +38,8 @@ const ld = route === 'home' ? JSON.stringify({
     '@type': 'Person',
     '@id': new URL('/#santiago', site).href,
     name: 'Santiago Cardona Ortiz',
+    alternateName: 'Santiago Cardona',
+    url: new URL('/', site).href,
     jobTitle: 'Growth Marketer, CRO & AI Builder',
     email: `mailto:${EMAIL}`,
     image: ogImage,
