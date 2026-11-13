@@ -2,16 +2,16 @@
 import Base from '../layouts/Base.astro';
 import Btn from '../components/Btn.astro';
 ---
-<Base lang="es" route={null} title="Página no encontrada | Olmo" description="Esta página no existe o cambió de dirección.">
+<Base lang="en" route={null} title="Page not found | Santiago Cardona" description="This page doesn't exist or has moved.">
   <section class="nf">
     <div class="wrap">
       <p class="labels"><span>404</span><span aria-hidden="true">( ES · EN )</span></p>
-      <h1 class="nf-title">Esta página <em class="s">no existe</em>.</h1>
-      <p class="support nf-p">Puede que haya cambiado de dirección con el sitio nuevo.</p>
-      <p class="support nf-p" lang="en">This page doesn't exist. It may have moved with the new site.</p>
+      <h1 class="nf-title">This page <em class="s">doesn't exist</em>.</h1>
+      <p class="support nf-p">It may have moved with the new site.</p>
+      <p class="support nf-p" lang="es">Esta página no existe. Puede que haya cambiado de dirección.</p>
       <div class="nf-btns">
-        <Btn href="/" label="Ir al inicio" />
-        <Btn href="/en/" label="Go to the English site" variant="sec" lang="en" />
+        <Btn href="/" label="Go to the homepage" />
+        <Btn href="/es/" label="Ir al sitio en español" variant="sec" lang="es" />
       </div>
     </div>
   </section>

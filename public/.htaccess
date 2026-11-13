@@ -15,28 +15,32 @@ RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# --- Redirecciones 301 desde las URLs de Framer (08_PLAN_MAESTRO.md §11) ---
-RewriteRule ^alianza/?$ /mensualidad/ [R=301,L]
-RewriteRule ^como-trabajamos/?$ /asesoria/ [R=301,L]
-RewriteRule ^about/?$ /sobre-mi/ [R=301,L]
-RewriteRule ^agenda/?$ /asesoria/ [R=301,L]
-RewriteRule ^contacto/?$ /asesoria/ [R=301,L]
-# /términos-y-condiciones (con tilde, llegue codificada o no)
-RewriteRule ^t[^/]{1,6}rminos-y-condiciones/?$ /terminos/ [R=301,L]
-RewriteRule ^terminos-y-condiciones/?$ /terminos/ [R=301,L]
-RewriteRule ^politica-privacidad/?$ /privacidad/ [R=301,L]
+# --- 12 nov 2026: el sitio pasa a ser portafolio personal. Inglés en /, español en /es/ ---
+# Casos que salieron del portafolio
+RewriteRule ^(?:en/)?portfolio/(balparaiso|mia-plus|zafiro|vieli|sarabe|itaca)/?$ /portfolio/ [R=301,L]
+RewriteRule ^portafolio/(balparaiso|mia-plus|zafiro|vieli|sarabe|itaca)/?$ /es/portafolio/ [R=301,L]
+RewriteRule ^es/portafolio/(balparaiso|mia-plus|zafiro|vieli|sarabe|itaca)/?$ /es/portafolio/ [R=301,L]
+# Inglés: /en/... → /...
+RewriteRule ^en/?$ / [R=301,L]
+RewriteRule ^en/diagnostic/?$ /advisory/ [R=301,L]
+RewriteRule ^en/work/?$ /portfolio/ [R=301,L]
+RewriteRule ^en/work/(silbe|undergold|ideal-team)/?$ /portfolio/$1/ [R=301,L]
+RewriteRule ^en/(.+)$ /$1 [R=301,L]
+# Español: rutas viejas en la raíz → /es/...
+RewriteRule ^(portafolio|sobre-mi|herramientas|asesoria|mensualidad|terminos|privacidad)(/.*)?$ /es/$1$2 [R=301,L]
+RewriteRule ^casos/?$ /es/portafolio/ [R=301,L]
+RewriteRule ^casos/(silbe|undergold|ideal-team)/?$ /es/portafolio/$1/ [R=301,L]
+RewriteRule ^diagnostico/?$ /es/asesoria/ [R=301,L]
+# URLs de Framer
+RewriteRule ^alianza/?$ /es/mensualidad/ [R=301,L]
+RewriteRule ^como-trabajamos/?$ /es/asesoria/ [R=301,L]
+RewriteRule ^agenda/?$ /es/asesoria/ [R=301,L]
+RewriteRule ^contacto/?$ /es/#contacto [R=301,L,NE]
+RewriteRule ^t[^/]{1,6}rminos-y-condiciones/?$ /es/terminos/ [R=301,L]
+RewriteRule ^terminos-y-condiciones/?$ /es/terminos/ [R=301,L]
+RewriteRule ^politica-privacidad/?$ /es/privacidad/ [R=301,L]
 RewriteRule ^blog(/.*)?$ / [R=301,L]
 RewriteRule ^pagos/?$ / [R=301,L]
-
-# --- El diagnóstico se eliminó (16 oct 2026) ---
-RewriteRule ^diagnostico/?$ /asesoria/ [R=301,L]
-RewriteRule ^en/diagnostic/?$ /en/advisory/ [R=301,L]
-
-# --- Casos se unificó en Portafolio (15 oct 2026) ---
-RewriteRule ^casos/?$ /portafolio/ [R=301,L]
-RewriteRule ^casos/(silbe|undergold|ideal-team)/?$ /portafolio/$1/ [R=301,L]
-RewriteRule ^en/work/?$ /en/portfolio/ [R=301,L]
-RewriteRule ^en/work/(silbe|undergold|ideal-team)/?$ /en/portfolio/$1/ [R=301,L]
 </IfModule>
 
 # Caché: los archivos de /_astro y /fonts llevan hash o no cambian
@@ -48,6 +52,10 @@ RewriteRule ^en/work/(silbe|undergold|ideal-team)/?$ /en/portfolio/$1/ [R=301,L]
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
   Header always set X-Content-Type-Options "nosniff"
+  # Precios: se comparten por link directo y no se indexan (también van en robots.txt y meta noindex).
+  <If "%{REQUEST_URI} =~ m#^/(advisory|monthly|es/asesoria|es/mensualidad)(/|$)#">
+    Header always set X-Robots-Tag "noindex, nofollow"
+  </If>
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   # Seguridad (revisión del 16 oct 2026). HSTS sin includeSubDomains: cotiza y metricas aún no fuerzan HTTPS.
   Header always set Strict-Transport-Security "max-age=31536000"
