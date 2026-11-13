@@ -61,8 +61,6 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
       </div>
     </div>
 
-    <p class="ft-mark" aria-hidden="true">{ui.logoName}</p>
-
     <div class="ft-bottom">
       <p class="ft-copy">{f.copyright}</p>
       <div class="ft-end">
@@ -134,16 +132,6 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
   }
   .ft-email:hover, .ft-email:focus-visible { background: var(--on-dark); border-color: var(--on-dark); color: var(--tinta); }
   .ft-data { margin-top: 12px; font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark-2); }
-
-  /* Nombre grande en puntos, apagado, como firma del sitio. */
-  .ft-mark {
-    margin-top: clamp(56px, 8vw, 120px);
-    font: 600 clamp(48px, 11.2vw, 168px)/0.95 var(--f-logo); letter-spacing: -0.03em; white-space: nowrap; text-align: center;
-    background: radial-gradient(circle, #ffffff59 0.9px, transparent 1.3px) 0 0 / 5px 5px;
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    user-select: none;
-  }
-  @media (max-width: 767px) { .ft-mark { white-space: normal; } }
 
   .ft-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 72px); }
   .ft-copy { font: 400 var(--t-sm)/1.4 var(--f-sans); color: var(--on-dark-2); }
