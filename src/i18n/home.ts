@@ -91,7 +91,7 @@ const en: HomeText = {
   clients: { label: "Brands I've grown or built for since 2017:", aria: 'Brands I have worked with' },
   big: {
     h2: 'I experiment before I assume it will work.',
-    body: 'Every change starts as a hypothesis or with a number. I set up the tracking, test, read the result and keep what wins.\nCuriosity is what separates someone good from someone excellent.',
+    body: 'Every change starts as a hypothesis with a number attached. I set up the tracking, test, read the result and keep what wins.\nCuriosity is what separates someone good from someone excellent.',
     steps: [
       { t: 'Hypothesis', d: 'Where the funnel leaks and what should move.' },
       { t: 'Experiment', d: 'A/B test or staged rollout on real buyers.' },
