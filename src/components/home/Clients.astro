@@ -4,7 +4,7 @@ import type { Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import bancolombia from '../../assets/logos/bancolombia.png';
 import cesde from '../../assets/logos/cesde.png';
-import undergold from '../../assets/logos/undergold.png';
+import undergold from '../../assets/logos/undergold.svg';
 import silbe from '../../assets/logos/silbe.png';
 import ilmin from '../../assets/logos/ilmin.png';
 import vieli from '../../assets/logos/vieli.png';
@@ -30,7 +30,9 @@ const logos = [
           <ul aria-hidden={copy === 1 ? 'true' : undefined}>
             {logos.map((l) => (
               <li style={`--h:${l.h}px`}>
-                <Image src={l.src} alt={copy === 1 ? '' : l.alt} height={l.h * 2} format="webp" loading="lazy" />
+                {l.src.format === 'svg'
+                  ? <img src={l.src.src} alt={copy === 1 ? '' : l.alt} width={Math.round(l.h * l.src.width / l.src.height)} height={l.h} loading="lazy" decoding="async" />
+                  : <Image src={l.src} alt={copy === 1 ? '' : l.alt} height={l.h * 2} format="webp" loading="lazy" />}
               </li>
             ))}
           </ul>

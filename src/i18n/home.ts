@@ -39,12 +39,13 @@ export interface HomeText {
     label: string; title: string; body: string; intent: string; button: string;
     milestones: { date: string; place: string; role: string }[];
     stackLabel: string; stack: string[];
+    langLabel: string; langs: { n: string; l: string }[];
     linkedin: string; photoAlt: string;
   };
   footer: {
     eyebrow: string; title: string; button: string; pills: string[]; tools: string;
-    emailLabel: string; city: string; inCity: string; bigWord: string;
-    bigLabel: string; copyright: string;
+    emailLabel: string; city: string; inCity: string;
+    colPages: string; colElsewhere: string; colHello: string; toTop: string; copyright: string;
   };
 }
 
@@ -60,7 +61,7 @@ const en: HomeText = {
   },
   ui: {
     skip: 'Skip to content',
-    closed: 'Open to full-time remote roles · Growth, CRO & AI',
+    closed: 'Open to full-time remote roles · Growth, CRO & AI · Based in Medellín, Colombia (UTC-5)',
     logoLabel: 'Santiago Cardona, go to home',
     logoName: 'Santiago Cardona',
     nav: ['Work', 'AI builds', 'About', 'Contact'],
@@ -75,7 +76,7 @@ const en: HomeText = {
   hero: {
     eyebrow: 'Santiago Cardona · Growth Marketer, CRO & AI Builder',
     h1: 'I grow subscription and e-commerce revenue, and I build the *funnel* myself.',
-    sub: '8 years running launches, checkouts, paywalls and pricing, now shipping AI products with Claude Code and Supabase. Remote from Medellín, Colombia (UTC-5).',
+    sub: '8 years running launches, checkouts, paywalls and pricing, now shipping AI products with Claude Code and Supabase.',
     stats: [
       { v: 'USD 800k', k: 'in one subscription launch at silBe (internal data)' },
       { v: '3% → 4%', k: 'purchase conversion, silBe launches since Dec 2020 (internal data)' },
@@ -144,8 +145,10 @@ const en: HomeText = {
       { date: 'Since 2025', place: 'Olmo', role: 'My lab for AI tools: Cotiza, Métricas.' },
       { date: '6 years', place: 'CESDE', role: 'UX/UI instructor.' },
     ],
+    langLabel: 'Languages',
+    langs: [{ n: 'Spanish', l: 'Native' }, { n: 'English', l: 'Professional working proficiency' }, { n: 'Portuguese', l: 'Conversational' }],
     stackLabel: 'Stack',
-    stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Meta & Google Ads strategy'],
+    stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'Adobe Illustrator', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Meta & Google Ads strategy'],
     linkedin: 'LinkedIn',
     photoAlt: 'Portrait of Santiago Cardona Ortiz',
   },
@@ -158,25 +161,27 @@ const en: HomeText = {
     emailLabel: 'Email',
     city: 'Medellín, Colombia · UTC-5',
     inCity: 'in Medellín',
-    bigWord: "Let's talk",
-    bigLabel: "Let's talk: email Santiago Cardona",
+    colPages: 'Pages',
+    colElsewhere: 'Elsewhere',
+    colHello: 'Say hello',
+    toTop: 'Back to top',
     copyright: '© 2026 Santiago Cardona Ortiz · Olmo',
   },
 };
 
 const es: HomeText = {
   meta: {
-    title: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+    title: 'Santiago Cardona · Growth Marketing, CRO y AI Builder',
     description:
       'Lidero growth y conversión: 8 años de lanzamientos por suscripción, CRO de checkout y herramientas de IA que construyo yo con Claude y Supabase. Remoto desde Medellín.',
-    ogTitle: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+    ogTitle: 'Santiago Cardona · Growth Marketing, CRO y AI Builder',
     ogDescription:
       'USD 800k en un lanzamiento por suscripción, conversión de 3 % a 4 % y productos de IA de principio a fin. Abierto a roles remotos de tiempo completo.',
-    ogAlt: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+    ogAlt: 'Santiago Cardona · Growth Marketing, CRO y AI Builder',
   },
   ui: {
     skip: 'Saltar al contenido',
-    closed: 'Abierto a roles remotos de tiempo completo · Growth, CRO e IA',
+    closed: 'Abierto a roles remotos de tiempo completo · Growth, CRO e IA · Desde Medellín, Colombia (UTC-5)',
     logoLabel: 'Santiago Cardona, ir al inicio',
     logoName: 'Santiago Cardona',
     nav: ['Trabajo', 'IA', 'Sobre mí', 'Contacto'],
@@ -189,9 +194,9 @@ const es: HomeText = {
     newTab: '(se abre en otra pestaña)',
   },
   hero: {
-    eyebrow: 'Santiago Cardona · Growth Marketer, CRO y AI Builder',
+    eyebrow: 'Santiago Cardona · Growth Marketing, CRO y AI Builder',
     h1: 'Hago crecer ventas por suscripción y e-commerce, y el *funnel* lo construyo yo.',
-    sub: '8 años con lanzamientos, checkouts, paywalls y precios. Hoy también lanzo productos de IA con Claude Code y Supabase. Remoto desde Medellín, Colombia (UTC-5).',
+    sub: '8 años con lanzamientos, checkouts, paywalls y precios. Hoy también lanzo productos de IA con Claude Code y Supabase.',
     stats: [
       { v: 'USD 800k', k: 'en un lanzamiento por suscripción en silBe (dato interno)' },
       { v: '3 % → 4 %', k: 'de conversión a compra, lanzamientos de silBe desde dic. 2020 (dato interno)' },
@@ -260,8 +265,10 @@ const es: HomeText = {
       { date: 'Desde 2025', place: 'Olmo', role: 'Mi laboratorio de herramientas de IA: Cotiza, Métricas.' },
       { date: '6 años', place: 'CESDE', role: 'Docente de UX/UI.' },
     ],
+    langLabel: 'Idiomas',
+    langs: [{ n: 'Español', l: 'Nativo' }, { n: 'Inglés', l: 'Competencia profesional' }, { n: 'Portugués', l: 'Conversacional' }],
     stackLabel: 'Herramientas',
-    stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Estrategia en Meta y Google Ads'],
+    stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'Adobe Illustrator', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Estrategia en Meta y Google Ads'],
     linkedin: 'LinkedIn',
     photoAlt: 'Retrato de Santiago Cardona Ortiz',
   },
@@ -274,8 +281,10 @@ const es: HomeText = {
     emailLabel: 'Correo',
     city: 'Medellín, Colombia · UTC-5',
     inCity: 'en Medellín',
-    bigWord: 'Hablemos',
-    bigLabel: 'Hablemos: escríbele un correo a Santiago Cardona',
+    colPages: 'Páginas',
+    colElsewhere: 'En otros sitios',
+    colHello: 'Escríbeme',
+    toTop: 'Volver arriba',
     copyright: '© 2026 Santiago Cardona Ortiz · Olmo',
   },
 };

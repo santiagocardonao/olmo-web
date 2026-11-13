@@ -29,7 +29,7 @@ const s = HOME[lang].services;
 </section>
 
 <style>
-  .circ { padding-block: var(--sec-y); border-top: 1px solid var(--line-dark); --d: clamp(160px, 20vw, 320px); }
+  .circ { padding-block: var(--sec-y); --d: clamp(160px, 20vw, 320px); }
   .circ-list {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px;
     margin-top: clamp(32px, 4vw, 56px);
@@ -42,13 +42,29 @@ const s = HOME[lang].services;
     stroke-dasharray: 1; stroke-dashoffset: 0;
     transition: stroke .3s, fill .3s;
   }
+  /* Velo violeta siempre visible; en los cruces se suma (screen) y el solape se ve más claro, como un diagrama de Venn. */
+  .circ-ring::before, .circ-ring::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+    transition: opacity .5s var(--ease-out), transform .5s var(--ease-out);
+  }
+  .circ-ring::before {
+    background: radial-gradient(circle at 30% 25%, #a970ff59 0%, #7c3aed26 42%, #6d28d900 72%);
+    mix-blend-mode: screen;
+  }
+  /* Al pasar el mouse: el degradado de marca completo llena el círculo. */
+  .circ-ring::after { background: var(--grad-olmo); opacity: 0; transform: scale(.94); }
   .circ-label {
-    position: relative; padding: 0 14%;
-    font: 400 clamp(16px, 1.6vw, 22px)/1.25 var(--f-sans); letter-spacing: -0.01em; color: #ffffffd9;
+    position: relative; z-index: 1; padding: 0 12%;
+    font: 500 clamp(20px, 2.1vw, 30px)/1.15 var(--f-sans); letter-spacing: -0.02em; color: var(--on-dark);
+    text-wrap: balance;
   }
   .circ-cap { max-width: 26ch; font: 400 var(--t-sm)/1.5 var(--f-sans); color: #ffffff8c; transition: color .3s; }
   .circ-cap strong { font-weight: 500; color: var(--on-dark); }
-  .circ-link:hover circle, .circ-link:focus-visible circle { stroke: var(--violeta); fill: #ffffff05; }
+  .circ-ring svg { z-index: 1; }
+  .circ-link:hover circle, .circ-link:focus-visible circle { stroke: #ffffff00; }
+  .circ-link:hover .circ-ring::after, .circ-link:focus-visible .circ-ring::after { opacity: 1; transform: scale(1); }
+  .circ-link:hover .circ-ring::before, .circ-link:focus-visible .circ-ring::before { opacity: 0; }
+  @media (prefers-reduced-motion: reduce) { .circ-ring::before, .circ-ring::after { transition: none; } }
   .circ-link:hover .circ-cap, .circ-link:focus-visible .circ-cap { color: var(--on-dark); }
   .circ-link:focus-visible { outline: none; }
   .circ-link:focus-visible .circ-ring { outline: 2px solid var(--on-dark); outline-offset: 6px; border-radius: 50%; }

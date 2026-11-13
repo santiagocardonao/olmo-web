@@ -10,7 +10,7 @@ const b = HOME[lang].big;
 // Título y cuerpo se leen como un solo bloque; cada palabra se enciende al pasar la línea de lectura.
 const words = `${plain(b.h2)} ${b.body}`.split(/\s+/);
 ---
-<section class="stmt band-dark" aria-labelledby="big-h2" data-dark>
+<section class="stmt" aria-labelledby="big-h2">
   <div class="wrap">
     <h2 id="big-h2" class="sr-only">{plain(b.h2)}</h2>
     <p class="sr-only">{b.body}</p>
@@ -22,27 +22,25 @@ const words = `${plain(b.h2)} ${b.body}`.split(/\s+/);
         <li><span class="ss-n tnum">0{i + 1}</span><span class="ss-t">{s.t}</span><span class="ss-d">{s.d}</span></li>
       ))}
     </ol>
-    <div class="stmt-btn" data-fade><Btn href={r('silbe', lang)} label={b.button} variant="light" /></div>
+    <div class="stmt-btn" data-fade><Btn href={r('silbe', lang)} label={b.button} variant="dark" /></div>
   </div>
 </section>
 
 <style>
-  .stmt { padding-block: calc(var(--sec-y) * 1.4) var(--sec-y); }
+  .stmt { padding-block: var(--sec-y); }
   .stmt-text {
     margin-inline: auto; max-width: 900px; text-align: center;
     font: 500 clamp(28px, 3.6vw, 56px)/1.15 var(--f-sans); letter-spacing: -0.02em;
-    color: var(--on-dark); text-wrap: pretty;
+    color: var(--tinta); text-wrap: pretty;
   }
   .stmt-steps {
     display: grid; gap: 0; margin-top: clamp(56px, 7vw, 104px);
-    border-top: 1px solid var(--line-dark);
   }
   @media (min-width: 768px) { .stmt-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 30px; } }
   @media (min-width: 1200px) { .stmt-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .stmt-steps li { display: flex; flex-direction: column; gap: 6px; padding: 18px 0; }
-  .ss-n { font: 600 var(--t-xs)/1.3 var(--f-sans); color: var(--violeta-tinte); }
-  .ss-t { font: 500 var(--t-base)/1.3 var(--f-sans); color: var(--on-dark); }
-  .ss-d { font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark-2); }
+  .ss-n { font: 600 var(--t-xs)/1.3 var(--f-sans); color: var(--violeta); }
+  .ss-t { font: 500 var(--t-base)/1.3 var(--f-sans); color: var(--tinta); }
+  .ss-d { font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--gris-700); }
   .stmt-btn { margin-top: clamp(28px, 3vw, 40px); display: flex; justify-content: center; }
-  .stmt :focus-visible { outline-color: var(--on-dark); }
 </style>

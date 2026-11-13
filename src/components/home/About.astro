@@ -28,15 +28,19 @@ const ui = HOME[lang].ui;
             <li><span class="ms-date">{m.date}</span><span class="ms-place">{m.place}</span><span class="ms-role">{m.role}</span></li>
           ))}
         </ol>
-        <div class="ab-stack" data-fade>
-          <p class="ms-date">{a.stackLabel}</p>
-          <ul>{a.stack.map((x) => <li class="pill">{x}</li>)}</ul>
-        </div>
         <div class="ab-links" data-fade>
           <Btn href={`mailto:${EMAIL}`} label={ui.cta} variant="dark" ariaLabel={ui.ctaLabel} data-cta="email-about" />
           <Btn href={LINKS.linkedin} label={a.linkedin} variant="sec" external ariaLabel={`${a.linkedin} ${ui.newTab}`} data-cta="linkedin-about" />
         </div>
       </div>
+    </div>
+    <div class="ab-stack" data-fade>
+      <h3 class="sec-label">{a.stackLabel}</h3>
+      <ul>{a.stack.map((x) => <li>{x}</li>)}</ul>
+    </div>
+    <div class="ab-langs" data-fade>
+      <h3 class="sec-label">{a.langLabel}</h3>
+      <ul>{a.langs.map((x) => <li><strong>{x.n}</strong> · {x.l}</li>)}</ul>
     </div>
   </div>
 </section>
@@ -57,7 +61,21 @@ const ui = HOME[lang].ui;
   .ms-place { font: 600 22px/1.2 var(--f-sans); letter-spacing: -0.03em; }
   .ms-role { font: 300 15px/1.5 var(--f-sans); color: var(--gris-700); }
   .ab-intent { margin-top: 18px; font: 600 clamp(18px, 1.5vw, 22px)/1.4 var(--f-sans); letter-spacing: -0.02em; max-width: 34em; }
-  .ab-stack { margin-top: 32px; }
-  .ab-stack ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  /* Stack a todo el ancho: los reclutadores lo buscan, así que se lee de un vistazo. */
+  .ab-stack { margin-top: clamp(56px, 7vw, 104px); }
+  .ab-stack ul { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  /* Idiomas: mismo patrón que el stack, en pequeño. */
+  .ab-langs { margin-top: 32px; }
+  .ab-langs ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .ab-langs li {
+    padding: 8px 14px; border-radius: var(--pill); border: 1px solid var(--borde);
+    font: 400 var(--t-sm)/1.2 var(--f-sans); color: var(--gris-700);
+  }
+  .ab-langs strong { font-weight: 500; color: var(--tinta); }
+  .ab-stack li {
+    padding: 12px 20px; border-radius: var(--pill);
+    background: var(--blanco); border: 1px solid var(--borde);
+    font: 500 clamp(16px, 1.3vw, 19px)/1.2 var(--f-sans); letter-spacing: -0.01em; color: var(--tinta);
+  }
   .ab-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 </style>

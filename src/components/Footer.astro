@@ -10,7 +10,6 @@ const { lang, route } = Astro.props;
 const f = HOME[lang].footer;
 const ui = HOME[lang].ui;
 const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
-const letters = [...f.bigWord];
 ---
 <div class="ft-zone" data-dark>
 <section class="cta sec" id={lang === 'es' ? 'contacto' : 'contact'} aria-labelledby="cta-title">
@@ -24,46 +23,55 @@ const letters = [...f.bigWord];
   </div>
 </section>
 
-<footer class="site-footer">
+</div>
+
+<footer class="site-footer band-dark" data-dark>
   <div class="wrap">
-    <div class="ft-row ft-links">
-      <div>
-        <h2 class="ft-h">{lang === 'es' ? 'Enlaces' : 'Links'}</h2>
-        <ul class="ft-pills">
-          {pillIds.map((id, i) => (
-            <li><a class="pill" href={r(id, lang)} aria-current={route === id ? 'page' : undefined}>{f.pills[i]}</a></li>
-          ))}
-        </ul>
-        <a class="tlink ft-tools" href={r('tools', lang)}>{f.tools}</a>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a class="ft-id" href={r('home', lang)} aria-label={ui.logoLabel}>
+          <span class="logo-word ft-logo">olmo</span><span class="ft-name">{ui.logoName}</span>
+        </a>
+        <p class="ft-blurb">{HOME[lang].hero.sub}</p>
+        <p class="ft-status"><span class="ft-dot" aria-hidden="true"></span>{f.eyebrow}</p>
       </div>
-      <div class="ft-contact">
-        <p class="ft-h">{f.emailLabel}</p>
-        <a class="ft-email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
-        <p class="ft-data small">
+      <nav class="ft-col" aria-labelledby="ft-pages">
+        <h2 id="ft-pages" class="ft-h">{f.colPages}</h2>
+        <ul>
+          {pillIds.map((id, i) => (
+            <li><a href={r(id, lang)} aria-current={route === id ? 'page' : undefined}>{f.pills[i]}</a></li>
+          ))}
+          <li><a href={r('tools', lang)}>{f.tools.replace(/\s*→$/, '')}</a></li>
+        </ul>
+      </nav>
+      <div class="ft-col">
+        <h2 class="ft-h">{f.colElsewhere}</h2>
+        <ul>
+          <li><a href={LINKS.linkedin} target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> {ui.newTab}</span></a></li>
+          <li><a href={LINKS.github} target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span><span class="sr-only"> {ui.newTab}</span></a></li>
+          <li><a href={LINKS.behance} target="_blank" rel="noopener">Behance <span aria-hidden="true">↗</span><span class="sr-only"> {ui.newTab}</span></a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h2 class="ft-h">{f.colHello}</h2>
+        <a class="ft-email" href={`mailto:${EMAIL}`} data-cta="email-footer-link">{EMAIL}</a>
+        <p class="ft-data">
           {f.city}<span class="ft-clock" hidden><span aria-hidden="true"> · </span><time data-clock data-lang={lang}></time> {f.inCity}</span>
         </p>
       </div>
     </div>
 
-    <div class="ft-row ft-big">
-      <a class="logo-word ft-logo" href={r('home', lang)} aria-label={ui.logoLabel}>olmo</a>
-      <a class="ft-word" href={`mailto:${EMAIL}`} aria-label={f.bigLabel} data-stretch>
-        {letters.map((ch) => (ch === ' ' ? <span class="sp" aria-hidden="true">&nbsp;</span> : <span class="ch" aria-hidden="true">{ch}</span>))}
-      </a>
-    </div>
+    <p class="ft-mark" aria-hidden="true">{ui.logoName}</p>
 
-    <div class="ft-row ft-bottom">
-      <p class="small">{f.copyright}</p>
-      <ul class="ft-social">
-        <li><a class="pill" href={LINKS.linkedin} target="_blank" rel="noopener">LinkedIn ↗<span class="sr-only"> {ui.newTab}</span></a></li>
-        <li><a class="pill" href={LINKS.github} target="_blank" rel="noopener">GitHub ↗<span class="sr-only"> {ui.newTab}</span></a></li>
-        <li><a class="pill" href={LINKS.behance} target="_blank" rel="noopener">Behance ↗<span class="sr-only"> {ui.newTab}</span></a></li>
-      </ul>
-      <LangSwitch lang={lang} route={route} />
+    <div class="ft-bottom">
+      <p class="ft-copy">{f.copyright}</p>
+      <div class="ft-end">
+        <LangSwitch lang={lang} route={route} />
+        <a class="ft-top" href="#" aria-label={f.toTop}><span aria-hidden="true">↑</span></a>
+      </div>
     </div>
   </div>
 </footer>
-</div>
 
 <style>
   /* Bloque final morado: CTA + footer sobre un degradado radial, todo el texto en blanco. */
@@ -96,49 +104,57 @@ const letters = [...f.bigWord];
   .cta-eyebrow { font: 500 16px/1.3 var(--f-sans); color: #fff; margin-bottom: 18px; }
   .cta-title { max-width: 16.5em; }
   .cta-btn { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px; }
-  .site-footer { padding-bottom: 28px; }
-  .ft-row { border-top: 1px solid var(--borde-z); }
-  .ft-links {
-    display: grid; gap: 40px; padding-block: 40px 56px;
+  .ft-zone { border-radius: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 40px) 0 0; }
+
+  /* Pie oscuro en cuatro columnas, sin líneas divisorias: el espacio separa los grupos. */
+  .site-footer { padding-block: clamp(56px, 7vw, 104px) 28px; }
+  .ft-grid { display: grid; gap: 40px 30px; }
+  @media (min-width: 768px) { .ft-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ft-brand { grid-column: 1 / -1; } }
+  @media (min-width: 1200px) { .ft-grid { grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); } .ft-brand { grid-column: auto; } }
+  .ft-id { display: inline-flex; align-items: baseline; gap: 10px; color: var(--on-dark); }
+  .ft-logo { font-size: 28px; }
+  .ft-name { font: 500 var(--t-base)/1.2 var(--f-sans); }
+  .ft-blurb { margin-top: 16px; max-width: 38ch; font: 400 var(--t-sm)/1.6 var(--f-sans); color: var(--on-dark-2); }
+  .ft-status {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
+    padding: 8px 14px; border-radius: var(--pill); border: 1px solid var(--line-dark);
+    font: 500 var(--t-sm)/1.2 var(--f-sans); color: var(--on-dark);
   }
-  @media (min-width: 992px) { .ft-links { grid-template-columns: 1fr 1fr; } }
-  .ft-h { font: 600 16px/1.3 var(--f-sans); margin-bottom: 16px; letter-spacing: -0.01em; }
-  .ft-pills { display: flex; flex-wrap: wrap; gap: 8px; max-width: 520px; }
-  .ft-tools { display: inline-block; margin-top: 22px; font-size: 15px; }
-  .ft-contact { justify-self: start; }
-  @media (min-width: 992px) { .ft-contact { justify-self: end; text-align: right; } }
+  .ft-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--online); box-shadow: 0 0 0 3px #16a34a33; }
+  .ft-h { font: 500 var(--t-xs)/1.3 var(--f-sans); letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark-3); margin-bottom: 16px; }
+  .ft-col ul { display: grid; gap: 10px; }
+  .ft-col a:not(.ft-email) { font: 400 var(--t-base)/1.4 var(--f-sans); color: var(--on-dark); opacity: .85; transition: opacity .2s; }
+  .ft-col a:not(.ft-email):hover, .ft-col a:not(.ft-email):focus-visible, .ft-col a[aria-current='page'] { opacity: 1; text-decoration: underline; text-underline-offset: .2em; }
   .ft-email {
-    display: inline-block;
-    font: 400 clamp(28px, 3.6vw, 52px)/1.15 var(--f-sans);
-    letter-spacing: -0.02em;
-    text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .14em;
-    text-decoration-color: rgba(255, 255, 255, 0.5);
-    transition: text-decoration-color .3s;
-    word-break: break-word;
+    display: inline-flex; align-items: center; max-width: 100%;
+    padding: 9px 16px; border-radius: var(--pill);
+    border: 1px solid #ffffff4d; background: var(--surface-dark-2, #ffffff0a);
+    font: 500 13px/1.2 var(--f-sans); color: var(--on-dark); word-break: break-all;
+    transition: background .25s, color .25s, border-color .25s;
   }
-  .ft-email:hover { text-decoration-color: #fff; }
-  .ft-data { margin-top: 14px; }
-  .ft-big {
-    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;
-    padding-block: 40px 32px;
+  .ft-email:hover, .ft-email:focus-visible { background: var(--on-dark); border-color: var(--on-dark); color: var(--tinta); }
+  .ft-data { margin-top: 12px; font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark-2); }
+
+  /* Nombre grande en puntos, apagado, como firma del sitio. */
+  .ft-mark {
+    margin-top: clamp(56px, 8vw, 120px);
+    font: 600 clamp(48px, 11.2vw, 168px)/0.95 var(--f-logo); letter-spacing: -0.03em; white-space: nowrap; text-align: center;
+    background: radial-gradient(circle, #ffffff59 0.9px, transparent 1.3px) 0 0 / 5px 5px;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    user-select: none;
   }
-  .ft-logo { font-size: clamp(44px, 4.5vw, 64px); padding-bottom: .1em; }
-  .ft-word {
-    display: inline-flex; align-items: flex-end;
-    font: 700 clamp(52px, 12.5vw, 180px)/0.9 var(--f-sans);
-    letter-spacing: -0.03em;
-    padding-top: .25em;
+  @media (max-width: 767px) { .ft-mark { white-space: normal; } }
+
+  .ft-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 72px); }
+  .ft-copy { font: 400 var(--t-sm)/1.4 var(--f-sans); color: var(--on-dark-2); }
+  .ft-end { display: flex; align-items: center; gap: 12px; }
+  .site-footer :global(.lang) { background: #ffffff0a; border-color: var(--line-dark); }
+  .site-footer :global(.lang a) { color: var(--on-dark); }
+  .site-footer :global(.lang a[aria-current='true']) { background: var(--on-dark); color: var(--tinta); }
+  .ft-top {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid var(--line-dark); color: var(--on-dark); transition: background .25s, color .25s;
   }
-  .ft-word .ch { display: inline-block; transform-origin: 50% 100%; transition: transform .4s cubic-bezier(.39,.575,.565,1), opacity .3s; }
-  .ft-word:focus-visible { outline-offset: 8px; }
-  .ft-word .ch.on { opacity: .7; }
-  @media (prefers-reduced-motion: reduce) {
-    .ft-word { text-decoration: underline transparent 4px; text-underline-offset: .1em; }
-    .ft-word:hover { text-decoration-color: #fff; }
-  }
-  .ft-bottom {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
-    padding-top: 22px;
-  }
-  .ft-social { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ft-top:hover, .ft-top:focus-visible { background: var(--on-dark); color: var(--tinta); }
+  .site-footer :focus-visible { outline-color: var(--on-dark); }
 </style>
