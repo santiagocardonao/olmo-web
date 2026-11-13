@@ -8,66 +8,68 @@ import undergold from '../../assets/logos/undergold.svg';
 import silbe from '../../assets/logos/silbe.png';
 import ilmin from '../../assets/logos/ilmin.png';
 import vieli from '../../assets/logos/vieli.png';
+import radhi from '../../assets/logos/radhi.svg';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = HOME[lang].clients;
-// h = alto en px en desktop, ajustado a ojo para que todos pesen parecido
+/**
+ * h = alto en px en escritorio. Se calcula para que todos ocupen un área parecida (alto ≈ √(área ÷ proporción))
+ * y luego se corrige a ojo: las mayúsculas gruesas (CESDE, ILMIN) bajan un poco y el logo de dos líneas de Radhi sube.
+ */
 const logos = [
-  { src: bancolombia, alt: 'Bancolombia', h: 28 },
-  { src: cesde, alt: 'Cesde', h: 28 },
-  { src: undergold, alt: 'Undergold', h: 28 },
-  { src: silbe, alt: 'silBe', h: 28 },
-  { src: ilmin, alt: 'ILMIN', h: 28 },
-  { src: vieli, alt: 'Vieli', h: 28 },
+  { src: silbe, alt: 'silBe', h: 31 },
+  { src: radhi, alt: 'Radhi Yoga', h: 40 },
+  { src: ilmin, alt: 'ILMIN', h: 23 },
+  { src: vieli, alt: 'Vieli', h: 30 },
+  { src: bancolombia, alt: 'Bancolombia', h: 26 },
+  { src: undergold, alt: 'Undergold', h: 18 },
+  { src: cesde, alt: 'Cesde', h: 21 },
 ];
 ---
 <section class="clients" aria-label={c.aria}>
-  <div class="wrap clients-inner">
-    <p class="clients-label">{c.label}</p>
-    <div class="marquee">
-      <div class="track">
-        {[0, 1].map((copy) => (
-          <ul aria-hidden={copy === 1 ? 'true' : undefined}>
-            {logos.map((l) => (
-              <li style={`--h:${l.h}px`}>
-                {l.src.format === 'svg'
-                  ? <img src={l.src.src} alt={copy === 1 ? '' : l.alt} width={Math.round(l.h * l.src.width / l.src.height)} height={l.h} loading="lazy" decoding="async" />
-                  : <Image src={l.src} alt={copy === 1 ? '' : l.alt} height={l.h * 2} format="webp" loading="lazy" />}
-              </li>
-            ))}
-          </ul>
-        ))}
-      </div>
+  <p class="wrap strip-eyebrow">{c.label}</p>
+  <div class="marquee">
+    <div class="track">
+      {[0, 1].map((copy) => (
+        <ul aria-hidden={copy === 1 ? 'true' : undefined}>
+          {logos.map((l) => (
+            <li style={`--h:${l.h}px`}>
+              {l.src.format === 'svg'
+                ? <img src={l.src.src} alt={copy === 1 ? '' : l.alt} width={Math.round(l.h * l.src.width / l.src.height)} height={l.h} loading="lazy" decoding="async" />
+                : <Image src={l.src} alt={copy === 1 ? '' : l.alt} height={l.h * 2} format="webp" loading="lazy" />}
+            </li>
+          ))}
+        </ul>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
-  .clients { padding-block: clamp(28px, 4vw, 56px); }
-  .clients-inner { display: flex; flex-direction: column; gap: 18px; }
-  .clients-label { font: 500 var(--t-xs)/1.4 var(--f-sans); color: var(--gris-500); max-width: 16ch; }
+  /* Rótulo pequeño centrado encima; debajo, los logos a todo el ancho de la página. */
+  .clients { padding-block: clamp(36px, 5vw, 72px); }
+  .strip-eyebrow {
+    text-align: center; margin-bottom: clamp(16px, 2vw, 28px);
+    font: 500 var(--t-xs)/1.4 var(--f-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--gris-500);
+  }
   .marquee {
     overflow: hidden;
-    margin-inline: calc(var(--gutter) * -1);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
   .track { display: flex; width: max-content; animation: clients-scroll 40s linear infinite; }
   .marquee:hover .track { animation-play-state: paused; }
-  .track ul { display: flex; align-items: center; gap: clamp(48px, 6vw, 96px); padding-right: clamp(48px, 6vw, 96px); }
+  .track ul { display: flex; align-items: center; gap: clamp(48px, 6vw, 104px); padding-right: clamp(48px, 6vw, 104px); }
   .track li { flex: none; display: flex; align-items: center; height: 64px; }
   .track img {
-    height: 22px; width: auto;
+    height: calc(var(--h) * .8); width: auto;
     /* Un solo tono gris para todos los logos */
     filter: brightness(0); opacity: .6;
   }
   @keyframes clients-scroll { to { transform: translateX(-50%); } }
   @media (min-width: 768px) {
-    .clients-inner { flex-direction: row; align-items: center; gap: 32px; }
-    .clients-label { flex: none; width: 140px; }
-    .marquee { flex: 1; min-width: 0; margin-inline: 0 calc(var(--gutter) * -1); }
     .track li { height: 80px; }
-    .track img { height: 28px; }
+    .track img { height: var(--h); }
   }
   @media (prefers-reduced-motion: reduce) {
     .track { animation: none; }

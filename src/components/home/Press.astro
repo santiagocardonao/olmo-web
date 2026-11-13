@@ -8,9 +8,8 @@ const T = PRESS_UI[lang];
 const base = r('press', lang);
 ---
 <section class="press" aria-label={T.stripAria}>
-  <div class="wrap press-inner">
-    <p class="press-label"><a href={base} class="under">{T.strip}</a></p>
-    <div class="pmarquee">
+  <p class="wrap press-label"><a href={base} class="under">{T.strip}</a></p>
+  <div class="pmarquee">
       <div class="ptrack">
         {[0, 1].map((copy) => (
           <ul aria-hidden={copy === 1 ? 'true' : undefined}>
@@ -24,20 +23,22 @@ const base = r('press', lang);
           </ul>
         ))}
       </div>
-    </div>
   </div>
 </section>
 
 <style>
   /* Misma mecánica que la franja de clientes: logos en un solo gris, desfile infinito, pausa al pasar el mouse. */
-  .press { padding-block: clamp(28px, 4vw, 56px); }
-  .press-inner { display: flex; flex-direction: column; gap: 18px; }
-  .press-label { font: 500 var(--t-xs)/1.4 var(--f-sans); color: var(--gris-500); max-width: 18ch; }
+  /* Igual que la franja de marcas: rótulo pequeño centrado encima y logos a todo el ancho. */
+  .press { padding-block: clamp(36px, 5vw, 72px); }
+  .press-label {
+    text-align: center; margin-bottom: clamp(16px, 2vw, 28px);
+    font: 500 var(--t-xs)/1.4 var(--f-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--gris-500);
+  }
   .press-label a { color: inherit; }
   .pmarquee {
-    overflow: hidden; margin-inline: calc(var(--gutter) * -1);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
   .ptrack { display: flex; width: max-content; animation: press-scroll 36s linear infinite; }
   .pmarquee:hover .ptrack, .pmarquee:focus-within .ptrack { animation-play-state: paused; }
@@ -48,9 +49,6 @@ const base = r('press', lang);
   .ptrack a:hover img, .ptrack a:focus-visible img { opacity: 1; }
   @keyframes press-scroll { to { transform: translateX(-50%); } }
   @media (min-width: 768px) {
-    .press-inner { flex-direction: row; align-items: center; gap: 32px; }
-    .press-label { flex: none; width: 140px; }
-    .pmarquee { flex: 1; min-width: 0; margin-inline: 0 calc(var(--gutter) * -1); }
     .ptrack li { height: 80px; }
     .ptrack img { height: var(--h); }
   }

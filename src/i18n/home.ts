@@ -88,7 +88,7 @@ const en: HomeText = {
     linkedinLabel: 'Santiago Cardona on LinkedIn (opens in a new tab)',
     githubLabel: 'Santiago Cardona on GitHub (opens in a new tab)',
   },
-  clients: { label: "Brands I've grown or built for since 2017:", aria: 'Brands I have worked with' },
+  clients: { label: "Brands I've grown or built for since 2017", aria: 'Brands I have worked with' },
   big: {
     h2: 'I experiment before I assume it will work.',
     body: 'Every change starts as a hypothesis with a number attached. I set up the tracking, test, read the result and keep what wins.\nCuriosity is what separates someone good from someone excellent.',
@@ -209,7 +209,7 @@ const es: HomeText = {
     linkedinLabel: 'LinkedIn de Santiago Cardona (se abre en otra pestaña)',
     githubLabel: 'GitHub de Santiago Cardona (se abre en otra pestaña)',
   },
-  clients: { label: 'Marcas que he hecho crecer o para las que he construido desde 2017:', aria: 'Marcas con las que he trabajado' },
+  clients: { label: 'Marcas que he hecho crecer o para las que he construido desde 2017', aria: 'Marcas con las que he trabajado' },
   big: {
     h2: 'Experimento antes de suponer que funcionará.',
     body: 'Cada cambio empieza como una hipótesis o con un número. Monto la medición, testeo, leo el resultado y me quedo con lo que gana.\nLa curiosidad hace la diferencia entre alguien bueno y alguien excelente.',

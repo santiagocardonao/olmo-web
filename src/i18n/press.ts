@@ -69,12 +69,12 @@ export const PRESS_UI = {
     meta: { title: 'My clients in the press | Santiago Cardona', description: 'Forbes, El Mundo, Telva and more: press coverage of creators I worked with, published while I was working with them.' },
     label: 'Press', title: 'My *clients* in the press',
     lead: 'Coverage of the creators I worked with, published while I was working with them. The articles are about them, not me. Below each one: what I did.',
-    strip: 'My clients, in the press:', stripAria: 'Press coverage of my clients', read: 'Read', seeCase: 'See the case',
+    strip: 'My clients, in the press', stripAria: 'Press coverage of my clients', read: 'Read', seeCase: 'See the case',
   },
   es: {
     meta: { title: 'Mis clientes en la prensa | Santiago Cardona', description: 'Forbes, El Mundo, Telva y más: prensa de creadores con los que trabajé, publicada mientras trabajaba con ellos.' },
     label: 'Prensa', title: 'Mis *clientes* en la prensa',
     lead: 'Notas sobre los creadores con los que trabajé, publicadas mientras trabajaba con ellos. Las notas hablan de ellos, no de mí. Debajo de cada una: qué hice.',
-    strip: 'Mis clientes, en la prensa:', stripAria: 'Prensa de mis clientes', read: 'Leer', seeCase: 'Ver el caso',
+    strip: 'Mis clientes, en la prensa', stripAria: 'Prensa de mis clientes', read: 'Leer', seeCase: 'Ver el caso',
   },
 } as const;
