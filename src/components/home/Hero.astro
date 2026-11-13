@@ -10,137 +10,174 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const h = HOME[lang].hero;
 const ui = HOME[lang].ui;
-// La tira usa las mismas portadas, nombres y enlaces del portafolio.
 const P = PROJECTS[lang];
+// Mismas portadas, nombres y enlaces del portafolio; sin las herramientas pequeñas.
+const ids = ORDER.filter((id) => !['metricas', 'espanol', 'dsa'].includes(id)).slice(0, 5);
+// El nombre grande reutiliza el del eyebrow (texto antes del "·").
+const name = h.eyebrow.split('·')[0].trim();
+// "(internal data)" se separa para mostrarlo como nota al pie.
+const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); return m ? [m[1], m[2]] : [k, '']; };
 ---
-<section class="hero" aria-labelledby="hero-h1">
-  <div class="wrap hero-inner">
-    <div class="hero-copy">
-      <p class="hero-eyebrow" data-hero>{h.eyebrow}</p>
-      <h1 id="hero-h1" class="hero-h1" data-hero set:html={emph(h.h1)} />
-      <p class="hero-sub support" data-hero>{h.sub}</p>
-    </div>
+<section class="hero band-dark" aria-labelledby="hero-h1" data-dark>
+  <div class="hero-float" aria-label={lang === 'es' ? 'Proyectos' : 'Projects'} role="group">
+    {ids.map((id, i) => (
+      <div class={`fc fc-${i + 1}`}>
+        <div class="fc-scroll" data-fc-scroll>
+          <div class="fc-drift">
+            <a class="fc-card" href={r(PROJECT_ROUTE[id], lang)} aria-label={P[id].name} data-fc>
+              <Cover id={id} lang={lang} alt="" sizes="(min-width: 768px) 20vw, 36vw" eager={i < 2} />
+            </a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
 
-    <ul class="hero-stats" data-hero aria-label={lang === 'es' ? 'Resultados' : 'Results'}>
-      {h.stats.map((s) => (
-        <li><span class="hs-v tnum">{s.v}</span><span class="hs-k">{s.k}</span></li>
-      ))}
+  <div class="wrap hero-copy">
+    <p class="hero-eyebrow">{h.eyebrow}</p>
+    <p class="hero-name" aria-hidden="true" data-hero-name>{name}<span class="hn-dot">.</span></p>
+    <h1 id="hero-h1" class="hero-h1" set:html={emph(h.h1)} />
+    <p class="hero-sub">{h.sub}</p>
+  </div>
+</section>
+
+<section class="proof band-dark" aria-label={lang === 'es' ? 'Resultados' : 'Results'}>
+  <div class="wrap">
+    <ul class="proof-stats">
+      {h.stats.map((s) => {
+        const [k, note] = split(s.k);
+        return (
+          <li data-fade>
+            <span class="ps-v tnum">{s.v}</span>
+            <span class="ps-k">{k}{note && <> <span class="ps-note">{note}</span></>}</span>
+          </li>
+        );
+      })}
     </ul>
-    <p class="hero-press small" data-hero>
+    <p class="proof-press">
       <a class="tlink" href={LINKS.forbes} target="_blank" rel="noopener">{h.press} ↗<span class="sr-only"> {ui.newTab}</span></a>
     </p>
-
-    <div class="hero-actions" data-hero>
-      <div class="hero-btns">
+    <div class="proof-actions">
+      <div class="proof-btns">
         <Btn href={`mailto:${EMAIL}`} label={h.primary} ariaLabel={ui.ctaLabel} data-cta="email-hero" />
-        <Btn href={LINKS.linkedin} label="LinkedIn" variant="sec" external ariaLabel={h.linkedinLabel} data-cta="linkedin-hero" />
+        <Btn href={LINKS.linkedin} label="LinkedIn" variant="sec" class="btn-ghost" external ariaLabel={h.linkedinLabel} data-cta="linkedin-hero" />
       </div>
-      <p class="hero-social small">
+      <p class="proof-links">
         <a class="tlink" href={r('portfolio', lang)}>{h.secondary} →</a>
         <a class="tlink" href={LINKS.github} target="_blank" rel="noopener" aria-label={h.githubLabel}>GitHub ↗</a>
       </p>
     </div>
-
-    <nav class="strip" aria-label={lang === 'es' ? 'Portafolio' : 'Portfolio'} data-hero>
-      <ul>
-        {ORDER.filter((id) => !['metricas', 'espanol', 'dsa'].includes(id)).map((id, i) => (
-          <li>
-            <a class="thumb" href={r(PROJECT_ROUTE[id], lang)} aria-label={P[id].name}>
-              <span class="thumb-img">
-                <Cover id={id} lang={lang} alt="" sizes="(min-width: 1200px) 210px, 140px" eager={i < 6} />
-              </span>
-              <span class="thumb-label" aria-hidden="true">{P[id].name}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
   </div>
 </section>
 
 <style>
   .hero {
-    padding-top: calc(var(--header-h) + clamp(16px, 4vw, 48px));
-    padding-bottom: clamp(32px, 4vw, 60px);
+    position: relative; overflow: hidden; isolation: isolate;
+    /* La barra de estado (oscura en la home) completa el primer viewport. */
+    min-height: calc(100svh - var(--topbar-h));
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: var(--header-h); padding-bottom: clamp(40px, 6vh, 72px);
   }
-  @media (min-width: 1200px) {
-    .hero { min-height: min(100svh, 940px); display: flex; flex-direction: column; justify-content: flex-end; }
-  }
-  .hero-copy { max-width: 1100px; }
-  .hero-eyebrow {
-    font: 600 12px/1.4 var(--f-sans); letter-spacing: .18em; text-transform: uppercase;
-    color: var(--violeta); margin-bottom: 18px;
-  }
-  .hero-h1 {
-    font: 700 clamp(36px, 5.4vw, 80px)/1.02 var(--f-sans);
-    letter-spacing: -0.045em;
-    max-width: 17ch; text-wrap: balance;
-  }
-  .hero-sub { margin-top: 20px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.55; max-width: 52ch; }
-  .hero-stats {
-    display: grid; gap: 0; margin-top: clamp(28px, 3.5vw, 48px);
-    border-top: 1px solid var(--borde);
-  }
-  .hero-stats li { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--borde); }
-  .hs-v { font: 700 clamp(28px, 3vw, 44px)/1 var(--f-sans); letter-spacing: -0.04em; }
-  .hs-k { font: 400 15px/1.4 var(--f-sans); color: var(--gris-700); }
-  @media (min-width: 768px) {
-    .hero-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 30px; border-bottom: 1px solid var(--borde); }
-    .hero-stats li { border-bottom: 0; }
-  }
-  .hero-press { margin-top: 12px; color: var(--gris-700); }
-  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; margin-top: 28px; }
-  .hero-btns { display: flex; flex-wrap: wrap; gap: 10px; }
-  .hero-social { display: flex; gap: 18px; }
 
-  /* Tira de miniaturas (H4/H5): fila manual con scroll-snap, sin carrusel automático */
-  .strip { margin-top: clamp(32px, 4vw, 56px); }
-  .strip ul {
-    display: flex; gap: 12px;
-    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    margin-inline: calc(var(--gutter) * -1); padding: 14px var(--gutter);
+  /* ---------- Texto ---------- */
+  .hero-copy { position: relative; z-index: 2; text-align: center; pointer-events: none; }
+  .hero-copy a { pointer-events: auto; }
+  .hero-eyebrow {
+    font: 500 var(--t-xs)/1.4 var(--f-sans); letter-spacing: .12em; text-transform: uppercase;
+    color: var(--on-dark-2);
   }
-  .strip ul::-webkit-scrollbar { display: none; }
-  .strip li { flex: none; scroll-snap-align: start; }
-  .thumb { display: block; position: relative; }
-  .thumb-img {
-    display: block; width: 140px; height: 140px; border-radius: 8px; overflow: hidden;
-    background: var(--neutro);
-    transition: transform .3s var(--ease-p2);
+  .hero-name {
+    margin-top: clamp(8px, 1.4vw, 20px);
+    /* Una línea desde 1024: el tamaño se ajusta al ancho del nombre, no al clamp del spec (ver nota en el commit). */
+    font: 400 clamp(64px, 10.6vw, 200px)/0.9 var(--f-logo); letter-spacing: -0.04em;
+    color: var(--on-dark); white-space: nowrap;
+    text-shadow: 0 2px 40px rgba(17, 17, 17, .55);
   }
-  .thumb-img :global(img), .thumb-img :global(svg) { width: 100%; height: 100%; object-fit: cover; }
-  .thumb-label {
-    display: block; margin-top: 8px;
-    font: 500 13px/1.2 var(--f-sans); color: var(--gris-700);
+  .hn-dot { color: var(--violeta); }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-name { animation: hn-in .8s var(--ease-out) .12s both; }
   }
-  .thumb::after {
-    content: ''; position: absolute; left: 50%; bottom: 22px; width: 19px; height: 2px; margin-left: -9.5px;
-    background: var(--violeta); opacity: 0; transition: opacity .3s;
+  @keyframes hn-in { from { opacity: 0; } }
+  .hero-h1 {
+    margin: clamp(20px, 2.4vw, 36px) auto 0; max-width: 34ch;
+    font: 500 clamp(20px, 2vw, 28px)/1.3 var(--f-sans); letter-spacing: -0.02em;
+    color: var(--on-dark); text-wrap: balance;
   }
-  @media (min-width: 1200px) {
-    .strip ul {
-      overflow: visible; margin: 0; gap: 15px; padding: 20px;
-      background: rgba(17, 17, 17, 0.05);
-      border-radius: 10px;
-    }
-    /* Todos los proyectos del portafolio: la fila se desplaza en horizontal dentro del panel. */
-    .strip ul { overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(17, 17, 17, 0.25) transparent; }
-    .strip li { flex: none; width: 210px; }
-    .thumb-img { width: 100%; height: 150px; border-radius: 6px; }
-    .thumb-label {
-      position: absolute; left: 10px; bottom: 10px; margin: 0;
-      padding: 6px 10px; border-radius: var(--pill);
-      background: rgba(255, 255, 255, 0.94); color: var(--tinta); font-weight: 600;
-      opacity: 0; transform: translateY(4px);
-      transition: opacity .3s var(--ease-p2), transform .3s var(--ease-p2);
-    }
-    .thumb::after { bottom: -10px; }
-    .thumb:hover .thumb-img, .thumb:focus-visible .thumb-img { transform: translateY(-12px); }
-    .thumb:hover .thumb-label, .thumb:focus-visible .thumb-label { opacity: 1; transform: translateY(-12px); }
-    .thumb:hover::after, .thumb:focus-visible::after { opacity: 1; }
+  .hero-h1 :global(em.s) { color: inherit; }
+  .hero-sub {
+    margin: 14px auto 0; max-width: 52ch;
+    font: 400 var(--t-base)/1.55 var(--f-sans); color: #ffffff8c; text-wrap: pretty;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .thumb:hover .thumb-img, .thumb:focus-visible .thumb-img,
-    .thumb:hover .thumb-label, .thumb:focus-visible .thumb-label { transform: none !important; }
+  @media (max-width: 1023px) { .hero-name { white-space: normal; } }
+
+  /* ---------- Capa de portadas flotantes ---------- */
+  .hero-float { position: absolute; inset: 0; z-index: 1; perspective: 1200px; }
+  .fc { position: absolute; transform-style: preserve-3d; }
+  .fc-scroll, .fc-drift { width: 100%; }
+  .fc-card {
+    position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden;
+    border-radius: var(--r-img); background: #1d1d1f;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6);
+    transition: transform .4s var(--ease-out), opacity .4s;
   }
+  .fc-card :global(picture), .fc-card :global(img), .fc-card :global(svg), .fc-card :global(.cover-ph) { width: 100%; height: 100%; }
+  .fc-card :global(img) { object-fit: cover; }
+  .fc-card::after { content: ''; position: absolute; inset: 0; background: rgba(17, 17, 17, var(--shade, 0)); transition: background-color .3s; }
+  .fc-card:hover::after, .fc-card:focus-visible::after { background: rgba(17, 17, 17, 0); }
+  .fc-card:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 4px; }
+  @media (hover: hover) and (pointer: fine) { .fc-card:hover { transform: translateY(-6px); } }
+
+  /* Escritorio: 2 arriba, 1 detrás del centro, 2 abajo */
+  .fc-1 { left: 5%;  top: 9%;  width: 14vw; transform: translate3d(0, 0, -120px) rotateY(8deg); }
+  .fc-2 { right: 7%; top: 6%;  width: 12vw; transform: translate3d(0, 0, -320px) rotateY(-6deg); }
+  .fc-3 { left: 44%; top: 30%; width: 12vw; transform: translate3d(0, 0, -400px) rotateY(-3deg); opacity: .85; }
+  .fc-4 { left: 10%; bottom: 4%; width: 16vw; transform: translate3d(0, 0, 40px) rotateY(6deg); }
+  .fc-5 { right: 4%; bottom: 8%; width: 20vw; transform: translate3d(0, 0, 80px) rotateY(-8deg); }
+  /* Las que quedan detrás del texto llevan un velo para que el contraste no baje de 4.5:1 */
+  .fc-1, .fc-2, .fc-4, .fc-5 { --shade: .25; }
+  .fc-3 { --shade: .55; }
+
+  @media (max-width: 1023px) {
+    .fc-1 { left: -4%; top: 12%; width: 26vw; }
+    .fc-2 { right: -4%; top: 8%; width: 24vw; }
+    .fc-3 { display: none; }
+    .fc-4 { left: 6%; bottom: 4%; width: 26vw; }
+    .fc-5 { right: -2%; bottom: 10%; width: 30vw; }
+  }
+  /* Móvil: 3 portadas como máximo, fuera del texto */
+  @media (max-width: 767px) {
+    .hero { justify-content: flex-start; padding-top: calc(var(--header-h) + 30vw); }
+    .fc-1 { left: -6%; top: calc(var(--header-h) - 16px); width: 24vw; }
+    .fc-2 { right: -5%; top: calc(var(--header-h) - 4px); width: 20vw; }
+    .fc-4 { display: none; }
+    .fc-5 { right: auto; left: 34%; top: auto; bottom: 2%; width: 34vw; }
+  }
+
+  /* Deriva lenta (solo con movimiento permitido) */
+  @media (prefers-reduced-motion: no-preference) {
+    .fc-drift { animation: fc-drift var(--d, 7s) ease-in-out infinite alternate; }
+    .fc-1 { --d: 6s; } .fc-2 { --d: 8.5s; } .fc-3 { --d: 7.2s; } .fc-4 { --d: 9s; } .fc-5 { --d: 6.6s; }
+  }
+  @keyframes fc-drift { from { transform: translateY(-6px); } to { transform: translateY(6px); } }
+
+  /* ---------- Franja de pruebas ---------- */
+  .proof { padding-block: var(--sec-y); border-top: 1px solid var(--line-dark); }
+  .proof-stats { display: grid; gap: 28px; }
+  @media (min-width: 768px) { .proof-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 30px; } }
+  .proof-stats li { display: flex; flex-direction: column; gap: 10px; }
+  .ps-v { font: 400 48px/1 var(--f-logo); letter-spacing: -0.02em; color: var(--on-dark); }
+  .ps-k { font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark-2); max-width: 32ch; }
+  .ps-note { font-size: var(--t-xs); color: #ffffff80; /* 50 %: a 40 % no llega a 4.5:1 */ white-space: nowrap; }
+  .proof-press { margin-top: clamp(28px, 3vw, 40px); font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark); }
+  .proof-press .tlink { font-weight: 500; }
+  .proof-actions {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px;
+    margin-top: clamp(28px, 3vw, 40px); padding-top: clamp(28px, 3vw, 40px); border-top: 1px solid var(--line-dark);
+  }
+  .proof-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .proof-links { display: flex; gap: 22px; font-size: var(--t-sm); }
+  .proof .tlink:hover, .proof .tlink:focus-visible { color: var(--on-dark); }
+  .proof :global(.btn-ghost) { --bg: transparent; --fg: var(--on-dark); border-color: #ffffff4d; }
+  .proof :global(.btn-ghost:hover) { border-color: var(--on-dark); }
+  .proof :focus-visible { outline-color: var(--on-dark); }
 </style>

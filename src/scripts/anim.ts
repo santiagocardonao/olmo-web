@@ -102,17 +102,41 @@ export function init() {
     });
   });
 
-  /* ---------- F1: titular de casos fijo que crece y queda de marca de agua (≥1200) ---------- */
-  const workTitle = document.querySelector<HTMLElement>('.work-title-inner');
-  const workArea = document.querySelector<HTMLElement>('.work-collage');
-  if (workTitle && workArea) {
-    mm.add('(min-width: 1200px)', () => {
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: workArea, start: 'top 75%', end: 'bottom 60%', scrub: 0.6 },
-      });
-      tl.to(workTitle, { scale: 1.12, duration: 1, ease: 'none' })
-        .to(workTitle, { opacity: 0.08, duration: 1, ease: 'none' }, '<0.4')
-        .to(workTitle, { scale: 1, duration: 1, ease: 'none' });
+  /* ---------- Hero: portadas flotantes que entran (el nombre entra con CSS para no retrasar el LCP) ---------- */
+  const cards = gsap.utils.toArray<HTMLElement>('[data-fc]');
+  const heroName = document.querySelector<HTMLElement>('[data-hero-name]');
+  if (cards.length) {
+    gsap.from(cards, { y: 24, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.06, clearProps: 'transform,opacity' });
+  }
+
+  /* Scroll (primer viewport): las portadas se abren hacia afuera y el nombre se encoge y se apaga */
+  const hero = document.querySelector<HTMLElement>('.hero');
+  if (hero) {
+    const st = { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.4 };
+    gsap.utils.toArray<HTMLElement>('[data-fc-scroll]').forEach((el) => {
+      const b = el.getBoundingClientRect();
+      const dx = b.left + b.width / 2 < window.innerWidth / 2 ? -1 : 1;
+      const dy = b.top + b.height / 2 < window.innerHeight / 2 ? -1 : 1;
+      gsap.to(el, { x: dx * 120, y: dy * 80, scale: 1.18, ease: 'none', scrollTrigger: st });
+    });
+    // fromTo: el nombre entra con CSS desde opacidad 0, así que no se puede leer su valor de partida.
+    if (heroName) gsap.fromTo(heroName, { scale: 1, opacity: 1 }, { scale: 0.92, opacity: 0, ease: 'none', immediateRender: false, scrollTrigger: { ...st, end: '70% top' } });
+  }
+
+  /* ---------- Bloque de enfoque: cada palabra pasa de 20 % a 100 % al cruzar la línea de lectura ---------- */
+  gsap.utils.toArray<HTMLElement>('[data-words]').forEach((el) => {
+    gsap.fromTo(el.querySelectorAll('.w'), { opacity: 0.2 }, {
+      opacity: 1, ease: 'none', stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 45%', scrub: true },
+    });
+  });
+
+  /* ---------- Círculos: el trazo se dibuja de izquierda a derecha ---------- */
+  const rings = gsap.utils.toArray<SVGCircleElement>('[data-ring]');
+  if (rings.length) {
+    gsap.fromTo(rings, { strokeDashoffset: 1 }, {
+      strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut', stagger: 0.12,
+      scrollTrigger: { trigger: rings[0], start: 'top 85%', once: true },
     });
   }
 

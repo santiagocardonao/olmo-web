@@ -81,6 +81,20 @@ const isActive = (id: NavId) =>
     .hdr-right { margin-left: 0; margin-right: 0; }
   }
 
+  /* Home: header transparente sobre el hero oscuro. El único violeta es el botón Email. */
+  :global(.hero-dark) .hdr-logo { background: none; -webkit-text-fill-color: currentColor; color: var(--on-dark); }
+  :global(.hero-dark) .hdr-name { color: var(--on-dark); }
+  :global(.hero-dark) .hdr-name::before { color: var(--on-dark-3); }
+  :global(.hero-dark) .hdr-nav ul {
+    background: transparent; border-color: transparent;
+    font: 500 var(--t-xs)/1 var(--f-sans); letter-spacing: 0.04em; color: var(--on-dark);
+  }
+  :global(.hero-dark) .hdr-nav a:hover, :global(.hero-dark) .hdr-nav a:focus-visible { background: var(--line-dark); color: var(--on-dark); }
+  :global(.hero-dark) .hdr-right :global(.lang) { background: transparent; border-color: var(--line-dark); }
+  :global(.hero-dark) .hdr-right :global(.lang a) { color: var(--on-dark-2); }
+  :global(.hero-dark) .hdr-right :global(.lang a[aria-current='true']) { background: var(--on-dark); color: var(--tinta); }
+  :global(.hero-dark) .hdr :focus-visible { outline-color: var(--on-dark); }
+
   /* Botón redondo violeta (M1). Escritorio: aparece al bajar 120 px. Móvil/tableta: siempre visible. */
   .menu-btn {
     position: fixed; top: calc(14px + var(--topbar-h)); right: var(--gutter); z-index: 120;

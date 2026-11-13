@@ -15,6 +15,7 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
 ---
 <section class="work sec" id={id} aria-labelledby="work-title">
   <div class="wrap work-wrap">
+    <p class="sec-label"><span class="n">(01)</span>{ui.nav[0]}</p>
     <div class="work-title">
       <div class="work-title-inner">
         <h2 id="work-title" class="giant">
@@ -48,7 +49,7 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
 </section>
 
 <style>
-  .work-title { text-align: center; margin-bottom: clamp(32px, 5vw, 64px); }
+  .work-title { text-align: center; margin-top: clamp(24px, 3vw, 40px); margin-bottom: clamp(32px, 4vw, 64px); }
   .work-title h2 { display: inline-flex; flex-direction: column; align-items: flex-start; }
   .wt-l1 { display: inline-flex; align-items: flex-start; gap: 10px; }
   .wt-l1 :global(em.s) {
@@ -96,19 +97,11 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
   @media (min-width: 1200px) {
     .work-collage {
       grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 30px; row-gap: 0;
-      position: relative; z-index: 2; margin-top: -120px;
     }
     .wc-1 { grid-column: 1 / span 4; grid-row: 1; }
     .wc-2 { grid-column: 9 / span 4; grid-row: 1; margin-top: 200px; }
     .wc-3 { grid-column: 2 / span 4; grid-row: 2; margin-top: 40px; }
     .wc-4 { grid-column: 8 / span 3; grid-row: 2; margin-top: 300px; }
     .wc-5 { grid-column: 4 / span 4; grid-row: 3; margin-top: 60px; }
-    .work-title { margin-bottom: 0; }
-  }
-  @media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
-    .work-title { position: sticky; top: 30vh; z-index: 1; pointer-events: none; }
-  }
-  @media (min-width: 1200px) and (prefers-reduced-motion: reduce) {
-    .work-collage { margin-top: 48px; }
   }
 </style>

@@ -23,7 +23,7 @@ const initials = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w)
 ---
 <section class="tm sec" aria-labelledby="tm-title">
   <div class="wrap">
-    <div class="labels"><span>{T.left}</span><span aria-hidden="true">( {items.length} )</span></div>
+    <p class="sec-label"><span class="n">(03)</span>{T.left}</p>
     <h2 id="tm-title" class="tm-title" data-split-lines set:html={emph(T.title)} />
     <ul class="tm-grid" aria-label={T.aria}>
       {items.map((it) => (
@@ -44,13 +44,13 @@ const initials = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w)
 <style>
   .tm-title {
     margin-top: clamp(24px, 3vw, 40px); max-width: 20em;
-    font: 600 clamp(36px, 5.2vw, 76px)/1.02 var(--f-sans); letter-spacing: -0.045em; text-wrap: balance;
+    font: 600 var(--t-2xl)/1.02 var(--f-sans); letter-spacing: -0.045em; text-wrap: balance;
   }
   .tm-grid { display: grid; gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
-  @media (min-width: 960px) { .tm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 768px) { .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; } }
   .tm-card figure { height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 28px;
     padding: clamp(24px, 3vw, 40px); border-radius: var(--r-img); background: var(--blanco); }
-  .tm-card blockquote p { position: relative; font: 500 clamp(18px, 1.5vw, 22px)/1.45 var(--f-sans); letter-spacing: -0.015em; color: var(--tinta); text-wrap: pretty; }
+  .tm-card blockquote p { position: relative; font: 500 var(--t-md)/1.45 var(--f-sans); letter-spacing: -0.015em; color: var(--tinta); text-wrap: pretty; }
   .tm-card blockquote p::before { content: '“'; display: block; font: 600 56px/0.6 var(--f-serif, serif); color: var(--violeta); margin-bottom: 10px; }
   .tm-card figcaption { display: flex; align-items: center; gap: 14px; }
   .tm-avatar { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;

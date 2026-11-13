@@ -18,8 +18,10 @@ interface Props {
   hash?: string;
   /** Páginas de precios: se comparten por link directo y no deben salir en Google. */
   noindex?: boolean;
+  /** Home: el hero es oscuro, así que la barra de estado y el header van en claro. */
+  dark?: boolean;
 }
-const { lang, route, title, description, ogTitle, ogDescription, noindex = false } = Astro.props;
+const { lang, route, title, description, ogTitle, ogDescription, noindex = false, dark = false } = Astro.props;
 const t = HOME[lang];
 const site = Astro.site!;
 const alt = route ? ROUTES[route] : ROUTES.home;
@@ -71,7 +73,7 @@ const ld = route === 'home' ? JSON.stringify({
       </>
     )}
     {ld && <script type="application/ld+json" set:html={ld} />}
-    <meta name="theme-color" content="#F6F6F7" />
+    <meta name="theme-color" content={dark ? '#111111' : '#F6F6F7'} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -100,7 +102,7 @@ const ld = route === 'home' ? JSON.stringify({
     </script>
 
   </head>
-  <body data-lang={lang}>
+  <body data-lang={lang} class={dark ? 'hero-dark' : undefined}>
     {GTM_ID && (
       <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     )}
