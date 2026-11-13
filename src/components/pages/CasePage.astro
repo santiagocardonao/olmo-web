@@ -28,7 +28,7 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
 ---
 <Base lang={lang} route={id} title={c.meta.title} description={c.meta.description}>
   <PageHero label={`${L.label} · ${n}`} right={c.period ?? c.tag} title={c.headline} lead={c.lead}>
-    <span class="pill">{c.tag}</span>
+    <span class="pill case-tag">{c.tag}</span>
   </PageHero>
 
   <section class="block" aria-label={L.figures}>
@@ -75,7 +75,17 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
     <Fragment>
       <section class="block">
         <div class="wrap">
-          <div class="labels"><h2 class="lbl-h">{L.story}</h2><span aria-hidden="true">01</span></div>
+          <div class="labels"><h2 class="lbl-h">{L.did}</h2><span aria-hidden="true">01</span></div>
+          <ul class="did-grid">
+            {c.did.map((d, i) => (
+              <li data-fade><span class="did-n tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><p>{d}</p></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+      <section class="block">
+        <div class="wrap">
+          <div class="labels"><h2 class="lbl-h">{L.story}</h2><span aria-hidden="true">02</span></div>
           <ol class="story">
             {c.story.map((st, i) => (
               <li data-fade>
@@ -98,16 +108,6 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
           </div>
         </section>
       )}
-      <section class="block">
-        <div class="wrap">
-          <div class="labels"><h2 class="lbl-h">{L.did}</h2><span aria-hidden="true">02</span></div>
-          <ul class="did-grid">
-            {c.did.map((d, i) => (
-              <li data-fade><span class="did-n tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><p>{d}</p></li>
-            ))}
-          </ul>
-        </div>
-      </section>
     </Fragment>
   ) : (
     <Fragment>
@@ -152,6 +152,7 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
 </Base>
 
 <style>
+  .case-tag { white-space: normal; max-width: 100%; line-height: 1.35; }
   .lbl-h { font: inherit; }
   .case-src { margin-top: 14px; }
   .case-media { display: grid; gap: 30px; }

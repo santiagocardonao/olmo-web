@@ -68,6 +68,11 @@ const isActive = (id: NavId) =>
   .hdr-nav a[aria-current='page'] { color: var(--violeta); background: var(--violeta-tinte); }
   .hdr-right { margin-left: auto; display: flex; align-items: center; gap: 10px; margin-right: 64px; }
   .hdr-right :global(.hdr-cta) { display: none; }
+  /* Móvil: el cambio de idioma vive en el menú; aquí taparía el botón redondo. */
+  @media (max-width: 479px) {
+    .hdr-right :global(.lang) { display: none; }
+    .hdr-name { font-size: 14px; }
+  }
   @media (min-width: 768px) {
     .hdr-right :global(.hdr-cta) { display: inline-flex; }
   }

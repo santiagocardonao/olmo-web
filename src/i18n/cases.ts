@@ -58,7 +58,7 @@ const es: Record<CaseId, CaseText> = {
       { when: 'Contexto', title: 'Una comunidad grande que no generaba ingresos', text: 'silBe by Silvy es una suscripción de entrenamiento para mujeres. En agosto de 2020, Silvy tenía cerca de 1M de seguidores en Instagram y entrenaba en vivo gratis todos los días, pero la comunidad no dejaba plata. No había producto ni ingresos.' },
       { when: 'Mi rol', title: 'Growth, tecnología y conversión, 2020–2026', text: 'Me hice cargo del funnel, la tecnología y la conversión, y después de todo el marketing. Le reportaba los resultados a la fundadora y trabajaba con su equipo y, más adelante, con el equipo de desarrollo de FitBudd en India.' },
       { when: 'El reto', title: 'Vender antes de tener una app', text: 'La primera versión tenía que venderle a una audiencia acostumbrada al contenido gratis, y a compradores que muchas veces prefieren pagar en efectivo o en cuotas antes que con una sola transacción de tarjeta.' },
-      { when: '17 de diciembre de 2020', title: 'El MVP: un reto de 8 semanas', text: 'Antes de pensar en una app, armé un reto de 8 semanas para mujeres de 18 a 50 años: plan de nutrición personalizado, 60 videos para entrenar en casa, PDFs de nutrición y soporte diario por WhatsApp para la compra. Hice yo mismo la propuesta de valor, la landing de preregistro, la plataforma de contenido en WordPress y LearnDash, los pagos, los flujos de correo y las automatizaciones. El 42 % de la lista de espera final compró, y la primera noche más de 5.000 personas pagaron USD 80.' },
+      { when: '17 de diciembre de 2020', title: 'El MVP: un reto de 8 semanas', text: 'Antes de pensar en una app, armé un reto de 8 semanas para mujeres de 18 a 50 años: plan de nutrición personalizado, 60 videos para entrenar en casa, PDFs de nutrición y soporte diario por WhatsApp para la compra. Hice yo mismo la propuesta de valor, la landing de preregistro, la plataforma de contenido en WordPress y LearnDash, los pagos, los flujos de correo y las automatizaciones. El 42 % de la lista de espera final compró (dato interno), y en la primera semana hubo 5.000 suscriptores y USD 400k en ventas (Forbes Colombia, 2021).' },
       { when: 'CRO del lanzamiento', title: 'Conversión de cerca de 3 % a 4 %', text: 'Cambié el funnel pieza por pieza: cuotas sin interés, pago en efectivo en Efecty y Baloto, solo dos planes (el reto, o el reto con nutrición), un plan de nutrición personalizada de USD 300 que compraron 252 personas, recuperación de carritos por WhatsApp y un equipo de chat entrenado en ventas para quien dudaba. Corrí pruebas A/B con Nelio A/B Testing sobre los primeros compradores de cada lanzamiento y el ganador salía de inmediato. Sumando todo, la conversión pasó de cerca de 3 % a 4,0 % y el lanzamiento cerró en USD 800k (dato interno).' },
       { when: 'Los retos siguientes', title: 'Repetir con pauta', text: 'Vinieron tres retos más. Dirigí todo el marketing: pauta, SEO, SEM y analítica.' },
       { when: 'De reto a app', title: 'Onboarding, paywall y prueba de 7 días', text: 'La suscripción pasó a una app. Trainerize no encajó, así que silBe pasó a las apps nativas de FitBudd para iOS y Android. Diseñé el onboarding, el paywall (en el editor sin código de FitBudd, con su equipo de desarrollo en India), los planes y una prueba gratis de 7 días. En 2022 había 20.000 usuarios pagando USD 29 al mes.' },
@@ -76,7 +76,7 @@ const es: Record<CaseId, CaseText> = {
   undergold: {
     id: 'undergold',
     name: 'Undergold',
-    tag: 'Moda B2B · Automatización del catálogo',
+    tag: 'Moda B2B · Automatización del catálogo · Proyecto por contrato, terminado',
     headline: 'Más de 14 horas a la semana *de vuelta*.',
     lead: 'Undergold es una marca de ropa con más de 100 empleados que vende al por mayor en mercados B2B de todo el mundo. Diseñé y conecté el sistema que mantiene al día su catálogo B2B.',
     figures: [
@@ -104,7 +104,7 @@ const es: Record<CaseId, CaseText> = {
   idealTeam: {
     id: 'idealTeam',
     name: 'Ideal Team',
-    tag: 'Rendimiento web · 14 sitios',
+    tag: 'Rendimiento web · 14 sitios · Proyecto por contrato, terminado',
     headline: 'Catorce sitios, *un solo* estándar.',
     lead: 'Ideal Team es una agencia de más de 50 personas entre EE. UU., Canadá y Colombia. Lideré el rendimiento, la seguridad y las migraciones de 14 sitios de sus clientes, todos de cirugía plástica.',
     figures: [
@@ -168,7 +168,7 @@ const en: Record<CaseId, CaseText> = {
       { when: 'Context', title: 'A big community with no revenue', text: 'silBe by Silvy is a fitness subscription for women. In August 2020, Silvy had about 1M Instagram followers and ran free live workouts every day, but the community made no money. There was no product and no revenue.' },
       { when: 'My role', title: 'Growth, tech and conversion, 2020–2026', text: "I owned the funnel, the tech and conversion, and later all of marketing. I reported results to the founder and worked with her team and, later on, with FitBudd's development team in India." },
       { when: 'The constraint', title: 'Sell before there is an app', text: 'The first version had to sell to an audience used to free content, and to buyers who often prefer cash or installments over a single card payment.' },
-      { when: 'December 17, 2020', title: 'The MVP: an 8-week challenge', text: 'Before any app, I built an 8-week challenge for women aged 18 to 50: a personalized nutrition plan, 60 follow-along workout videos, nutrition PDFs and daily WhatsApp support for buyers. I did the value proposition, the pre-registration landing page, the WordPress and LearnDash content platform, payments, email flows and automations myself. 42% of the final waitlist bought, and more than 5,000 people paid USD 80 on the first night.' },
+      { when: 'December 17, 2020', title: 'The MVP: an 8-week challenge', text: 'Before any app, I built an 8-week challenge for women aged 18 to 50: a personalized nutrition plan, 60 follow-along workout videos, nutrition PDFs and daily WhatsApp support for buyers. I did the value proposition, the pre-registration landing page, the WordPress and LearnDash content platform, payments, email flows and automations myself. 42% of the final waitlist bought (internal data), and the first week brought 5,000 subscribers and USD 400k in sales (Forbes Colombia, 2021).' },
       { when: 'Launch CRO', title: 'Conversion from about 3% to 4%', text: 'I changed the funnel one piece at a time: interest-free installments, cash payment at Efecty and Baloto, only two plans (the challenge, or the challenge plus nutrition), a USD 300 personalized nutrition upsell that 252 people bought, abandoned-cart recovery over WhatsApp, and a sales-trained chat team for hesitant buyers. I ran A/B tests with Nelio A/B Testing on the first buyers of each launch and shipped the winner right away. Together, these changes took conversion from about 3% to 4.0%, and the launch closed at USD 800k (internal data).' },
       { when: 'The next challenges', title: 'Repeat, with paid media', text: 'Three more challenges followed. I led all of the marketing: paid media, SEO, SEM and analytics.' },
       { when: 'From challenge to app', title: 'Onboarding, paywall and a 7-day trial', text: "The subscription moved into an app. Trainerize didn't fit, so silBe switched to FitBudd's native iOS and Android apps. I designed the onboarding, the paywall (in FitBudd's no-code builder, with their development team in India), the plans and a 7-day free trial. By 2022, 20,000 users were paying USD 29 a month." },
@@ -186,7 +186,7 @@ const en: Record<CaseId, CaseText> = {
   undergold: {
     id: 'undergold',
     name: 'Undergold',
-    tag: 'B2B fashion · Catalog automation',
+    tag: 'B2B fashion · Catalog automation · Contract project, completed',
     headline: '14+ hours a week, *back*.',
     lead: 'Undergold is a clothing brand with 100+ employees that sells wholesale in B2B markets worldwide. I designed and connected the system that keeps its B2B catalog up to date.',
     figures: [
@@ -214,7 +214,7 @@ const en: Record<CaseId, CaseText> = {
   idealTeam: {
     id: 'idealTeam',
     name: 'Ideal Team',
-    tag: 'Web performance · 14 websites',
+    tag: 'Web performance · 14 websites · Contract project, completed',
     headline: 'Fourteen sites, *one* standard.',
     lead: "Ideal Team is an agency of 50+ people across the US, Canada and Colombia. I led performance, security and migrations for 14 of its client sites, all plastic-surgery practices.",
     figures: [

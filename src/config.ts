@@ -15,7 +15,7 @@ export const POSTHOG_HOST: string = (import.meta.env.PUBLIC_POSTHOG_HOST ?? 'htt
 
 export const WHATSAPP_NUMBER = '573193326821';
 export const WHATSAPP_DISPLAY = '+57 319 332 68 21';
-export const EMAIL = 'hola@olmo.agency';
+export const EMAIL = 'santiagocardonaortiz@gmail.com';
 
 export const LINKS = {
   linkedin: 'https://www.linkedin.com/in/scardonaortiz',

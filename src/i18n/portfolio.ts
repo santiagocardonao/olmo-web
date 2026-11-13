@@ -10,8 +10,9 @@ export type ProjectId =
   | 'silbe' | 'cotiza' | 'ilmin' | 'undergold' | 'ideal' | 'metricas' | 'espanol' | 'dsa';
 
 export const ORDER: ProjectId[] = [
-  'silbe', 'ilmin', 'undergold', 'ideal',
-  'cotiza', 'metricas', 'espanol', 'dsa',
+  'silbe', 'cotiza',
+  'ilmin', 'undergold', 'ideal',
+  'metricas', 'espanol', 'dsa',
 ];
 
 /** Ruta de cada proyecto: caso completo o ficha del portafolio. */
@@ -56,16 +57,16 @@ const es: Record<ProjectId, Project> = {
     name: 'ILMIN',
     tag: 'Perfumería · Líder de marketing y e-commerce',
     headline: '+25 % en ventas digitales *en tres* meses.',
-    lead: 'ILMIN es una marca de perfumería nicho de Medellín. Lidero su marketing y su e-commerce, y en los primeros 3 meses las ventas digitales crecieron 25 %.',
-    facts: [{ k: 'Rol', v: 'Líder de marketing y e-commerce' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Perfumería nicho' }],
-    about: 'Empecé por la tienda online y hoy respondo por todo el marketing de la marca: crecer en Colombia y dejarla lista para mercados internacionales.',
+    lead: 'ILMIN es una marca de perfumería nicho de Medellín. Lideré su marketing y su e-commerce en un proyecto por contrato, ya terminado. En los primeros 3 meses las ventas digitales crecieron 25 %.',
+    facts: [{ k: 'Rol', v: 'Líder de marketing y e-commerce' }, { k: 'Tipo', v: 'Proyecto por contrato, terminado' }, { k: 'Plataforma', v: 'Shopify' }, { k: 'Sector', v: 'Perfumería nicho' }],
+    about: 'Empecé por la tienda online y terminé a cargo de todo el marketing de la marca: crecer en Colombia y dejarla lista para mercados internacionales.',
     did: [
-      { t: 'Estrategia de marketing', d: 'Defino y dirijo la estrategia de marketing de la marca.' },
-      { t: 'Tienda online', d: 'Me hago cargo de la tienda en Shopify y del canal digital, que creció 25 % en ventas en los primeros 3 meses.' },
+      { t: 'Estrategia de marketing', d: 'Definí y dirigí la estrategia de marketing de la marca.' },
+      { t: 'Tienda online', d: 'Me hice cargo de la tienda en Shopify y del canal digital, que creció 25 % en ventas en los primeros 3 meses.' },
       { t: 'Portafolio y mercados', d: 'Ayudé a depurar el portafolio de productos y a preparar la marca para mercados internacionales.' },
     ],
     live: { href: 'https://www.ilmin.com/', label: 'ilmin.com' },
-    meta: { title: 'ILMIN: +25 % en ventas digitales en 3 meses | Santiago Cardona', description: 'Lidero el marketing y el e-commerce de ILMIN, perfumería nicho de Medellín: +25 % en ventas digitales en los primeros 3 meses.' },
+    meta: { title: 'ILMIN: +25 % en ventas digitales en 3 meses | Santiago Cardona', description: 'Lideré el marketing y el e-commerce de ILMIN, perfumería nicho de Medellín: +25 % en ventas digitales en los primeros 3 meses.' },
   },
   metricas: {
     name: 'Olmo Métricas',
@@ -87,7 +88,7 @@ const es: Record<ProjectId, Project> = {
     name: 'Olmo Cotiza',
     tag: 'Producto de IA en producción · Claude + Supabase',
     headline: 'Un alcance escrito entra, una *propuesta* sale.',
-    lead: 'Un producto de IA que construí de principio a fin con Claude Code. Escribes el alcance en texto libre y devuelve una propuesta con link público y PDF, en español o en inglés. Está en producción y se ha usado para propuestas reales.',
+    lead: 'Un producto de IA que construí de principio a fin con Claude Code. Escribes el alcance en texto libre y devuelve una propuesta con link público y PDF, en español o en inglés. Está en producción: con él hice más de 30 propuestas reales y cada una me toma 45 minutos menos.',
     facts: [{ k: 'Mi rol', v: 'Producto, diseño y código, de principio a fin' }, { k: 'Tecnología', v: 'Claude (API de Anthropic), Supabase Postgres y una Edge Function' }, { k: 'Estado', v: 'En producción, código abierto' }],
     about: 'Claude ordena el alcance, las reglas del negocio lo validan y las plantillas del sistema de diseño arman la propuesta. Todo queda en Postgres, así que se puede consultar qué se cotizó, a quién, qué se abrió y qué se cerró.',
     did: [
@@ -139,16 +140,16 @@ const en: Record<ProjectId, Project> = {
     name: 'ILMIN',
     tag: 'Fragrance · Marketing & e-commerce lead',
     headline: '+25% digital sales *in three* months.',
-    lead: 'ILMIN is a niche fragrance brand from Medellín. I lead its marketing and e-commerce, and digital sales grew 25% in the first 3 months.',
-    facts: [{ k: 'Role', v: 'Marketing & e-commerce lead' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Niche fragrance' }],
-    about: 'I started with the online store. Now I own the brand\'s marketing: growing ILMIN in Colombia and getting it ready for international markets.',
+    lead: 'ILMIN is a niche fragrance brand from Medellín. I led its marketing and e-commerce on a contract project, now complete. Digital sales grew 25% in the first 3 months.',
+    facts: [{ k: 'Role', v: 'Marketing & e-commerce lead' }, { k: 'Engagement', v: 'Contract project, completed' }, { k: 'Platform', v: 'Shopify' }, { k: 'Industry', v: 'Niche fragrance' }],
+    about: 'I started with the online store and ended up owning the brand\'s marketing: growing ILMIN in Colombia and getting it ready for international markets.',
     did: [
-      { t: 'Marketing strategy', d: 'I set and run the brand\'s marketing strategy.' },
-      { t: 'Online store', d: 'I own the Shopify store and the digital channel, where sales grew 25% in the first 3 months.' },
+      { t: 'Marketing strategy', d: 'I set and ran the brand\'s marketing strategy.' },
+      { t: 'Online store', d: 'I owned the Shopify store and the digital channel, where sales grew 25% in the first 3 months.' },
       { t: 'Products and markets', d: 'I helped trim the product range and get the brand ready for international markets.' },
     ],
     live: { href: 'https://www.ilmin.com/', label: 'ilmin.com' },
-    meta: { title: 'ILMIN: +25% digital sales in 3 months | Santiago Cardona', description: 'I lead marketing and e-commerce for ILMIN, a niche fragrance brand from Medellín: +25% digital sales in the first 3 months.' },
+    meta: { title: 'ILMIN: +25% digital sales in 3 months | Santiago Cardona', description: 'I led marketing and e-commerce for ILMIN, a niche fragrance brand from Medellín: +25% digital sales in the first 3 months.' },
   },
   metricas: {
     name: 'Olmo Métricas',
@@ -170,7 +171,7 @@ const en: Record<ProjectId, Project> = {
     name: 'Olmo Cotiza',
     tag: 'Production AI product · Claude + Supabase',
     headline: 'A written scope in, a *proposal* out.',
-    lead: 'A production AI product I shipped end to end with Claude Code. You write the scope in plain text and get back a proposal with a public link and a PDF, in English or Spanish. It is live and has been used for real proposals.',
+    lead: 'A production AI product I shipped end to end with Claude Code. You write the scope in plain text and get back a proposal with a public link and a PDF, in English or Spanish. It is live: I have sent 30+ real proposals with it, and each one takes me 45 minutes less.',
     facts: [{ k: 'My role', v: 'Product, design and code, end to end' }, { k: 'Stack', v: 'Claude (Anthropic API), Supabase Postgres and an Edge Function' }, { k: 'Status', v: 'Live, open source' }],
     about: 'Claude structures the scope, business rules validate it, and design-system templates lay out the proposal. Everything is stored in Postgres, so you can see what was quoted, to whom, what was opened and what was closed.',
     did: [
@@ -239,14 +240,14 @@ const STATS: Record<Lang, Partial<Record<ProjectId, { v: string; k: string }[]>>
   es: {
     ilmin: [{ v: '+25 %', k: 'en ventas digitales en los primeros 3 meses' }],
     metricas: [{ v: '8', k: 'indicadores (MRR, CLTV, CAC…)' }, { v: '4', k: 'monedas' }, { v: '2', k: 'idiomas' }],
-    cotiza: [{ v: '2', k: 'idiomas: español e inglés' }, { v: '3 / día', k: 'cotizaciones de demo por correo' }, { v: '7 días', k: 'antes de borrar las cotizaciones de visitantes' }],
+    cotiza: [{ v: '30+', k: 'propuestas reales enviadas' }, { v: '−45 min', k: 'por propuesta' }, { v: '2', k: 'idiomas: español e inglés' }],
     espanol: [{ v: '5', k: 'dialectos' }, { v: '3', k: 'modos' }],
     dsa: [{ v: '4', k: 'cosas que mide: color, tipografía, tamaños y contraste' }],
   },
   en: {
     ilmin: [{ v: '+25%', k: 'digital sales in the first 3 months' }],
     metricas: [{ v: '8', k: 'metrics (MRR, CLTV, CAC…)' }, { v: '4', k: 'currencies' }, { v: '2', k: 'languages' }],
-    cotiza: [{ v: '2', k: 'languages: English and Spanish' }, { v: '3 / day', k: 'demo quotes per email' }, { v: '7 days', k: 'before visitor quotes are deleted' }],
+    cotiza: [{ v: '30+', k: 'real proposals sent' }, { v: '−45 min', k: 'per proposal' }, { v: '2', k: 'languages: English and Spanish' }],
     espanol: [{ v: '5', k: 'dialects' }, { v: '3', k: 'modes' }],
     dsa: [{ v: '4', k: 'things it measures: color, type, sizes and contrast' }],
   },
@@ -259,22 +260,23 @@ const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
     undergold: '+14 h a la semana ahorradas',
     ideal: '−60 % en tiempo de carga',
     ilmin: '+25 % en ventas digitales en 3 meses',
-    cotiza: 'En producción · de un alcance escrito a propuesta con PDF',
+    cotiza: '30+ propuestas reales · 45 min menos en cada una',
   },
   en: {
     silbe: 'USD 400k and 5,000 subscribers in the first week (Forbes Colombia, 2021)',
     undergold: '14+ hours a week saved',
     ideal: 'Load times cut by 60%',
     ilmin: '+25% digital sales in 3 months',
-    cotiza: 'Live · from a written scope to a proposal and PDF',
+    cotiza: '30+ real proposals · 45 min saved on each',
   },
 };
 
 /** Grupos del índice del portafolio, en orden. */
 /** Debe seguir el mismo orden que ORDER. */
-export const GROUPS: { id: 'cases' | 'tools'; ids: ProjectId[] }[] = [
-  { id: 'cases', ids: ['silbe', 'ilmin', 'undergold', 'ideal'] },
-  { id: 'tools', ids: ['cotiza', 'metricas', 'espanol', 'dsa'] },
+export const GROUPS: { id: 'featured' | 'cases' | 'tools'; ids: ProjectId[] }[] = [
+  { id: 'featured', ids: ['silbe', 'cotiza'] },
+  { id: 'cases', ids: ['ilmin', 'undergold', 'ideal'] },
+  { id: 'tools', ids: ['metricas', 'espanol', 'dsa'] },
 ];
 
 for (const [lang, set] of [['es', es], ['en', en]] as const) {

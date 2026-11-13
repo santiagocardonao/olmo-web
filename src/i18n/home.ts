@@ -126,7 +126,7 @@ const en: HomeText = {
     viewCase: 'View case',
     cards: [
       { name: 'silBe by Silvy', tag: 'Growth & CRO lead · Subscription fitness', figure: 'USD 800k launch · conversion 3% → 4%', alt: 'Screenshots of the silBe app and website', href: 'silbe' },
-      { name: 'Olmo Cotiza', tag: 'AI product I built · Claude + Supabase', figure: 'From a written scope to a proposal link and PDF', alt: 'Olmo Cotiza proposal screen', href: 'pfCotiza' },
+      { name: 'Olmo Cotiza', tag: 'AI product I built · Claude + Supabase', figure: '30+ real proposals, 45 min saved on each', alt: 'Olmo Cotiza proposal screen', href: 'pfCotiza' },
       { name: 'ILMIN', tag: 'Marketing & e-commerce lead · Fragrance', figure: '+25% digital sales in 3 months', alt: 'ILMIN perfume, from its online store', href: 'pfIlmin' },
       { name: 'Undergold', tag: 'B2B automation · Fashion', figure: '14+ hours a week saved', alt: 'Illustrative recreation of the Undergold B2B catalog', href: 'undergold' },
       { name: 'Ideal Team', tag: 'Web performance · 14 sites', figure: 'Load times cut by 60%', alt: 'Grid of websites with their performance dashboard', href: 'idealTeam' },
@@ -242,7 +242,7 @@ const es: HomeText = {
     viewCase: 'Ver caso',
     cards: [
       { name: 'silBe by Silvy', tag: 'Líder de growth y CRO · Suscripción fitness', figure: 'Lanzamiento de USD 800k · conversión de 3 % a 4 %', alt: 'Capturas de la app y el sitio web de silBe', href: 'silbe' },
-      { name: 'Olmo Cotiza', tag: 'Producto de IA que hice · Claude + Supabase', figure: 'Del alcance escrito a una propuesta con link y PDF', alt: 'Pantalla de una propuesta en Olmo Cotiza', href: 'pfCotiza' },
+      { name: 'Olmo Cotiza', tag: 'Producto de IA que hice · Claude + Supabase', figure: 'Más de 30 propuestas reales, 45 min menos en cada una', alt: 'Pantalla de una propuesta en Olmo Cotiza', href: 'pfCotiza' },
       { name: 'ILMIN', tag: 'Marketing y e-commerce · Perfumería', figure: '+25 % en ventas digitales en 3 meses', alt: 'Perfume de ILMIN, foto de su tienda online', href: 'pfIlmin' },
       { name: 'Undergold', tag: 'Automatización B2B · Moda', figure: 'Más de 14 h a la semana ahorradas', alt: 'Recreación ilustrativa del catálogo B2B de Undergold', href: 'undergold' },
       { name: 'Ideal Team', tag: 'Rendimiento web · 14 sitios', figure: '−60 % en tiempo de carga', alt: 'Mosaico de sitios web con su tablero de rendimiento', href: 'idealTeam' },
