@@ -1,23 +1,23 @@
 /**
  * Portafolio: 8 proyectos, en el orden en que aparecen.
- * silBe, Undergold e Ideal Team enlazan a su caso completo; el resto tiene ficha propia en /portafolio/<slug>/.
+ * silBe, Radhi Yoga, Undergold e Ideal Team enlazan a su caso completo; el resto tiene ficha propia en /portafolio/<slug>/.
  * Solo se publican cifras y enlaces aprobados; cualquier dato nuevo necesita aprobación antes de salir.
  */
 import type { Lang } from '../config';
 import type { RouteId } from './routes';
 
 export type ProjectId =
-  | 'silbe' | 'cotiza' | 'ilmin' | 'undergold' | 'ideal' | 'metricas' | 'espanol' | 'dsa';
+  | 'silbe' | 'cotiza' | 'radhi' | 'ilmin' | 'undergold' | 'ideal' | 'metricas' | 'espanol' | 'dsa';
 
 export const ORDER: ProjectId[] = [
   'silbe', 'cotiza',
-  'ilmin', 'undergold', 'ideal',
+  'radhi', 'ilmin', 'undergold', 'ideal',
   'metricas', 'espanol', 'dsa',
 ];
 
 /** Ruta de cada proyecto: caso completo o ficha del portafolio. */
 export const PROJECT_ROUTE: Record<ProjectId, RouteId> = {
-  silbe: 'silbe', undergold: 'undergold', ideal: 'idealTeam', ilmin: 'pfIlmin',
+  silbe: 'silbe', radhi: 'radhi', undergold: 'undergold', ideal: 'idealTeam', ilmin: 'pfIlmin',
   metricas: 'pfMetricas', cotiza: 'pfCotiza', espanol: 'pfEspanol', dsa: 'pfDsa',
 };
 
@@ -51,6 +51,7 @@ const GH = 'https://github.com/santiagocardonao/';
 
 const es: Record<ProjectId, Project> = {
   silbe: { name: 'silBe by Silvy', tag: 'Growth, CRO y producto · 2020–2026' },
+  radhi: { name: 'Radhi Yoga', tag: 'Lanzamientos de un curso online · 2022–2023' },
   undergold: { name: 'Undergold', tag: 'Catálogo B2B · Shopify, Supabase y Vercel' },
   ideal: { name: 'Ideal Team', tag: 'Rendimiento web · 14 sitios' },
   ilmin: {
@@ -135,6 +136,7 @@ const es: Record<ProjectId, Project> = {
 
 const en: Record<ProjectId, Project> = {
   silbe: { name: 'silBe by Silvy', tag: 'Growth, CRO & product · 2020–2026' },
+  radhi: { name: 'Radhi Yoga', tag: 'Online course launches · 2022–2023' },
   undergold: { name: 'Undergold', tag: 'B2B catalog · Shopify, Supabase & Vercel' },
   ideal: { name: 'Ideal Team', tag: 'Web performance · 14 sites' },
   ilmin: {
@@ -259,6 +261,7 @@ const STATS: Record<Lang, Partial<Record<ProjectId, { v: string; k: string }[]>>
 const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
   es: {
     silbe: 'USD 400k y 5.000 suscriptores en la primera semana (Forbes Colombia, 2021)',
+    radhi: '10x en ventas por lanzamiento · 48 % compró en vivo el día 3',
     undergold: '+14 h a la semana ahorradas',
     ideal: '−60 % en tiempo de carga',
     ilmin: '+25 % en ventas digitales frente a los 3 meses anteriores (Shopify)',
@@ -266,6 +269,7 @@ const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
   },
   en: {
     silbe: 'USD 400k and 5,000 subscribers in the first week (Forbes Colombia, 2021)',
+    radhi: '10x revenue per launch · 48% bought live on day 3',
     undergold: '14+ hours a week saved',
     ideal: 'Load times cut by 60%',
     ilmin: '+25% digital sales vs the prior 3 months (Shopify)',
@@ -277,7 +281,7 @@ const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
 /** Debe seguir el mismo orden que ORDER. */
 export const GROUPS: { id: 'featured' | 'cases' | 'tools'; ids: ProjectId[] }[] = [
   { id: 'featured', ids: ['silbe', 'cotiza'] },
-  { id: 'cases', ids: ['ilmin', 'undergold', 'ideal'] },
+  { id: 'cases', ids: ['radhi', 'ilmin', 'undergold', 'ideal'] },
   { id: 'tools', ids: ['metricas', 'espanol', 'dsa'] },
 ];
 

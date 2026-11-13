@@ -12,22 +12,30 @@ const { lang, id = lang === 'es' ? 'resultados' : 'results' } = Astro.props;
 const w = HOME[lang].work;
 const ui = HOME[lang].ui;
 // Cada tarjeta usa la misma portada y el mismo enlace del portafolio
+const L = lang === 'es'
+  ? { prev: 'Proyecto anterior', next: 'Siguiente proyecto', dots: 'Elegir proyecto', go: 'Ir al proyecto' }
+  : { prev: 'Previous project', next: 'Next project', dots: 'Choose project', go: 'Go to project' };
 const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v, k])) as Record<string, ProjectId>;
 ---
-<section class="work sec" id={id} aria-labelledby="work-title">
+<section class="work sec" data-go={L.go} id={id} aria-labelledby="work-title">
   <div class="wrap work-wrap">
     <p class="sec-label"><span class="n">(01)</span>{ui.nav[0]}</p>
     <h2 id="work-title" class="work-title" set:html={`${emph(w.line1)} ${w.line2}`} />
 
-    <ul class="wgrid">
-      {w.cards.map((c) => (
-        <Card href={link(lang, c.href)} name={c.name} tag={c.tag} figure={c.figure} cursor={w.cursor}
-          ariaLabel={`${c.name}: ${c.figure}. ${w.viewCase}`}
-          vt={c.href.startsWith('pf') ? `view-transition-name: pj-${PID[c.href]}; view-transition-class: pj` : undefined}>
-          <Cover slot="media" id={PID[c.href]} lang={lang} alt={c.alt} sizes="(min-width: 1200px) 19vw, (min-width: 768px) 34vw, 68vw" />
-        </Card>
-      ))}
-    </ul>
+    <div class="wcar" data-carousel>
+      <ul class="wgrid" data-track aria-label={ui.nav[0]}>
+        {w.cards.map((c) => (
+          <Card href={link(lang, c.href)} name={c.name} tag={c.tag} figure={c.figure} cursor={w.cursor}
+            ariaLabel={`${c.name}: ${c.figure}. ${w.viewCase}`}
+            vt={c.href.startsWith('pf') ? `view-transition-name: pj-${PID[c.href]}; view-transition-class: pj` : undefined}>
+            <Cover slot="media" id={PID[c.href]} lang={lang} alt={c.alt} sizes="(min-width: 1200px) 24vw, (min-width: 768px) 40vw, 78vw" />
+          </Card>
+        ))}
+      </ul>
+      <button class="wcar-btn prev" type="button" data-prev aria-label={L.prev} disabled><span aria-hidden="true">←</span></button>
+      <button class="wcar-btn next" type="button" data-next aria-label={L.next}><span aria-hidden="true">→</span></button>
+      <div class="wcar-dots" data-dots role="group" aria-label={L.dots}></div>
+    </div>
 
     <div class="work-foot">
       <Btn href={r('portfolio', lang)} label={w.button} variant="dark" />
@@ -42,18 +50,98 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
     font: 600 var(--t-xl)/1.08 var(--f-sans); letter-spacing: -0.04em; text-wrap: balance;
   }
 
-  /* Una sola fila de 5: en escritorio caben todas; por debajo de 1200 px la fila se desliza. */
-  .wgrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
-  @media (max-width: 1199px) {
-    .wgrid {
-      display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-      margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
-    }
-    .wgrid::-webkit-scrollbar { display: none; }
-    .wgrid > :global(li) { flex: none; width: 34vw; scroll-snap-align: start; }
+  /* Carrusel: 4 tarjetas en escritorio, 2,4 en tableta y 1,2 en celular. Flechas a los lados y puntos abajo. */
+  .wcar { position: relative; }
+  .wgrid {
+    --gap: 20px;
+    display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    scrollbar-width: none; overscroll-behavior-x: contain;
+    margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
   }
-  @media (max-width: 767px) { .wgrid > :global(li) { width: 68vw; } }
+  .wgrid::-webkit-scrollbar { display: none; }
+  .wgrid > :global(li) { flex: none; width: calc((100% - var(--gutter) * 2 - var(--gap) * 3) / 4); scroll-snap-align: start; }
+  @media (max-width: 1199px) { .wgrid > :global(li) { width: 40vw; } }
+  @media (max-width: 767px) { .wgrid { --gap: 14px; } .wgrid > :global(li) { width: 78vw; } }
+
+  .wcar-btn {
+    position: absolute; top: var(--arrow-y, 38%); z-index: 2; translate: 0 -50%;
+    display: none; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+    background: var(--blanco); color: var(--tinta); border: 1px solid var(--borde);
+    box-shadow: 0 10px 24px -10px rgba(17, 17, 17, .3);
+    font: 500 20px/1 var(--f-sans);
+    transition: opacity 200ms var(--ease-out), scale 160ms var(--ease-out), background-color 200ms, color 200ms;
+  }
+  :global(html.js) .wcar-btn { display: grid; }
+  .wcar-btn.prev { left: calc(min(26px, var(--gutter) - 12px) * -1); }
+  .wcar-btn.next { right: calc(min(26px, var(--gutter) - 12px) * -1); }
+  .wcar-btn:disabled { opacity: 0; pointer-events: none; }
+  .wcar-btn:active { scale: .94; }
+  @media (hover: hover) and (pointer: fine) { .wcar-btn:hover { background: var(--tinta); color: var(--blanco); } }
+  @media (max-width: 1199px) {
+    .wcar-btn { width: 44px; height: 44px; font-size: 18px; }
+    .wcar-btn.prev { left: 0; }
+    .wcar-btn.next { right: 0; }
+  }
+
+  .wcar-dots { display: none; justify-content: center; gap: 4px; margin-top: clamp(24px, 3vw, 36px); }
+  :global(html.js) .wcar-dots { display: flex; }
+  .wcar-dots :global(button) { display: grid; place-items: center; min-width: 24px; height: 24px; padding-inline: 4px; }
+  .wcar-dots :global(button)::before {
+    content: ''; width: 8px; height: 8px; border-radius: 999px; background: rgba(17, 17, 17, .2);
+    transition: width 300ms var(--ease-out), background-color 300ms var(--ease-out);
+  }
+  .wcar-dots :global(button[aria-current='true'])::before { width: 22px; background: var(--tinta); }
+  @media (prefers-reduced-motion: reduce) {
+    .wgrid { scroll-behavior: auto; }
+    .wcar-btn, .wcar-dots :global(button)::before { transition: none; }
+  }
 
   .work-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-top: clamp(40px, 5vw, 64px); }
   .work-src { font-weight: 500; }
 </style>
+
+<script>
+  // Carrusel del trabajo: flechas, puntos (uno por posición posible) y teclado. Sin JS queda el scroll nativo.
+  function setup(root: HTMLElement) {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const dotsEl = root.querySelector<HTMLElement>('[data-dots]')!;
+    const items = [...track.children] as HTMLElement[];
+    const go = root.closest<HTMLElement>('[data-go]')?.dataset.go ?? 'Go to';
+    let pages = 0;
+    const step = () => (items[1] ? items[1].offsetLeft - items[0].offsetLeft : track.clientWidth);
+    const max = () => track.scrollWidth - track.clientWidth;
+    const current = () => Math.min(pages - 1, Math.round(track.scrollLeft / step()));
+    const to = (i: number) => track.scrollTo({ left: Math.min(max(), i * step()) });
+
+    function build() {
+      const n = Math.max(1, Math.ceil(max() / step() - 0.05) + 1);
+      const media = items[0].querySelector<HTMLElement>('.card-media');
+      if (media) root.style.setProperty('--arrow-y', `${media.offsetHeight / 2}px`);
+      if (n === pages) return update();
+      pages = n;
+      dotsEl.replaceChildren(...Array.from({ length: n }, (_, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', `${go} ${i + 1}`);
+        b.addEventListener('click', () => to(i));
+        return b;
+      }));
+      dotsEl.hidden = n < 2;
+      update();
+    }
+    function update() {
+      const i = current();
+      dotsEl.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft > max() - 4;
+    }
+    prev.addEventListener('click', () => to(current() - 1));
+    next.addEventListener('click', () => to(current() + 1));
+    track.addEventListener('scroll', update, { passive: true });
+    new ResizeObserver(build).observe(track);
+    build();
+  }
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(setup);
+</script>

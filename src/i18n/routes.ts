@@ -9,6 +9,7 @@ export const ROUTES = {
   advisory: { es: '/es/asesoria/', en: '/advisory/' },
   monthly: { es: '/es/mensualidad/', en: '/monthly/' },
   silbe: { es: '/es/portafolio/silbe/', en: '/portfolio/silbe/' },
+  radhi: { es: '/es/portafolio/radhi-yoga/', en: '/portfolio/radhi-yoga/' },
   undergold: { es: '/es/portafolio/undergold/', en: '/portfolio/undergold/' },
   idealTeam: { es: '/es/portafolio/ideal-team/', en: '/portfolio/ideal-team/' },
   portfolio: { es: '/es/portafolio/', en: '/portfolio/' },

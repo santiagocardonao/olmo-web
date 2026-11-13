@@ -59,6 +59,14 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
           <figcaption class="small phones-cap">{es ? 'La app nativa en FitBudd: diseñé el onboarding, los planes, el paywall y la prueba gratis de 7 días.' : 'The native app on FitBudd: I designed the onboarding, plans, paywall and 7-day free trial.'}</figcaption>
         </figure>
       )}
+      {id === 'radhi' && (
+        <figure>
+          <div class="media-frame wide-r" data-fade>
+            <Picture src={IMG.radhiWebIg} alt={es ? 'Montaje del sitio radhiyoga.com en un navegador y del perfil de Instagram @radhi.yoga en un celular' : 'Mockup of the radhiyoga.com website in a browser and the @radhi.yoga Instagram profile on a phone'} widths={[800, 1400, 2000]} sizes="(min-width: 1440px) 1410px, 96vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
+          </div>
+          <figcaption class="small phones-cap">{es ? 'Montaje con capturas del sitio y del Instagram de Radhi Yoga.' : 'Mockup built from screenshots of the Radhi Yoga website and Instagram.'}</figcaption>
+        </figure>
+      )}
       {id === 'undergold' && (
         <div class="case-media two">
           <div class="media-frame tall" data-fade><Visual kind="undergold" lang={lang} label={es ? 'Recreación ilustrativa del catálogo B2B de Undergold' : "Illustrative recreation of Undergold's B2B catalog"} /><span class="tag-ill">{L.illustrative}</span></div>
@@ -163,6 +171,7 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
   @media (min-width: 768px) { .case-media.two { grid-template-columns: 1fr 1fr; } }
   .media-frame.tall { aspect-ratio: 6 / 7; position: relative; }
   .media-frame.wide { aspect-ratio: 3002 / 1546; }
+  .media-frame.wide-r { aspect-ratio: 2400 / 1400; }
   .tag-ill { position: absolute; left: 12px; top: 12px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.94); font: 600 12px/1 var(--f-sans); }
   /* Cifras: filas parejas (3 + 3 en silBe) y valores que no se parten. */
   @media (min-width: 768px) {

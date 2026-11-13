@@ -11,9 +11,9 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const P = PROJECTS[lang];
 const T = lang === 'es'
-  ? { meta: { title: 'Trabajo: casos de growth, CRO e IA | Santiago Cardona', description: 'Casos de growth y CRO (silBe, ILMIN, Undergold, Ideal Team) y productos de IA que construí: Olmo Cotiza, Olmo Métricas y dos skills de Claude.' },
+  ? { meta: { title: 'Trabajo: casos de growth, CRO e IA | Santiago Cardona', description: 'Casos de growth y CRO (silBe, Radhi Yoga, ILMIN, Undergold, Ideal Team) y productos de IA que construí: Olmo Cotiza, Olmo Métricas y dos skills de Claude.' },
       label: 'Trabajo', title: 'Lo que he *construido*', lead: 'Casos de growth y conversión, y productos de IA que construí yo. Cada uno dice qué hice, con qué cifras y, cuando se puede, enlaza a la versión en vivo.', view: 'Ver proyecto', cover: 'Portada de' }
-  : { meta: { title: 'Work: growth, CRO and AI case studies | Santiago Cardona', description: 'Growth and CRO case studies (silBe, ILMIN, Undergold, Ideal Team) and AI products I built: Olmo Cotiza, Olmo Métricas and two Claude skills.' },
+  : { meta: { title: 'Work: growth, CRO and AI case studies | Santiago Cardona', description: 'Growth and CRO case studies (silBe, Radhi Yoga, ILMIN, Undergold, Ideal Team) and AI products I built: Olmo Cotiza, Olmo Métricas and two Claude skills.' },
       label: 'Work', title: "What I've *built*", lead: 'Growth and conversion case studies, plus AI products I built myself. Each one shows what I did, the numbers behind it and, where possible, a live link.', view: 'View project', cover: 'Cover for' };
 ---
 <Base lang={lang} dark route="portfolio" title={T.meta.title} description={T.meta.description}>
@@ -27,7 +27,7 @@ const T = lang === 'es'
             <Card href={r(PROJECT_ROUTE[id], lang)} name={p.short ?? p.name} tag={p.tag} figure={p.figure} cursor={T.view}
               vt={`view-transition-name: pj-${id}; view-transition-class: pj`}>
               <Cover slot="media" id={id} lang={lang} alt={`${T.cover} ${p.name}`} eager={i < 4}
-                sizes="(min-width: 1200px) 24vw, (min-width: 768px) 46vw, 46vw" />
+                sizes="(min-width: 1200px) 31vw, (min-width: 768px) 46vw, 46vw" />
             </Card>
           );
         })}
@@ -36,9 +36,9 @@ const T = lang === 'es'
   </section>
 </Base>
 <style>
-  /* Las 8 tarjetas son iguales a las de la home: 4 por fila en escritorio, 2 en celular y tableta. */
+  /* Las 9 tarjetas son iguales a las de la home: 3 por fila en escritorio, 2 en celular y tableta. */
   .pf { padding-block: clamp(56px, 7vw, 104px) var(--sec-y); }
   .pf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 16px; }
   @media (min-width: 768px) { .pf-grid { gap: 48px 24px; } }
-  @media (min-width: 1200px) { .pf-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) { .pf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 28px; } }
 </style>

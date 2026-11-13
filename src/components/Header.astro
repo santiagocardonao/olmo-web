@@ -12,7 +12,7 @@ const navIds: NavId[] = ['portfolio', 'tools', 'about', 'contact'];
 const href = (id: NavId) => (id === 'contact' ? CONTACT_ANCHOR[lang] : r(id, lang));
 const isActive = (id: NavId) =>
   route === id
-  || (id === 'portfolio' && (!!route?.startsWith('pf') || route === 'silbe' || route === 'undergold' || route === 'idealTeam'));
+  || (id === 'portfolio' && (!!route?.startsWith('pf') || route === 'silbe' || route === 'radhi' || route === 'undergold' || route === 'idealTeam'));
 ---
 <header class="site-header">
   <div class="wrap hdr">
