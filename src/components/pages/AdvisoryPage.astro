@@ -3,8 +3,8 @@ import '../../styles/pages.css';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../PageHero.astro';
 import Btn from '../Btn.astro';
-import Pricing from '../home/Pricing.astro';
-import NotDo from '../home/NotDo.astro';
+import Pricing from '../pricing/Pricing.astro';
+import NotDo from '../pricing/NotDo.astro';
 import { wa, type Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import { SERVICE_ANCHORS } from '../../i18n/routes';
@@ -78,9 +78,9 @@ const detail = [
   { id: A.web, item: svc[4], more: T.more[3] },
 ];
 ---
-<Base lang={lang} route="advisory" title={T.meta.title} description={T.meta.description}>
-  <PageHero label={T.label} right={T.right} title={T.title} lead={h.big.body}>
-    <Btn href={wa(lang, 'WA5')} label={T.cta} ariaLabel={h.ui.ctaLabel} external />
+<Base lang={lang} route="advisory" title={T.meta.title} description={T.meta.description} noindex>
+  <PageHero label={T.label} right={T.right} title={T.title} lead={lang === 'es' ? 'Trabajo dentro de tu equipo, con todas las áreas, para encontrar dónde se frena la venta. Y me quedo hasta que el cambio se note en la conversión, en las ventas o en las horas que tu equipo se ahorra.' : 'I work inside your team, across every area, to find where sales are getting stuck. And I stay until the change shows up in conversion, in revenue, or in hours your team gets back.'}>
+    <Btn href={wa(lang, 'WA5')} label={T.cta} ariaLabel={lang === 'es' ? 'Escríbeme por WhatsApp (se abre en otra pestaña)' : 'Message me on WhatsApp (opens in a new tab)'} external />
     <Btn href={wa(lang, 'WA2')} label={T.ask} variant="sec" external ariaLabel={`${T.ask} ${h.ui.newTab}`} />
   </PageHero>
 

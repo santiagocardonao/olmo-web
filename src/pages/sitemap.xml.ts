@@ -1,8 +1,10 @@
 import type { APIRoute } from 'astro';
-import { ROUTES } from '../i18n/routes';
+import { ROUTES, HIDDEN_ROUTES, type RouteId } from '../i18n/routes';
 
 export const GET: APIRoute = ({ site }) => {
-  const urls = Object.values(ROUTES)
+  const urls = (Object.entries(ROUTES) as [RouteId, (typeof ROUTES)[RouteId]][])
+    .filter(([id]) => !HIDDEN_ROUTES.includes(id))
+    .map(([, alt]) => alt)
     .map((alt) =>
       (['es', 'en'] as const)
         .map(
