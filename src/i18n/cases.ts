@@ -110,7 +110,7 @@ const es: Record<CaseId, CaseText> = {
     figures: [
       { value: '−60 %', label: 'en tiempo de carga' },
       { value: '−75 %', label: 'en recursos de servidor y cloud' },
-      { value: '30–40 %', label: 'menos tiempo de los programadores' },
+      { value: '30–40 %', label: 'menos tiempo de los programadores (estimado del equipo)' },
       { value: '14', label: 'sitios corregidos' },
     ],
     stall: 'Catorce sitios, cada uno con un problema distinto: posicionamiento en Google, velocidad, carga en celular y seguridad.',
@@ -123,7 +123,7 @@ const es: Record<CaseId, CaseText> = {
     changed: [
       '−60 % en tiempo de carga.',
       '−75 % en recursos de servidor y cloud.',
-      '30–40 % menos tiempo de los programadores con herramientas de IA.',
+      '30–40 % menos tiempo de los programadores con herramientas de IA (estimado del equipo).',
       'Los 14 sitios quedaron corregidos.',
     ],
     note: 'Lo siguiente que haría: monitorear la velocidad de los 14 sitios cada semana para detectar retrocesos antes de que afecten el posicionamiento.',
@@ -220,7 +220,7 @@ const en: Record<CaseId, CaseText> = {
     figures: [
       { value: '−60%', label: 'load time' },
       { value: '−75%', label: 'server and cloud resources' },
-      { value: '30–40%', label: 'less developer time' },
+      { value: '30–40%', label: 'less developer time (team estimate)' },
       { value: '14', label: 'sites fixed' },
     ],
     stall: 'Fourteen sites, each with a different problem: Google rankings, speed, mobile loading and security.',
@@ -233,7 +233,7 @@ const en: Record<CaseId, CaseText> = {
     changed: [
       'Load times cut by 60%.',
       '75% fewer server and cloud resources.',
-      '30–40% less developer time with AI tools.',
+      '30–40% less developer time with AI tools (team estimate).',
       'All 14 sites fixed.',
     ],
     note: "What I'd do next: check the speed of all 14 sites every week to catch regressions before they hurt rankings.",

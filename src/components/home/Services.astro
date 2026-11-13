@@ -18,7 +18,7 @@ const tape = [...s.marquee, ...s.marquee, ...s.marquee];
   <div class="svc-bg" aria-hidden="true">
     {s.offer.map((it, i) => (
       <div class:list={['svc-pane', i === 0 && 'is-active']} data-svc-pane>
-        <Picture src={bg[it.img]} alt="" widths={[768, 1280, 1920, 2752]} sizes="100vw"
+        <Picture src={bg[it.img]} alt="" widths={[768, 1280, 1920]} sizes="100vw"
           formats={['avif']} fallbackFormat="webp" loading="lazy" />
       </div>
     ))}

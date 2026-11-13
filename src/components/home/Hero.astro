@@ -43,7 +43,7 @@ const P = PROJECTS[lang];
 
     <nav class="strip" aria-label={lang === 'es' ? 'Portafolio' : 'Portfolio'} data-hero>
       <ul>
-        {ORDER.map((id, i) => (
+        {ORDER.filter((id) => !['metricas', 'espanol', 'dsa'].includes(id)).map((id, i) => (
           <li>
             <a class="thumb" href={r(PROJECT_ROUTE[id], lang)} aria-label={P[id].name}>
               <span class="thumb-img">

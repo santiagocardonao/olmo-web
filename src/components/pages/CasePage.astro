@@ -50,11 +50,14 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
   <section class="block case-media-sec">
     <div class="wrap">
       {id === 'silbe' && (
-        <div class="phones-row" data-fade>
+        <figure>
+          <div class="phones-row" data-fade>
             {phones.map((p, i) => (
-              <Picture src={p} alt={es ? `Pantalla ${i + 1} de la app de silBe` : `silBe app screen ${i + 1}`} widths={[300, 500]} sizes="(min-width: 992px) 22vw, 45vw" formats={['avif']} fallbackFormat="webp" loading="lazy" class="phone" />
+              <Picture src={p} alt={es ? ['Inicio de sesión de la app de silBe', 'Programas de la app de silBe', 'Plan de nutrición de la app de silBe', 'Paywall de la app de silBe con planes y prueba gratis de 7 días'][i] : ['silBe app sign-in', 'silBe app programs', 'silBe app nutrition plan', 'silBe app paywall with plans and a 7-day free trial'][i]} widths={[300, 500]} sizes="(min-width: 992px) 22vw, 45vw" formats={['avif']} fallbackFormat="webp" loading="lazy" class="phone" />
             ))}
-        </div>
+          </div>
+          <figcaption class="small phones-cap">{es ? 'La app nativa en FitBudd: diseñé el onboarding, los planes, el paywall y la prueba gratis de 7 días.' : 'The native app on FitBudd: I designed the onboarding, plans, paywall and 7-day free trial.'}</figcaption>
+        </figure>
       )}
       {id === 'undergold' && (
         <div class="case-media two">
@@ -173,6 +176,7 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
   .case-src { margin-top: 16px; max-width: 60em; color: var(--gris-500); }
   .phones-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: clamp(20px, 4vw, 56px); background: #EBE7E4; border-radius: var(--r-img); }
   .phones-row :global(picture) { display: block; }
+  .phones-cap { margin-top: 12px; color: var(--gris-700); }
   @media (min-width: 992px) { .phones-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.2vw, 36px); } }
   .phones-row :global(.phone) { display: block; width: 100%; height: auto; border-radius: 18px; border: 5px solid #111; box-shadow: 0 24px 40px -16px rgba(17,17,17,.35); }
   .case-note { margin-top: 20px; }

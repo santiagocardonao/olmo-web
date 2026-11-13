@@ -78,8 +78,8 @@ const en: HomeText = {
     sub: '8 years running launches, checkouts, paywalls and pricing, now shipping AI products with Claude Code and Supabase. Remote from Medellín, Colombia (UTC-5).',
     stats: [
       { v: 'USD 800k', k: 'in one subscription launch at silBe (internal data)' },
-      { v: '3% → 4%', k: 'purchase conversion after my funnel changes' },
-      { v: 'USD 29 → 39', k: 'monthly price, with no rise in churn' },
+      { v: '3% → 4%', k: 'purchase conversion, silBe launches since Dec 2020 (internal data)' },
+      { v: 'USD 29 → 39', k: 'monthly price, with no rise in churn (internal data)' },
     ],
     press: 'Forbes Colombia, 2021: USD 400k and 5,000 subscribers in the first week.',
     primary: 'Email me',
@@ -194,8 +194,8 @@ const es: HomeText = {
     sub: '8 años con lanzamientos, checkouts, paywalls y precios. Hoy también lanzo productos de IA con Claude Code y Supabase. Remoto desde Medellín, Colombia (UTC-5).',
     stats: [
       { v: 'USD 800k', k: 'en un lanzamiento por suscripción en silBe (dato interno)' },
-      { v: '3 % → 4 %', k: 'de conversión a compra tras mis cambios al funnel' },
-      { v: 'USD 29 → 39', k: 'de precio mensual, sin subir la cancelación' },
+      { v: '3 % → 4 %', k: 'de conversión a compra, lanzamientos de silBe desde dic. 2020 (dato interno)' },
+      { v: 'USD 29 → 39', k: 'de precio mensual, sin subir la cancelación (dato interno)' },
     ],
     press: 'Forbes Colombia, 2021: USD 400k y 5.000 suscriptores en la primera semana.',
     primary: 'Escríbeme',
