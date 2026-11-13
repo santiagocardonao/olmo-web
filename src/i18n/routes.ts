@@ -19,6 +19,7 @@ export const ROUTES = {
   pfEspanol: { es: '/es/portafolio/espanol-natural/', en: '/portfolio/espanol-natural/' },
   pfDsa: { es: '/es/portafolio/design-system-adherence/', en: '/portfolio/design-system-adherence/' },
   tools: { es: '/es/herramientas/', en: '/tools/' },
+  press: { es: '/es/prensa/', en: '/press/' },
   about: { es: '/es/sobre-mi/', en: '/about/' },
   terms: { es: '/es/terminos/', en: '/terms/' },
   privacy: { es: '/es/privacidad/', en: '/privacy/' },

@@ -1,0 +1,58 @@
+---
+import '../../styles/pages.css';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import type { Lang } from '../../config';
+import { HOME } from '../../i18n/home';
+import { PRESS, PRESS_UI, fmtDate } from '../../i18n/press';
+import { link } from '../../lib/util';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const T = PRESS_UI[lang];
+const ui = HOME[lang].ui;
+---
+<Base lang={lang} dark route="press" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} title={T.title} lead={T.lead} />
+  <section class="block" aria-label={T.label}>
+    <div class="wrap">
+      <ul class="pgrid">
+        {PRESS.map((p) => (
+          <li class="pcard" id={p.id} data-fade>
+            <div class="plogo">
+              <img src={p.logo.src} alt={p.outlet} width={Math.round(p.h * p.logo.width / p.logo.height)} height={p.h} style={`--h:${p.h}px`} loading="lazy" decoding="async" />
+            </div>
+            <h2 class="pclient">{p.client}</h2>
+            <p class="pmeta">{p.years} · {p.role[lang]}</p>
+            <p class="pcap">{p.caption[lang]}</p>
+            <ul class="plinks">
+              {p.articles.map((a) => (
+                <li><a class="under" href={a.url} target="_blank" rel="noopener">{T.read}: {a.title[lang]} <span class="pdate">({fmtDate(a.date, lang)})</span> ↗<span class="sr-only"> {ui.newTab}</span></a></li>
+              ))}
+              {p.caseHref && <li><a class="under pcase" href={link(lang, p.caseHref)}>{T.seeCase} →</a></li>}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 4vw, 48px) clamp(16px, 2vw, 28px); }
+  @media (min-width: 768px) { .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) { .pgrid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .pcard { scroll-margin-top: calc(var(--header-h) + 24px); }
+  .plogo {
+    aspect-ratio: 3 / 2; border-radius: var(--r-img); background: var(--neutro);
+    display: grid; place-items: center; padding: 18%;
+  }
+  .plogo img { height: var(--h); width: auto; max-width: 100%; object-fit: contain; filter: brightness(0); opacity: .75; }
+  .pcard:target .plogo { outline: 2px solid var(--violeta); outline-offset: 3px; }
+  .pclient { margin-top: 14px; font: 500 var(--t-md)/1.2 var(--f-sans); letter-spacing: -0.02em; }
+  .pmeta { margin-top: 4px; font: 500 var(--t-xs)/1.4 var(--f-sans); color: var(--violeta); }
+  .pcap { margin-top: 8px; font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--gris-700); }
+  .plinks { margin-top: 10px; display: grid; gap: 6px; font: 400 var(--t-xs)/1.45 var(--f-sans); color: var(--gris-500); }
+  .plinks a { color: var(--tinta); }
+  .pdate { color: var(--gris-500); }
+  @media (max-width: 479px) { .plogo { padding: 14%; } .plogo img { height: calc(var(--h) * .8); } }
+</style>

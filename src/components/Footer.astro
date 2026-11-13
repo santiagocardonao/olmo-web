@@ -42,6 +42,7 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
             <li><a href={r(id, lang)} aria-current={route === id ? 'page' : undefined}>{f.pills[i]}</a></li>
           ))}
           <li><a href={r('tools', lang)}>{f.tools.replace(/\s*→$/, '')}</a></li>
+          <li><a href={r('press', lang)} aria-current={route === 'press' ? 'page' : undefined}>{lang === 'es' ? 'Prensa' : 'Press'}</a></li>
         </ul>
       </nav>
       <div class="ft-col">
