@@ -15,9 +15,15 @@ const ui = HOME[lang].ui;
   <div class="wrap">
     <p class="sec-label"><span class="n">(04)</span>{a.label}</p>
     <div class="ab-grid">
-      <figure class="ab-photo" data-fade>
-        <Picture src={IMG.santiago} alt={a.photoAlt} widths={[400, 700, 1000]} sizes="(min-width: 1200px) 440px, (min-width: 768px) 50vw, 92vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
-      </figure>
+      <div class="ab-side">
+        <figure class="ab-photo" data-fade>
+          <Picture src={IMG.santiago} alt={a.photoAlt} widths={[400, 700, 1000]} sizes="(min-width: 1200px) 440px, (min-width: 768px) 50vw, 92vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
+        </figure>
+        <div class="ab-langs" data-fade>
+          <h3 class="sec-label">{a.langLabel}</h3>
+          <ul>{a.langs.map((x) => <li><strong>{x.n}</strong> · {x.l}</li>)}</ul>
+        </div>
+      </div>
       <div class="ab-copy">
         <h2 id="about-title" class="big-title ab-title" data-split-lines set:html={emph(a.title)} />
         <p class="ab-body support" data-fade>{a.body}</p>
@@ -38,17 +44,13 @@ const ui = HOME[lang].ui;
       <h3 class="sec-label">{a.stackLabel}</h3>
       <ul>{a.stack.map((x) => <li>{x}</li>)}</ul>
     </div>
-    <div class="ab-langs" data-fade>
-      <h3 class="sec-label">{a.langLabel}</h3>
-      <ul>{a.langs.map((x) => <li><strong>{x.n}</strong> · {x.l}</li>)}</ul>
-    </div>
   </div>
 </section>
 
 <style>
   .ab-grid { display: grid; gap: 40px; margin-top: clamp(32px, 4vw, 56px); }
   @media (min-width: 992px) { .ab-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 30px; align-items: start; } }
-  @media (min-width: 1200px) { .ab-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); } .ab-photo { grid-column: 1 / span 4; } .ab-copy { grid-column: 6 / span 7; } }
+  @media (min-width: 1200px) { .ab-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); } .ab-side { grid-column: 1 / span 4; } .ab-copy { grid-column: 6 / span 7; } }
   .ab-photo { border-radius: var(--r-img); overflow: hidden; aspect-ratio: 4 / 5; background: var(--neutro); max-width: 520px; }
   .ab-photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
   .ab-title { max-width: 12em; }
@@ -64,8 +66,9 @@ const ui = HOME[lang].ui;
   /* Stack a todo el ancho: los reclutadores lo buscan, así que se lee de un vistazo. */
   .ab-stack { margin-top: clamp(56px, 7vw, 104px); }
   .ab-stack ul { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-  /* Idiomas: mismo patrón que el stack, en pequeño. */
-  .ab-langs { margin-top: 32px; }
+  /* Idiomas: debajo de la foto, en la columna que quedaba vacía. */
+  .ab-side { max-width: 520px; }
+  .ab-langs { margin-top: 28px; }
   .ab-langs ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .ab-langs li {
     padding: 8px 14px; border-radius: var(--pill); border: 1px solid var(--borde);
