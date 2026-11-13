@@ -1,6 +1,6 @@
 ---
 /**
- * Testimonios de clientes. Los textos en español son los mismos que estaban publicados en Framer, sin cambios.
+ * Testimonios. Basados en los publicados en Framer, pasados a singular (Santi) con aprobación de Santiago, 12 nov 2026.
  * El inglés es traducción. Sin fotos: las de Framer no eran de las personas; se muestran iniciales hasta tener fotos reales.
  */
 import type { Lang } from '../../config';
@@ -13,11 +13,11 @@ const T = es
   : { left: 'References', title: 'From the people I *worked* with.', aria: 'References from people who worked with Santiago' };
 const items = [
   { name: 'Esteban García', role: es ? 'Director de producto, silBe by Silvy' : 'Head of Product, silBe by Silvy',
-    quote: es ? 'Llevo años trabajando con ellos, especialmente con Santi. Siempre nos ha ido perfecto y nos han acompañado en todo el crecimiento de la marca.'
-              : "I've worked with them for years, especially with Santi. It has always gone perfectly, and they've been with us through all of the brand's growth." },
+    quote: es ? 'Llevo años trabajando con Santi. Siempre nos ha ido perfecto y nos ha acompañado en todo el crecimiento de la marca.'
+              : "I've worked with Santi for years. It has always gone perfectly, and he's been with us through all of the brand's growth." },
   { name: 'Sara Bermúdez', role: 'CMO, Undergold',
-    quote: es ? 'Ha sido un proceso sencillo. Hemos llevado un par de proyectos a distancia y siempre han entregado a tiempo. ¡Recomendadooo!'
-              : "It's been an easy process. We've run a couple of projects remotely and they've always delivered on time. Highly recommended!" },
+    quote: es ? 'Ha sido un proceso sencillo. Hemos llevado un par de proyectos a distancia con Santi y siempre ha entregado a tiempo. ¡Recomendado!'
+              : "It's been an easy process. We've run a couple of projects remotely with Santi, and he's always delivered on time. Highly recommended!" },
 ];
 const initials = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('');
 ---
