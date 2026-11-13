@@ -9,19 +9,21 @@ const { lang } = Astro.props;
 </div>
 
 <style>
-  /* Línea de estado discreta arriba del nav: abierto a roles remotos. Empuja el header (--topbar-h). */
+  /* Línea de estado arriba del nav: abierto a roles remotos. Empuja el header (--topbar-h).
+     Franja un tono más clara que el hero para que se lea como barra aparte, texto centrado con aire arriba y abajo. */
   .topbar {
     position: relative; z-index: 60;
     height: var(--topbar-h);
-    display: flex; align-items: flex-end; justify-content: center;
-    padding: 0 var(--gutter);
-    color: var(--gris-500); text-align: center;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6px var(--gutter);
+    color: var(--gris-700); text-align: center;
   }
-  :global(.hero-dark) .topbar { background: var(--tinta); color: var(--on-dark-2); }
-  .topbar p { margin: 0; font: 500 12px/1.4 var(--f-sans); letter-spacing: 0.04em; }
+  :global(.hero-dark) .topbar { background: #1c1b20; color: #ffffffd9; }
+  .topbar p { margin: 0; font: 500 12px/1.4 var(--f-sans); letter-spacing: 0.02em; }
   .tb-dot {
-    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--online); margin-right: 8px; vertical-align: 0.12em;
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--online); margin-right: 8px; vertical-align: 0.1em;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--online) 22%, transparent);
   }
-  @media (min-width: 768px) { .topbar p { font-size: var(--t-xs); } }
+  @media (min-width: 768px) { .topbar p { font-size: 13px; } }
 </style>

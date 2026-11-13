@@ -71,7 +71,7 @@
   --max: 1440px;
   --sec-y: clamp(60px, 7vw, 112px);
   --header-h: 84px;
-  --topbar-h: 44px; /* dos líneas en móvil; 36px desde 768 */
+  --topbar-h: 52px; /* dos líneas en móvil; 42px desde 768 */
 
   /* Escala tipográfica de la home (reemplaza los tamaños sueltos) */
   --t-xs: 13px; --t-sm: 14px; --t-base: 16px; --t-md: 20px;
@@ -117,6 +117,8 @@ table { border-collapse: collapse; }
   outline-offset: 3px;
   border-radius: 6px;
 }
+/* <main> recibe el foco al saltar al contenido o al volver del menú; no es un control, así que no lleva el contorno morado. */
+#main:focus, #main:focus-visible { outline: none; }
 
 .sr-only {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -354,4 +356,4 @@ a.pill:active { transform: scale(.96); }
   @media (prefers-reduced-motion: reduce) { details::details-content { transition: none; } }
 }
 
-@media (min-width: 768px) { :root { --topbar-h: 36px; } }
+@media (min-width: 768px) { :root { --topbar-h: 42px; } }

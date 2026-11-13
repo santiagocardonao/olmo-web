@@ -138,7 +138,7 @@ const en: HomeText = {
     label: 'About',
     title: 'Founder habits, now looking for an *in-house* team.',
     body: "I'm Santiago Cardona Ortiz. From 2020 to June 2026 I led growth, tech and conversion for silBe by Silvy, reporting results to its founder and working with her team and FitBudd's developers. From 2017 to 2025 I co-founded Vieli and ran operations as COO for a 30-person studio, with 100+ projects that all came from referrals. I taught UX/UI at CESDE for six years.",
-    intent: 'Vieli closed in 2025. Now I want to own a growth or CRO number inside a product team, full time.',
+    intent: 'I left Vieli in 2025. Now I want to own a growth or CRO number inside a product team, full time.',
     button: 'More about me',
     milestones: [
       { date: '2020–2026', place: 'silBe by Silvy', role: 'Growth, tech & conversion lead.' },
@@ -259,7 +259,7 @@ const es: HomeText = {
     label: 'Sobre mí',
     title: 'Hábitos de fundador, buscando un equipo *in-house*.',
     body: 'Soy Santiago Cardona Ortiz. De 2020 a junio de 2026 lideré growth, tecnología y conversión en silBe by Silvy: le reportaba los resultados a la fundadora y trabajaba con su equipo y con los desarrolladores de FitBudd. Entre 2017 y 2025 cofundé Vieli y dirigí la operación como COO de un estudio de 30 personas, con más de 100 proyectos que llegaron por referidos. Fui docente de UX/UI en CESDE durante seis años.',
-    intent: 'Vieli cerró en 2025. Ahora quiero hacerme cargo de una métrica de growth o de CRO dentro de un equipo de producto, de tiempo completo.',
+    intent: 'En 2025 dejé Vieli. Ahora quiero hacerme cargo de una métrica de growth o de CRO dentro de un equipo de producto, de tiempo completo.',
     button: 'Más sobre mí',
     milestones: [
       { date: '2020–2026', place: 'silBe by Silvy', role: 'Líder de growth, tecnología y conversión.' },
