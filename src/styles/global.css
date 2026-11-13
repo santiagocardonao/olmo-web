@@ -146,16 +146,9 @@ table { border-collapse: collapse; }
 @media (min-width: 1200px) { .grid12 { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 30px; } }
 .sec { padding-block: var(--sec-y); }
 
-/* Rótulos de sección: borde superior + texto a los lados */
-.labels {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-  border-top: 1px solid var(--borde);
-  padding-top: 14px;
-  font: 500 15px/1.3 var(--f-sans);
-  letter-spacing: -0.01em;
-  color: var(--tinta);
-}
-.labels span:last-child { font-variant-numeric: tabular-nums; }
+/* Rótulos de sección en páginas internas: igual que el rótulo de la home, sin línea ni contador. */
+.labels { display: flex; align-items: baseline; gap: 16px; font: 500 var(--t-xs)/1.3 var(--f-sans); letter-spacing: 0; color: var(--gris-500); }
+.labels > span[aria-hidden="true"] { display: none; }
 
 /* Rótulo único de sección en la home: (01) Trabajo */
 .sec-label { font: 500 var(--t-xs)/1.3 var(--f-sans); letter-spacing: 0; color: var(--gris-500); }

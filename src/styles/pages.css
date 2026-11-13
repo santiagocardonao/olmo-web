@@ -10,7 +10,7 @@
 .prose ul { list-style: none; display: grid; gap: 10px; }
 .prose ul li { position: relative; padding-left: 22px; }
 .prose ul li::before { content: ''; position: absolute; left: 2px; top: .7em; width: 7px; height: 7px; border-radius: 50%; background: var(--violeta); }
-.rowlist > li { border-top: 1px solid var(--borde); padding-block: 22px; display: grid; gap: 8px 30px; }
+.rowlist > li { padding-block: clamp(28px, 3vw, 44px); display: grid; gap: 8px 30px; }
 @media (min-width: 992px) { .rowlist > li { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: baseline; } }
 .rowlist .rl-word { font: 500 clamp(36px, 5.4vw, 80px)/1.05 var(--f-sans); letter-spacing: -0.05em; }
 .rowlist .rl-num { font: 500 14px/1 var(--f-sans); color: var(--violeta); display: block; margin-bottom: 10px; letter-spacing: 0; }

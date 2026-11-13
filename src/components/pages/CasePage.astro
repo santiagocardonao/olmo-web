@@ -26,7 +26,7 @@ const L = es
   : { label: 'Work', story: 'The case, step by step', stall: 'The problem', did: 'What I did', changed: 'Results', next: 'Next project', all: 'See all work', cta: 'Email me', figures: 'Figures', source: 'Source: Forbes Colombia ↗', illustrative: 'Illustrative recreation' };
 const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silbePaywall];
 ---
-<Base lang={lang} route={id} title={c.meta.title} description={c.meta.description}>
+<Base lang={lang} dark route={id} title={c.meta.title} description={c.meta.description}>
   <PageHero label={`${L.label} · ${n}`} right={c.period ?? c.tag} title={c.headline} lead={c.lead}>
     <span class="pill case-tag">{c.tag}</span>
   </PageHero>
@@ -182,8 +182,7 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
   .case-note { margin-top: 20px; }
   /* Historia: fecha y número a la izquierda, texto en una columna de lectura. */
   .story { margin-top: clamp(24px, 3vw, 40px); }
-  .story li { display: grid; gap: 10px 30px; padding-block: clamp(28px, 3vw, 44px); border-top: 1px solid var(--borde); }
-  .story li:last-child { border-bottom: 1px solid var(--borde); }
+  .story li { display: grid; gap: 10px 30px; padding-block: clamp(28px, 3vw, 44px); }
   @media (min-width: 992px) { .story li { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
   .story-side { display: flex; align-items: baseline; gap: 14px; }
   .story-n { font: 500 14px/1 var(--f-sans); color: var(--gris-500); }
@@ -192,12 +191,12 @@ const phones = [IMG.silbeLogin, IMG.silbeProgramas, IMG.silbeNutricion, IMG.silb
   .story-text { font: 400 clamp(16px, 1.2vw, 18px)/1.65 var(--f-sans); color: var(--gris-700); max-width: 40em; text-wrap: pretty; }
   .case-web { padding-top: 0; }
   /* Qué hice: cuatro bloques en 2 columnas, separados con líneas. */
-  .did-grid { display: grid; margin-top: clamp(24px, 3vw, 40px); border-top: 1px solid var(--borde); }
+  .did-grid { display: grid; margin-top: clamp(24px, 3vw, 40px); }
   @media (min-width: 768px) { .did-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(30px, 4vw, 72px); } }
-  .did-grid li { display: grid; grid-template-columns: auto 1fr; gap: 16px; padding-block: 28px; border-bottom: 1px solid var(--borde); }
+  .did-grid li { display: grid; grid-template-columns: auto 1fr; gap: 16px; padding-block: 28px; }
   .did-n { font: 500 14px/1.6 var(--f-sans); color: var(--violeta); }
   .did-grid p { font: 400 clamp(16px, 1.2vw, 18px)/1.6 var(--f-sans); color: var(--tinta); text-wrap: pretty; }
-  .next { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; border-top: 1px solid var(--borde); padding-top: 24px; }
+  .next { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 24px; }
   .next-link { display: flex; flex-direction: column; gap: 6px; }
   .next-name { font: 700 clamp(36px, 5vw, 72px)/1 var(--f-sans); letter-spacing: -0.04em; transition: color .3s; }
   .next-link:hover .next-name { color: var(--violeta); }

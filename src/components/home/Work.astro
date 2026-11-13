@@ -1,6 +1,7 @@
 ---
 import Btn from '../Btn.astro';
 import Cover from '../Cover.astro';
+import Card from '../Card.astro';
 import { LINKS, type Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import { emph, link } from '../../lib/util';
@@ -20,17 +21,11 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
 
     <ul class="wgrid">
       {w.cards.map((c) => (
-        <li class="wcard" data-fade>
-          <a href={link(lang, c.href)} data-cursor={w.cursor} aria-label={`${c.name}: ${c.figure}. ${w.viewCase}`}>
-            {/* Cotiza e ILMIN abren una ficha con la misma portada: la imagen viaja de la tarjeta a la ficha. */}
-            <div class="wc-media" style={c.href.startsWith('pf') ? `view-transition-name: pj-${PID[c.href]}; view-transition-class: pj` : undefined}>
-              <Cover id={PID[c.href]} lang={lang} alt={c.alt} sizes="(min-width: 1200px) 19vw, (min-width: 768px) 34vw, 68vw" />
-            </div>
-            <span class="wc-name">{c.name}<span class="wc-arrow" aria-hidden="true">→</span></span>
-            <span class="wc-tag">{c.tag}</span>
-            <span class="wc-fig">{c.figure.replace(/ %/g, '\u00a0%')}</span>
-          </a>
-        </li>
+        <Card href={link(lang, c.href)} name={c.name} tag={c.tag} figure={c.figure} cursor={w.cursor}
+          ariaLabel={`${c.name}: ${c.figure}. ${w.viewCase}`}
+          vt={c.href.startsWith('pf') ? `view-transition-name: pj-${PID[c.href]}; view-transition-class: pj` : undefined}>
+          <Cover slot="media" id={PID[c.href]} lang={lang} alt={c.alt} sizes="(min-width: 1200px) 19vw, (min-width: 768px) 34vw, 68vw" />
+        </Card>
       ))}
     </ul>
 
@@ -55,32 +50,9 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
       margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
     }
     .wgrid::-webkit-scrollbar { display: none; }
-    .wcard { flex: none; width: 34vw; scroll-snap-align: start; }
+    .wgrid > :global(li) { flex: none; width: 34vw; scroll-snap-align: start; }
   }
-  @media (max-width: 767px) { .wcard { width: 68vw; } }
-
-  .wcard a { display: block; transition: transform 160ms var(--ease-out); }
-  .wcard a:active { transform: scale(.98); }
-  .wc-media {
-    position: relative; aspect-ratio: 4 / 5; border-radius: var(--r-img); overflow: hidden; background: var(--neutro);
-  }
-  .wc-media > :global(picture), .wc-media > :global(svg), .wc-media > :global(img) { width: 100%; height: 100%; }
-  .wc-media :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .wc-media :global(img), .wc-media :global(svg) { transition: transform 400ms var(--ease-p2); }
-
-  .wc-name { display: block; margin-top: 14px; font: 500 var(--t-md)/1.2 var(--f-sans); letter-spacing: -0.02em; }
-  .wc-arrow {
-    display: inline-block; margin-left: 8px; color: var(--violeta);
-    opacity: 0; transform: translateX(-4px); transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
-  }
-  .wc-tag { display: block; margin-top: 4px; font: 400 var(--t-xs)/1.35 var(--f-sans); color: var(--gris-500); }
-  .wc-fig { display: block; margin-top: 8px; font: 500 var(--t-sm)/1.45 var(--f-sans); color: var(--tinta); }
-
-  @media (hover: hover) and (pointer: fine) {
-    .wcard a:hover .wc-media :global(img), .wcard a:hover .wc-media :global(svg) { transform: scale(1.03); }
-    .wcard a:hover .wc-arrow { opacity: 1; transform: none; }
-  }
-  .wcard a:focus-visible .wc-arrow { opacity: 1; transform: none; }
+  @media (max-width: 767px) { .wgrid > :global(li) { width: 68vw; } }
 
   .work-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-top: clamp(40px, 5vw, 64px); }
   .work-src { font-weight: 500; }

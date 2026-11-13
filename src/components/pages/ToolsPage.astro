@@ -3,7 +3,8 @@ import '../../styles/pages.css';
 import { Picture } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../PageHero.astro';
-import Visual from '../Visual.astro';
+import Card from '../Card.astro';
+import Cover from '../Cover.astro';
 import type { Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import { IMG } from '../../lib/images';
@@ -18,7 +19,7 @@ const tools = [
     text: es
       ? 'Calculadora gratuita para negocios de suscripción: MRR, CLTV, CAC, LTV:CAC y punto de equilibrio, en 4 monedas y 2 idiomas, con links para compartir. Los cálculos corren en Postgres.'
       : 'A free calculator for subscription businesses: MRR, CLTV, CAC, LTV:CAC and break-even, in 4 currencies and 2 languages, with shareable links. The math runs in Postgres.',
-    live: 'https://metricas.olmo.agency', liveLabel: 'metricas.olmo.agency', repo: 'olmo-metricas',
+    live: 'https://metricas.olmo.agency', liveLabel: 'metricas.olmo.agency', repo: 'olmo-metricas', cover: 'metricas' as const,
     img: IMG.metricas, alt: es ? 'Calculadora Olmo Métricas con un cálculo de ingresos mensuales' : 'Olmo Métricas calculator showing a monthly revenue calculation',
   },
   {
@@ -26,7 +27,7 @@ const tools = [
     text: es
       ? 'Producto de IA en producción: de un alcance escrito a una propuesta con link público y PDF, en español o inglés. Claude (API de Anthropic) estructura el alcance y una Edge Function de Supabase lo guarda. La demo pide un correo y tiene límites de uso.'
       : 'A production AI product: from a written scope to a proposal with a public link and PDF, in English or Spanish. Claude (Anthropic API) structures the scope and a Supabase Edge Function stores it. The demo asks for an email and is rate-limited.',
-    live: 'https://cotiza.olmo.agency/demo', liveLabel: 'cotiza.olmo.agency/demo', repo: 'olmo-cotiza',
+    live: 'https://cotiza.olmo.agency/demo', liveLabel: 'cotiza.olmo.agency/demo', repo: 'olmo-cotiza', cover: 'cotiza' as const,
     img: IMG.cotiza, alt: es ? 'Demo de Olmo Cotiza con una lista de cotizaciones de ejemplo' : 'Olmo Cotiza demo with a list of sample quotes',
   },
   {
@@ -42,59 +43,58 @@ const tools = [
     text: es
       ? 'Skill de Claude para que la IA escriba en español nativo, no en traducción del inglés.'
       : 'A Claude skill that makes AI write native Spanish, not translated English.',
-    repo: 'espanol-natural', visual: 'espanol' as const,
+    repo: 'espanol-natural', cover: 'espanol' as const,
   },
   {
     name: 'Design System Adherence',
     text: es
       ? 'Skill que revisa si un entregable sigue de verdad su design system. La severidad se calcula, no se juzga.'
       : 'A skill that checks whether a deliverable really follows its design system. Severity is calculated, not judged.',
-    repo: 'design-system-adherence', visual: 'dsa' as const,
+    repo: 'design-system-adherence', cover: 'dsa' as const,
   },
 ];
 const T = es
   ? { meta: { title: 'Productos de IA: Olmo Cotiza, Métricas y skills de Claude | Santiago Cardona', description: 'Productos y herramientas que construí con Claude Code y Supabase: Olmo Cotiza, Olmo Métricas, Steady y dos skills de Claude. Código abierto en GitHub.' }, label: 'IA', title: 'Lo que *construyo* con IA', lead: 'Productos y herramientas que construí yo, de la idea a producción, con Claude Code y Supabase. El código de todos está en GitHub.', open: 'Abrir', code: 'Código en GitHub' }
   : { meta: { title: 'AI builds: Olmo Cotiza, Métricas and Claude skills | Santiago Cardona', description: 'Products and tools I built with Claude Code and Supabase: Olmo Cotiza, Olmo Métricas, Steady and two Claude skills. Open source on GitHub.' }, label: 'AI builds', title: 'What I *build* with AI', lead: 'Products and tools I built myself, from idea to production, with Claude Code and Supabase. The code for all of them is on GitHub.', open: 'Open', code: 'Code on GitHub' };
 ---
-<Base lang={lang} route="tools" title={T.meta.title} description={T.meta.description}>
-  <PageHero label={T.label} right="( 5 )" title={T.title}>
-    <p class="small">{T.lead}</p>
-  </PageHero>
-  <section class="block">
+<Base lang={lang} dark route="tools" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} title={T.title} lead={T.lead} />
+  <section class="tl-sec" aria-label={T.label}>
     <div class="wrap">
       <ul class="tools">
         {tools.map((t, i) => (
-          <li class="tool" data-fade>
-            <div class:list={['media-frame', 'tool-media', t.phone && 'is-phone']}>
-              {t.img ? (
-                <Picture src={t.img} alt={t.alt!} widths={[600, 1000, 1400]} sizes="(min-width: 992px) 56vw, 92vw" formats={['avif']} fallbackFormat="webp" loading={i < 1 ? 'eager' : 'lazy'} />
-              ) : (
-                <Visual kind={t.visual!} lang={lang} />
-              )}
-            </div>
-            <div class="tool-copy">
-              <span class="rl-num">0{i + 1}</span>
-              <h2 class="block-title">{t.name}</h2>
-              <p class="prose">{t.text}</p>
-              <p class="tool-links">
-                {t.live && <a class="tlink under" href={t.live} target="_blank" rel="noopener">{T.open} {t.liveLabel} ↗<span class="sr-only"> {ui.newTab}</span></a>}
-                <a class="tlink under" href={GH + t.repo} target="_blank" rel="noopener">{T.code} ↗<span class="sr-only"> {ui.newTab}</span></a>
-              </p>
-            </div>
-          </li>
+          <Card href={t.live ?? GH + t.repo} name={t.name} text={t.text} external newTab={ui.newTab}>
+            {t.cover ? (
+              <Cover slot="media" id={t.cover} lang={lang} alt={t.alt ?? t.name} eager={i < 2} sizes="(min-width: 1200px) 19vw, (min-width: 768px) 46vw, 72vw" />
+            ) : (
+              <div slot="media" class="tool-phone">
+                <Picture src={t.img!} alt={t.alt!} widths={[400, 700]} sizes="(min-width: 1200px) 12vw, 40vw" formats={['avif']} fallbackFormat="webp" loading="lazy" />
+              </div>
+            )}
+            <p class="tool-links">
+              {t.live && <a class="tlink under" href={t.live} target="_blank" rel="noopener">{t.liveLabel} ↗<span class="sr-only"> {ui.newTab}</span></a>}
+              <a class="tlink under" href={GH + t.repo} target="_blank" rel="noopener">{T.code} ↗<span class="sr-only"> {ui.newTab}</span></a>
+            </p>
+          </Card>
         ))}
       </ul>
     </div>
   </section>
 </Base>
 <style>
-  .tools { display: grid; gap: 0; }
-  .tool { display: grid; gap: 24px 30px; padding-block: 40px; border-top: 1px solid var(--borde); }
-  @media (min-width: 992px) { .tool { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; } }
-  .tool-media { aspect-ratio: 1440 / 1000; }
-  .tool-media :global(img) { object-position: 0 0; }
-  .tool-media.is-phone { background: #ECECEF; display: grid; place-items: center; padding: 24px; }
-  .tool-media.is-phone :global(img) { width: auto; height: 100%; max-height: 100%; border-radius: 18px; border: 5px solid #111; object-fit: cover; aspect-ratio: 860 / 1560; }
-  .tool-copy .prose { margin-top: 14px; }
-  .tool-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 20px; font-size: 15px; }
+  /* Misma tarjeta que la home y Trabajo: 5 en una fila en escritorio, 2 por fila en tableta, fila deslizable en celular. */
+  .tl-sec { padding-block: clamp(56px, 7vw, 104px) var(--sec-y); }
+  .tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 24px; }
+  @media (min-width: 1200px) { .tools { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; } }
+  @media (max-width: 767px) {
+    .tools {
+      display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+    }
+    .tools::-webkit-scrollbar { display: none; }
+    .tools > :global(li) { flex: none; width: 72vw; scroll-snap-align: start; }
+  }
+  .tool-phone { width: 100%; height: 100%; display: grid; place-items: center; padding: 10%; background: #ECECEF; }
+  .tool-phone :global(img) { width: auto !important; height: 100% !important; border-radius: 18px; border: 5px solid #111; object-fit: cover; aspect-ratio: 860 / 1560; }
+  .tool-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-size: 14px; }
 </style>

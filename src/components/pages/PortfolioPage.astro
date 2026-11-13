@@ -3,105 +3,42 @@ import '../../styles/pages.css';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../PageHero.astro';
 import Cover from '../Cover.astro';
+import Card from '../Card.astro';
 import type { Lang } from '../../config';
-import { ORDER, GROUPS, PROJECTS, PROJECT_ROUTE } from '../../i18n/portfolio';
+import { ORDER, PROJECTS, PROJECT_ROUTE } from '../../i18n/portfolio';
 import { r } from '../../i18n/routes';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const P = PROJECTS[lang];
 const T = lang === 'es'
   ? { meta: { title: 'Trabajo: casos de growth, CRO e IA | Santiago Cardona', description: 'Casos de growth y CRO (silBe, ILMIN, Undergold, Ideal Team) y productos de IA que construí: Olmo Cotiza, Olmo Métricas y dos skills de Claude.' },
-      label: 'Trabajo', title: 'Lo que he *construido*', lead: 'Casos de growth y conversión, y productos de IA que construí yo. Cada uno dice qué hice, con qué cifras y, cuando se puede, enlaza a la versión en vivo.', view: 'Ver proyecto', cover: 'Portada de',
-      groups: { featured: 'Destacados: growth y producto de IA', cases: 'Más casos de growth y CRO', tools: 'Más herramientas de IA y código abierto' } }
+      label: 'Trabajo', title: 'Lo que he *construido*', lead: 'Casos de growth y conversión, y productos de IA que construí yo. Cada uno dice qué hice, con qué cifras y, cuando se puede, enlaza a la versión en vivo.', view: 'Ver proyecto', cover: 'Portada de' }
   : { meta: { title: 'Work: growth, CRO and AI case studies | Santiago Cardona', description: 'Growth and CRO case studies (silBe, ILMIN, Undergold, Ideal Team) and AI products I built: Olmo Cotiza, Olmo Métricas and two Claude skills.' },
-      label: 'Work', title: "What I've *built*", lead: 'Growth and conversion case studies, plus AI products I built myself. Each one shows what I did, the numbers behind it and, where possible, a live link.', view: 'View project', cover: 'Cover for',
-      groups: { featured: 'Featured: growth and an AI product', cases: 'More growth & CRO case studies', tools: 'More AI tools & open source' } };
+      label: 'Work', title: "What I've *built*", lead: 'Growth and conversion case studies, plus AI products I built myself. Each one shows what I did, the numbers behind it and, where possible, a live link.', view: 'View project', cover: 'Cover for' };
 ---
-<Base lang={lang} route="portfolio" title={T.meta.title} description={T.meta.description}>
-  <PageHero label={T.label} right={`( ${ORDER.length} )`} title={T.title} lead={T.lead} />
-  {GROUPS.map((g, gi) => (
-    <section class={`pf pf-${g.id}`} aria-labelledby={`pf-${g.id}`}>
-      <div class="wrap">
-        <div class="labels"><h2 id={`pf-${g.id}`} class="lbl-h">{T.groups[g.id]}</h2><span aria-hidden="true">( {g.ids.length} )</span></div>
-        <ul class:list={['pf-grid', g.id === 'cases' && 'pf-feature']}>
-          {g.ids.map((id, i) => {
-            const p = P[id];
-            const big = g.id === 'cases';
-            return (
-              <li data-fade class={big ? `pf-f${i + 1}` : undefined}>
-                <a class:list={['pf-card', big && 'is-big']} href={r(PROJECT_ROUTE[id], lang)} data-cursor={T.view}>
-                  <span class="media-frame pf-thumb" style={`view-transition-name: pj-${id}; view-transition-class: pj`}>
-                    <Cover id={id} lang={lang} alt={`${T.cover} ${p.name}`} eager={gi === 0}
-                      sizes={big ? (i === 0 ? '(min-width: 992px) 60vw, 92vw' : '(min-width: 992px) 38vw, 92vw') : '(min-width: 1200px) 340px, (min-width: 992px) 31vw, (min-width: 768px) 46vw, 92vw'} />
-                  </span>
-                  <div class="pf-cap">
-                    <h3 class="pf-title">{p.short ?? p.name}</h3>
-                    <span class="pf-tag">{p.tag}</span>
-                    {p.figure && <span class="pf-fig">{p.figure}</span>}
-                  </div>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
-  ))}
+<Base lang={lang} dark route="portfolio" title={T.meta.title} description={T.meta.description}>
+  <PageHero label={T.label} title={T.title} lead={T.lead} />
+  <section class="pf" aria-label={T.label}>
+    <div class="wrap">
+      <ul class="pf-grid">
+        {ORDER.map((id, i) => {
+          const p = P[id];
+          return (
+            <Card href={r(PROJECT_ROUTE[id], lang)} name={p.short ?? p.name} tag={p.tag} figure={p.figure} cursor={T.view}
+              vt={`view-transition-name: pj-${id}; view-transition-class: pj`}>
+              <Cover slot="media" id={id} lang={lang} alt={`${T.cover} ${p.name}`} eager={i < 4}
+                sizes="(min-width: 1200px) 24vw, (min-width: 768px) 46vw, 46vw" />
+            </Card>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
 </Base>
 <style>
-  .lbl-h { font: inherit; }
-  .pf { padding-top: clamp(24px, 3vw, 40px); }
-  .pf + .pf { padding-top: clamp(64px, 8vw, 120px); }
-  .pf:last-of-type { padding-bottom: var(--sec-y); }
-  .pf-grid { display: grid; gap: 48px 30px; padding-top: clamp(28px, 3.5vw, 48px); }
-  @media (min-width: 768px) { .pf-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 992px) { .pf-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (min-width: 1200px) { .pf-grid { grid-template-columns: repeat(4, 1fr); } }
-
-  .pf-card { display: block; text-align: center; transition: transform .2s var(--ease-p2); }
-  .pf-card:active { transform: scale(.985); }
-  .pf-thumb { display: block; aspect-ratio: 1; margin-bottom: 20px; }
-  .pf-thumb :global(img), .pf-thumb :global(svg) { transition: transform .6s var(--ease-p2); }
-  .pf-card:hover .pf-thumb :global(img), .pf-card:hover .pf-thumb :global(svg),
-  .pf-card:focus-visible .pf-thumb :global(img) { transform: scale(1.04); }
-  .pf-cap { display: block; }
-  .pf-title {
-    font: 600 22px/1.25 var(--f-sans); letter-spacing: .18em; text-transform: uppercase;
-    padding-left: .18em; /* compensa el espacio que deja la última letra para que quede centrado */
-    transition: color .3s;
-  }
-  .pf-card:hover .pf-title { color: var(--violeta); }
-  .pf-tag { display: block; margin-top: 10px; font: 500 13px/1.5 var(--f-sans); letter-spacing: .03em; text-transform: uppercase; color: var(--gris-700); }
-  .pf-fig { display: block; margin-top: 8px; font: 600 15px/1.4 var(--f-sans); letter-spacing: -0.01em; color: var(--violeta); }
-
-  /* Casos con resultados: uno grande y dos medianos, con el texto sobre la imagen. */
-  .pf-feature { gap: 16px; }
-  .pf-feature .pf-card { position: relative; text-align: left; height: 100%; border-radius: var(--r-img); overflow: hidden; }
-  .pf-feature .pf-thumb { aspect-ratio: 4 / 5; margin: 0; border-radius: 0; }
-  .pf-feature .pf-thumb :global(picture) { display: block; width: 100%; height: 100%; }
-  .pf-feature .pf-cap {
-    position: absolute; inset: auto 0 0 0; padding: clamp(20px, 2.4vw, 32px);
-    background: linear-gradient(to top, rgba(17, 10, 40, .82), rgba(17, 10, 40, .45) 60%, rgba(17, 10, 40, 0));
-    color: #fff;
-  }
-  .pf-feature .pf-title { padding-left: 0; letter-spacing: .14em; font-size: clamp(20px, 1.8vw, 26px); }
-  .pf-feature .pf-card:hover .pf-title { color: #fff; }
-  .pf-feature .pf-tag { color: rgba(255, 255, 255, .8); }
-  .pf-feature .pf-fig { color: #fff; font: 700 clamp(18px, 1.7vw, 24px)/1.25 var(--f-sans); letter-spacing: -0.02em; margin-top: 12px; max-width: 26em; }
-  @media (min-width: 768px) {
-    .pf-feature { grid-template-columns: repeat(2, 1fr); }
-    .pf-feature .pf-f1 { grid-column: 1 / -1; }
-    .pf-feature .pf-f1 .pf-thumb { aspect-ratio: 16 / 9; }
-  }
-  @media (min-width: 992px) {
-    .pf-feature { --fh: clamp(520px, 42vw, 660px); grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
-    .pf-feature .pf-f1 { grid-column: 1; grid-row: 1 / span 2; }
-    .pf-feature .pf-f1 .pf-thumb { aspect-ratio: auto; height: var(--fh); }
-    .pf-feature .pf-f2, .pf-feature .pf-f3 { grid-column: 2; }
-    .pf-feature .pf-f2 .pf-thumb, .pf-feature .pf-f3 .pf-thumb { aspect-ratio: auto; height: calc((var(--fh) - 16px) / 2); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pf-card:hover .pf-thumb :global(img), .pf-card:hover .pf-thumb :global(svg) { transform: none; }
-    .pf-card:active { transform: none; }
-  }
+  /* Las 8 tarjetas son iguales a las de la home: 4 por fila en escritorio, 2 en celular y tableta. */
+  .pf { padding-block: clamp(56px, 7vw, 104px) var(--sec-y); }
+  .pf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 16px; }
+  @media (min-width: 768px) { .pf-grid { gap: 48px 24px; } }
+  @media (min-width: 1200px) { .pf-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>

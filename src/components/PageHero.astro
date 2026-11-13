@@ -2,37 +2,55 @@
 import { emph } from '../lib/util';
 interface Props { label: string; right?: string; title: string; lead?: string }
 const { label, right = '', title, lead } = Astro.props;
-/** Con el slot "aside" el hero se parte en dos columnas (texto | imagen) y el titular baja a la mitad. */
-const split = Astro.slots.has('aside');
+/**
+ * Apertura de las páginas internas: la misma banda oscura del hero de la home, sin las portadas flotantes.
+ * Rótulo pequeño, titular grande centrado y bajada. Con el slot "aside" (portada del proyecto) la imagen va debajo.
+ */
+const aside = Astro.slots.has('aside');
+const eyebrow = right ? `${label} · ${right}` : label;
 ---
-<section class:list={['phero', split && 'is-split']}>
-  <div class="wrap">
-    <div class="labels"><span>{label}</span><span aria-hidden="true">{right}</span></div>
-    <div class="phero-body">
-      <div class="phero-text">
-        <h1 class="phero-title" data-split-lines set:html={emph(title)} />
-        {lead && <p class="phero-lead support" data-fade>{lead}</p>}
-        <div class="phero-actions" data-fade><slot /></div>
-      </div>
-      {split && <div class="phero-aside"><slot name="aside" /></div>}
-    </div>
+<section class:list={['phero', 'band-dark', aside && 'has-aside']} data-dark>
+  <div class="wrap phero-copy">
+    <p class="phero-eyebrow">{eyebrow}</p>
+    <h1 class="phero-title" data-split-lines set:html={emph(title)} />
+    {lead && <p class="phero-lead" data-fade>{lead}</p>}
+    <div class="phero-actions" data-fade><slot /></div>
   </div>
+  {aside && <div class="wrap phero-aside" data-fade><slot name="aside" /></div>}
 </section>
 <style>
-  .phero { padding-top: calc(var(--header-h) + clamp(24px, 4vw, 56px)); padding-bottom: clamp(40px, 5vw, 72px); }
+  .phero {
+    position: relative; isolation: isolate; overflow: hidden;
+    min-height: calc(62svh - var(--topbar-h));
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: calc(var(--header-h) + clamp(32px, 5vw, 72px)); padding-bottom: clamp(56px, 7vw, 104px);
+  }
+  /* Un brillo violeta muy suave arriba, para que la banda no sea un bloque plano. */
+  .phero::before {
+    content: ''; position: absolute; z-index: -1; inset: -40% 10% auto; height: 90%;
+    background: radial-gradient(closest-side, rgba(124, 58, 237, .28), transparent);
+    filter: blur(20px); pointer-events: none;
+  }
+  .phero-copy { text-align: center; }
+  .phero-eyebrow {
+    font: 500 var(--t-xs)/1.4 var(--f-sans); letter-spacing: .12em; text-transform: uppercase;
+    color: var(--on-dark-2);
+  }
   .phero-title {
-    margin-top: clamp(28px, 4vw, 56px);
-    font: 700 clamp(48px, 8.4vw, 132px)/0.98 var(--f-sans);
-    letter-spacing: -0.05em; max-width: 14em; text-wrap: balance;
+    margin: clamp(14px, 1.6vw, 24px) auto 0; max-width: 16ch;
+    font: 600 clamp(44px, 6.6vw, 112px)/1 var(--f-sans); letter-spacing: -0.045em;
+    color: var(--on-dark); text-wrap: balance;
   }
-  .phero-lead { margin-top: 28px; font-size: clamp(18px, 1.7vw, 24px); line-height: 1.5; max-width: 38em; }
-  .phero-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .phero-title :global(em.s) { color: #c4a5ff; }
+  .phero-lead {
+    margin: clamp(18px, 2vw, 28px) auto 0; max-width: 52ch;
+    font: 400 clamp(17px, 1.3vw, 20px)/1.55 var(--f-sans); color: #ffffff8c; text-wrap: pretty;
+  }
+  .phero-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
   .phero-actions:empty { display: none; }
-  .phero-aside { margin-top: 40px; }
-  @media (min-width: 992px) {
-    .is-split .phero-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 64px); align-items: center; }
-    .is-split .phero-title { font-size: clamp(36px, 4.2vw, 66px); line-height: 1; letter-spacing: -0.04em; }
-    .is-split .phero-lead { font-size: clamp(16px, 1.25vw, 19px); }
-    .is-split .phero-aside { margin-top: clamp(28px, 4vw, 56px); }
-  }
+  .phero-actions :global(.pill) { background: transparent; border-color: var(--line-dark); color: var(--on-dark-2); }
+  .phero-actions :global(.btn-sec) { --bg: transparent; --fg: var(--on-dark); border-color: #ffffff33; }
+  .phero-actions :global(.btn-sec:hover) { border-color: #ffffff80; }
+  .phero-aside { margin-top: clamp(40px, 5vw, 72px); }
+  .phero-aside > :global(*) { max-width: 1040px; margin-inline: auto; }
 </style>
