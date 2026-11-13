@@ -50,15 +50,18 @@ const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); retur
         const [k, note] = split(s.k);
         return (
           <li data-fade>
-            <span class="ps-v tnum">{s.v}</span>
-            <span class="ps-k">{k}{note && <> <span class="ps-note">{note}</span></>}</span>
+            <span class="ps-v tnum">{s.v}{note && <span class="ps-ast" aria-hidden="true">*</span>}</span>
+            <span class="ps-k">{k}{note && <span class="sr-only"> {note}</span>}</span>
           </li>
         );
       })}
     </ul>
-    <p class="proof-press">
-      <a class="tlink" href={LINKS.forbes} target="_blank" rel="noopener">{h.press} ↗<span class="sr-only"> {ui.newTab}</span></a>
-    </p>
+    <div class="proof-foot">
+      <p class="proof-note" aria-hidden="true">{lang === 'es' ? '* Datos internos de silBe' : '* Internal silBe data'}</p>
+      <p class="proof-press">
+        <a class="tlink under" href={LINKS.forbes} target="_blank" rel="noopener">{h.press} ↗<span class="sr-only"> {ui.newTab}</span></a>
+      </p>
+    </div>
     <nav class="proof-cta" aria-label={lang === 'es' ? 'Contacto y perfiles' : 'Contact and profiles'}>
       <a class="pc pc-pri" href={`mailto:${EMAIL}`} aria-label={ui.ctaLabel} data-cta="email-hero"><SocialIcon name="email" /><span>{h.primary}</span></a>
       <a class="pc" href={LINKS.linkedin} target="_blank" rel="noopener" aria-label={h.linkedinLabel} data-cta="linkedin-hero"><SocialIcon name="linkedin" /><span>LinkedIn</span></a>
@@ -83,7 +86,7 @@ const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); retur
   .hero-copy a { pointer-events: auto; }
   .hero-eyebrow {
     font: 500 var(--t-xs)/1.4 var(--f-sans); letter-spacing: .12em; text-transform: uppercase;
-    color: var(--on-dark-2);
+    color: #fff;
   }
   .hero-name {
     margin-top: clamp(8px, 1.4vw, 20px);
@@ -107,7 +110,7 @@ const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); retur
   .hero-h1 :global(em.s) { color: inherit; }
   .hero-sub {
     margin: 14px auto 0; max-width: 52ch;
-    font: 400 var(--t-base)/1.55 var(--f-sans); color: #ffffff8c; text-wrap: pretty;
+    font: 400 var(--t-base)/1.55 var(--f-sans); color: #fff; text-wrap: pretty;
   }
   @media (max-width: 1023px) { .hero-name { white-space: normal; } }
 
@@ -163,20 +166,37 @@ const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); retur
 
   /* ---------- Franja de pruebas ---------- */
   .proof { padding-block: var(--sec-y); }
-  .proof-stats { display: grid; gap: 28px; }
+  /* Móvil: cifras un poco más pequeñas y con más aire entre bloques, para que cada una se lea como unidad. */
+  .proof-stats { display: grid; gap: 44px; }
   @media (min-width: 768px) { .proof-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 30px; } }
-  .proof-stats li { display: flex; flex-direction: column; gap: 10px; }
-  .ps-v { font: 400 48px/1 var(--f-logo); letter-spacing: -0.02em; color: var(--on-dark); }
-  .ps-k { font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark-2); max-width: 32ch; }
-  .ps-note { font-size: var(--t-xs); color: #ffffff80; /* 50 %: a 40 % no llega a 4.5:1 */ white-space: nowrap; }
-  .proof-press { margin-top: clamp(28px, 3vw, 40px); font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark); }
+  /* Cifras centradas en su columna; todo el texto en blanco, la nota "(datos internos)" solo más pequeña. */
+  .proof-stats li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .ps-v { font: 400 40px/1 var(--f-logo); letter-spacing: -0.02em; color: #fff; }
+  .ps-ast { font: 400 .5em/1 var(--f-sans); vertical-align: super; margin-left: 2px; color: #ffffffb3; }
+  @media (min-width: 768px) { .ps-v { font-size: 48px; } }
+  .ps-k { font: 400 var(--t-sm)/1.5 var(--f-sans); color: #fff; max-width: 32ch; }
+  /* Pie de las cifras: la nota del asterisco y la fuente de Forbes. Centradas en móvil; en escritorio, nota a la izquierda y Forbes a la derecha. */
+  .proof-foot { margin-top: clamp(36px, 3vw, 40px); display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+  .proof-note { font: 400 var(--t-xs)/1.5 var(--f-sans); color: #fff; }
+  .proof-press { font: 400 var(--t-sm)/1.5 var(--f-sans); color: #fff; }
+  @media (min-width: 768px) {
+    .proof-foot { flex-direction: row; justify-content: space-between; align-items: baseline; text-align: left; }
+    .proof-press { text-align: right; }
+  }
+  .proof-press .tlink { color: #fff; }
   .proof-press .tlink { font-weight: 500; }
   /* Fila de contacto: el correo manda (violeta); perfiles iguales entre sí, con su marca. */
+  /* Móvil: el correo a todo el ancho; LinkedIn, GitHub y Behance debajo, en una fila de tres más pequeños. */
   .proof-cta {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;
     margin: clamp(40px, 4.5vw, 64px) auto 0;
   }
-  @media (min-width: 768px) { .proof-cta { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; max-width: 80%; } }
+  .proof-cta .pc-pri { grid-column: 1 / -1; }
+  @media (max-width: 767px) {
+    .proof-cta .pc:not(.pc-pri) { height: 44px; padding-inline: 8px; gap: 6px; font-size: 14px; }
+    .proof-cta .pc:not(.pc-pri) :global(.si) { width: 15px; height: 15px; }
+  }
+  @media (min-width: 768px) { .proof-cta { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; max-width: 80%; } .proof-cta .pc-pri { grid-column: auto; } }
   .pc {
     display: flex; align-items: center; justify-content: center; gap: 10px;
     height: 56px; padding-inline: 18px; border-radius: var(--pill);

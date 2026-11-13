@@ -23,7 +23,7 @@ const initials = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w)
 ---
 <section class="tm sec" aria-labelledby="tm-title">
   <div class="wrap">
-    <p class="sec-label"><span class="n">(03)</span>{T.left}</p>
+    <p class="sec-label tm-label"><span class="n">(03)</span>{T.left}</p>
     <h2 id="tm-title" class="tm-title" data-split-lines set:html={emph(T.title)} />
     <ul class="tm-grid" aria-label={T.aria}>
       {items.map((it) => (
@@ -42,9 +42,10 @@ const initials = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w)
 </section>
 
 <style>
+  .tm-label { text-align: center; }
   .tm-title {
-    margin-top: clamp(24px, 3vw, 40px); max-width: 20em;
-    font: 600 var(--t-2xl)/1.02 var(--f-sans); letter-spacing: -0.045em; text-wrap: balance;
+    margin: clamp(20px, 2.4vw, 32px) auto 0; max-width: 24ch; text-align: center;
+    font: 600 var(--t-xl)/1.08 var(--f-sans); letter-spacing: -0.04em; text-wrap: balance;
   }
   .tm-grid { display: grid; gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
   @media (min-width: 768px) { .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; } }

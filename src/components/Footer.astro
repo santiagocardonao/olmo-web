@@ -17,8 +17,8 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
     <p class="cta-eyebrow">{f.eyebrow}</p>
     <h2 id="cta-title" class="big-title cta-title" data-split-lines set:html={emph(f.title)} />
     <div class="cta-btn" data-fade>
-      <Btn href={`mailto:${EMAIL}`} label={f.button} ariaLabel={ui.ctaLabel} variant="light" data-cta="email-footer" />
-      <Btn href={LINKS.linkedin} label="LinkedIn" variant="sec" external ariaLabel={`LinkedIn ${ui.newTab}`} data-cta="linkedin-footer" />
+      <Btn href={`mailto:${EMAIL}`} label={f.button} ariaLabel={ui.ctaLabel} variant="light" size="sm" data-cta="email-footer" />
+      <Btn href={LINKS.linkedin} label="LinkedIn" variant="sec" size="sm" external ariaLabel={`LinkedIn ${ui.newTab}`} data-cta="linkedin-footer" />
     </div>
   </div>
 </section>
@@ -100,13 +100,15 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
   .ft-zone :global(::selection) { background: #fff; color: var(--violeta); }
 
   .cta { padding-block: clamp(72px, 9vw, 140px) clamp(56px, 7vw, 100px); }
+  .cta { text-align: center; }
   .cta-eyebrow { font: 500 16px/1.3 var(--f-sans); color: #fff; margin-bottom: 18px; }
-  .cta-title { max-width: 16.5em; }
-  .cta-btn { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .cta-title { max-width: 16.5em; margin-inline: auto; }
+  .cta-btn { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
   /* Escritorio: banda más baja y titular del mismo tamaño que los de sección. */
   @media (min-width: 992px) {
     .cta { padding-block: clamp(56px, 5vw, 80px) clamp(48px, 4.5vw, 72px); }
-    .cta-title { font-size: var(--t-xl); line-height: 1.08; letter-spacing: -0.04em; }
+    /* Una sola línea: el tamaño baja con el ancho para que la frase quepa entera. */
+    .cta-title { max-width: none; white-space: nowrap; font-size: min(var(--t-xl), 3.6vw); line-height: 1.08; letter-spacing: -0.04em; }
     .cta-btn { margin-top: 28px; }
   }
   .ft-zone { border-radius: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 40px) 0 0; }

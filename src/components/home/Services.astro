@@ -8,7 +8,7 @@ const s = HOME[lang].services;
 ---
 <section id={lang === 'es' ? 'servicios' : 'services'} class="circ band-dark" aria-labelledby="svc-title" data-dark>
   <div class="wrap">
-    <h2 id="svc-title" class="sec-label"><span class="n">(02)</span>{s.left}</h2>
+    <h2 id="svc-title" class="sec-label svc-label"><span class="n">(02)</span>{s.left}</h2>
     <ul class="circ-list" aria-label={s.aria}>
       {s.offer.map((it) => (
         <li class="circ-item">
@@ -58,7 +58,9 @@ const s = HOME[lang].services;
     font: 500 clamp(20px, 2.1vw, 30px)/1.15 var(--f-sans); letter-spacing: -0.02em; color: var(--on-dark);
     text-wrap: balance;
   }
-  .circ-cap { max-width: 26ch; font: 400 var(--t-sm)/1.5 var(--f-sans); color: #ffffff8c; transition: color .3s; }
+  /* Mismo criterio que las cifras: en fondo oscuro todo el texto va en blanco. */
+  .svc-label { text-align: center; color: #fff; }
+  .circ-cap { max-width: 26ch; font: 400 var(--t-sm)/1.5 var(--f-sans); color: #fff; transition: color .3s; }
   .circ-cap strong { font-weight: 500; color: var(--on-dark); }
   .circ-ring svg { z-index: 1; }
   .circ-link:hover circle, .circ-link:focus-visible circle { stroke: #ffffff00; }
