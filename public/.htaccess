@@ -6,9 +6,12 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# www → olmo.agency (sin www)
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+# Dominio principal (13 nov 2026): santiagocardonaortiz.com, sin www.
+# olmo.agency, www.olmo.agency y www.santiagocardonaortiz.com van a la MISMA página del dominio nuevo.
+# .well-known queda fuera para que SiteGround pueda renovar los certificados.
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{HTTP_HOST} !^santiagocardonaortiz\.com$ [NC]
+RewriteRule ^ https://santiagocardonaortiz.com%{REQUEST_URI} [L,R=301]
 
 # HTTPS siempre
 RewriteCond %{HTTPS} !=on

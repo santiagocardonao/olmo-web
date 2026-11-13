@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publica el sitio en olmo.agency (SiteGround, por SSH).
+# Publica el sitio en santiagocardonaortiz.com (SiteGround, por SSH). Los archivos viven en la carpeta de olmo.agency: el dominio nuevo está estacionado ahí.
 # Uso: bash scripts/deploy.sh
 # Credenciales en sitio/.env.deploy (no se sube a git): SG_USER, SG_HOST, SG_PORT, SG_KEY.
 set -e
@@ -12,7 +12,7 @@ case "$DEST" in
   www/olmo.agency/public_html/) ;;
   *) echo "Destino no permitido: $DEST" >&2; exit 1 ;;
 esac
-SITE_URL=https://olmo.agency PUBLIC_NOINDEX=false npm run build
+SITE_URL=https://santiagocardonaortiz.com PUBLIC_NOINDEX=false npm run build
 # .well-known lo usa SiteGround para el certificado SSL: no se toca.
 rsync -avz --delete --exclude='.well-known' \
   -e "ssh -i ${SG_KEY:-$HOME/.ssh/siteground_olmo} -o IdentitiesOnly=yes -p ${SG_PORT:-18765}" \
