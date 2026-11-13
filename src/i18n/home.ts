@@ -90,8 +90,8 @@ const en: HomeText = {
   },
   clients: { label: "Brands I've grown or built for since 2017:", aria: 'Brands I have worked with' },
   big: {
-    h2: 'I test before I guess, and I *measure* what ships.',
-    body: 'Every change starts as a hypothesis with a number attached. I set up the tracking, run the test, read the result and keep what wins. I write it all down in English, async, so the team can follow without a meeting.',
+    h2: 'I experiment before I assume it will work.',
+    body: 'Every change starts as a hypothesis or with a number. I set up the tracking, test, read the result and keep what wins.\nCuriosity is what separates someone good from someone excellent.',
     steps: [
       { t: 'Hypothesis', d: 'Where the funnel leaks and what should move.' },
       { t: 'Experiment', d: 'A/B test or staged rollout on real buyers.' },
@@ -210,8 +210,8 @@ const es: HomeText = {
   },
   clients: { label: 'Marcas que he hecho crecer o para las que he construido desde 2017:', aria: 'Marcas con las que he trabajado' },
   big: {
-    h2: 'Pruebo antes de suponer y *mido* lo que sale.',
-    body: 'Cada cambio empieza como una hipótesis con un número. Monto la medición, corro la prueba, leo el resultado y me quedo con lo que gana. Lo dejo por escrito para que el equipo lo siga sin tener que reunirse.',
+    h2: 'Experimento antes de suponer que funcionará.',
+    body: 'Cada cambio empieza como una hipótesis o con un número. Monto la medición, testeo, leo el resultado y me quedo con lo que gana.\nLa curiosidad hace la diferencia entre alguien bueno y alguien excelente.',
     steps: [
       { t: 'Hipótesis', d: 'Dónde se pierde la venta y qué debería moverse.' },
       { t: 'Experimento', d: 'Prueba A/B o lanzamiento por etapas con compradores reales.' },

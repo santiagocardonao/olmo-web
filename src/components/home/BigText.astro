@@ -8,14 +8,17 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const b = HOME[lang].big;
 // Título y cuerpo se leen como un solo bloque; cada palabra se enciende al pasar la línea de lectura.
-const words = `${plain(b.h2)} ${b.body}`.split(/\s+/);
+// Un salto de línea en el cuerpo (\n) abre un párrafo nuevo dentro del bloque.
+const lines = `${plain(b.h2)} ${b.body}`.split('\n').map((l) => l.trim().split(/\s+/));
 ---
 <section class="stmt" aria-labelledby="big-h2">
   <div class="wrap">
     <h2 id="big-h2" class="sr-only">{plain(b.h2)}</h2>
     <p class="sr-only">{b.body}</p>
     <p class="stmt-text" aria-hidden="true" data-words>
-      {words.map((w) => <><span class="w">{w}</span>{' '}</>)}
+      {lines.map((ws, i) => (
+        <>{i > 0 && <span class="stmt-br" />}{ws.map((w) => <><span class="w">{w}</span>{' '}</>)}</>
+      ))}
     </p>
     <ol class="stmt-steps" data-fade>
       {b.steps.map((s, i) => (
@@ -33,6 +36,7 @@ const words = `${plain(b.h2)} ${b.body}`.split(/\s+/);
     font: 500 clamp(28px, 3.6vw, 56px)/1.15 var(--f-sans); letter-spacing: -0.02em;
     color: var(--tinta); text-wrap: pretty;
   }
+  .stmt-br { display: block; height: .6em; }
   .stmt-steps {
     display: grid; gap: 0; margin-top: clamp(56px, 7vw, 104px);
   }
