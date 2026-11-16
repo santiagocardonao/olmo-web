@@ -6,6 +6,19 @@ import { POSTHOG_KEY, POSTHOG_HOST } from '../config';
 
 const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
 
+// Modo "soy yo": visitar el sitio con ?yo=1 marca este navegador como interno (?yo=0 lo quita).
+// GTM lee la misma marca y envía traffic_type=internal a GA4; aquí PostHog simplemente no carga.
+function internal(): boolean {
+  try {
+    const q = location.search;
+    if (/[?&]yo=1/.test(q)) localStorage.setItem('sco_internal', '1');
+    if (/[?&]yo=0/.test(q)) localStorage.removeItem('sco_internal');
+    return localStorage.getItem('sco_internal') === '1';
+  } catch {
+    return false;
+  }
+}
+
 async function start() {
   const { default: posthog } = await import('posthog-js');
   posthog.init(POSTHOG_KEY, {
@@ -36,7 +49,7 @@ async function start() {
   });
 }
 
-if (POSTHOG_KEY && !local) {
+if (POSTHOG_KEY && !local && !internal()) {
   const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1500));
   idle(() => void start(), { timeout: 3000 });
 }

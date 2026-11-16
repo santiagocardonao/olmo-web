@@ -44,6 +44,9 @@ RewriteRule ^terminos-y-condiciones/?$ /es/terminos/ [R=301,L]
 RewriteRule ^politica-privacidad/?$ /es/privacidad/ [R=301,L]
 RewriteRule ^blog(/.*)?$ / [R=301,L]
 RewriteRule ^pagos/?$ / [R=301,L]
+RewriteRule ^precios/?$ /es/asesoria/ [R=301,L]
+RewriteRule ^es/precios/?$ /es/asesoria/ [R=301,L]
+RewriteRule ^pricing/?$ /advisory/ [R=301,L]
 </IfModule>
 
 # Caché: los archivos de /_astro y /fonts llevan hash o no cambian
