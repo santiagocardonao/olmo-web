@@ -2,7 +2,7 @@
 
 > Growth marketer, CRO specialist and AI builder based in Medellín, Colombia (UTC-5). Open to full-time remote roles where he owns a growth or conversion number inside a product team. Site in English (/) and Spanish (/es/).
 
-- 2020 to June 2026: led growth, tech and conversion for silBe by Silvy, a fitness subscription app. USD 800k in one subscription launch; purchase conversion from 3% to 4%; monthly price from USD 29 to 39 with no rise in churn (internal data). Forbes Colombia, 2021: USD 400k and 5,000 subscribers in the first week.
+- 2020 to June 2026: led growth, tech and conversion for silBe by Silvy, a fitness subscription app. USD 800k in the first launch of a product with no prior revenue; purchase conversion from about 3% to 4% after the funnel changes; monthly price from USD 29 to 39 with no rise in churn (internal data). Forbes Colombia, 2021: USD 400k and 5,000 subscribers in the first week.
 - 2017 to 2025: co-founder and COO of Vieli, a 30-person studio with 100+ projects, all from referrals. He left in 2025.
 - Six years teaching UX/UI at CESDE.
 - Builds AI products with Claude Code and Supabase (Olmo Cotiza, Olmo Métricas) and publishes Claude skills.

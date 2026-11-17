@@ -260,7 +260,7 @@ const STATS: Record<Lang, Partial<Record<ProjectId, { v: string; k: string }[]>>
 /** Cifra de la tarjeta del índice (las mismas aprobadas de la home). */
 const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
   es: {
-    silbe: 'USD 400k y 5.000 suscriptores en la primera semana (Forbes Colombia, 2021)',
+    silbe: 'Primera semana: USD 400k y 5.000 suscriptores (Forbes). Lanzamiento completo: USD 800k (dato interno)',
     radhi: '10x en ventas por lanzamiento · 48 % compró en vivo el día 3',
     undergold: '+14 h ahorradas a la semana',
     ideal: '−60 % en tiempo de carga',
@@ -268,7 +268,7 @@ const FIGURES: Record<Lang, Partial<Record<ProjectId, string>>> = {
     cotiza: '30+ propuestas reales · 45 min menos en cada una',
   },
   en: {
-    silbe: 'USD 400k and 5,000 subscribers in the first week (Forbes Colombia, 2021)',
+    silbe: 'First week: USD 400k and 5,000 subscribers (Forbes). Whole launch: USD 800k (internal data)',
     radhi: '10x revenue per launch · 48% bought live on day 3',
     undergold: '14+ hours a week saved',
     ideal: 'Load times cut by 60%',

@@ -33,11 +33,11 @@ const es: Record<CaseId, CaseText> = {
     tag: 'Líder de growth, tecnología y conversión · Suscripción fitness',
     period: 'Ago. 2020 – jun. 2026',
     headline: 'De una comunidad gratis a un negocio de *suscripción*.',
-    lead: 'Lideré growth, tecnología y conversión en silBe by Silvy de agosto de 2020 a junio de 2026 y le reportaba los resultados a la fundadora. El primer lanzamiento vendió USD 800k y la conversión pasó de cerca de 3 % a 4 %.',
+    lead: 'Lideré growth, tecnología y conversión en silBe by Silvy de agosto de 2020 a junio de 2026 y le reportaba los resultados a la fundadora. El primer lanzamiento de un producto que no generaba ingresos vendió USD 800k y la conversión pasó de cerca de 3 % a 4 %.',
     figures: [
       { value: 'USD 400k', label: 'en ventas la primera semana', source: 'Forbes Colombia, 2021' },
       { value: '5.000', label: 'suscriptores la primera semana', source: 'Forbes Colombia, 2021' },
-      { value: 'USD 800k', label: 'en todo el primer lanzamiento', source: 'Dato interno' },
+      { value: 'USD 800k', label: 'en todo el primer lanzamiento, de un producto que no generaba ingresos', source: 'Dato interno' },
       { value: '3 % → 4 %', label: 'de conversión a compra tras los cambios al funnel', source: 'Dato interno' },
       { value: '42 %', label: 'de la lista de espera final compró', source: 'Dato interno' },
       { value: '25k', label: 'suscriptores pagos en la base que ayudé a construir', source: 'Dato interno' },
@@ -51,7 +51,7 @@ const es: Record<CaseId, CaseText> = {
     ],
     changed: [
       'USD 400k y 5.000 suscriptores en la primera semana (Forbes Colombia, 2021).',
-      'USD 800k en todo el primer lanzamiento, y el 42 % de la lista de espera final compró (dato interno).',
+      'USD 800k en todo el primer lanzamiento de un producto sin ingresos previos, y el 42 % de la lista de espera final compró (dato interno).',
       'Conversión de cerca de 3 % a 4,0 %, y precio de USD 29 a USD 39 al mes sin que subiera el churn (dato interno).',
     ],
     note: 'Las cifras marcadas "Forbes Colombia, 2021" salen de Forbes Colombia (7 de febrero de 2021). Las marcadas "Dato interno" salen de los registros propios de silBe.',
@@ -59,7 +59,7 @@ const es: Record<CaseId, CaseText> = {
       { when: 'Contexto', title: 'Una comunidad grande que no generaba ingresos', text: 'silBe by Silvy es una suscripción de entrenamiento para mujeres. En agosto de 2020, Silvy tenía cerca de 1M de seguidores en Instagram y entrenaba en vivo gratis todos los días, pero la comunidad no generaba dinero. No había producto ni ingresos.' },
       { when: 'Mi rol', title: 'Growth, tecnología y conversión, 2020–2026', text: 'Me hice cargo del funnel, la tecnología y la conversión, y con el tiempo asumí todo el marketing. Le reportaba los resultados a la fundadora y trabajaba con su equipo y, más adelante, con el equipo de desarrollo de FitBudd en India.' },
       { when: 'La restricción', title: 'Vender antes de tener una app', text: 'La primera versión tenía que venderle a una audiencia acostumbrada al contenido gratis, y a compradores que muchas veces prefieren pagar en efectivo o a cuotas antes que en un solo pago con tarjeta.' },
-      { when: '17 de diciembre de 2020', title: 'El MVP: un reto de 8 semanas', text: 'Antes de cualquier app, armé un reto de 8 semanas para mujeres de 18 a 50 años: plan de nutrición personalizado, 60 videos para entrenar en casa, PDFs de nutrición y soporte diario por WhatsApp para quienes compraban. Hice yo mismo la propuesta de valor, la landing de preregistro, la plataforma de contenido en WordPress y LearnDash, los pagos, los flujos de correo y las automatizaciones. El 42 % de la lista de espera final compró (dato interno), y en la primera semana hubo 5.000 suscriptores y USD 400k en ventas (Forbes Colombia, 2021).' },
+      { when: '18 de diciembre de 2020', title: 'El MVP: un reto de 8 semanas', text: 'Antes de cualquier app, armé un reto de 8 semanas para mujeres de 18 a 50 años: plan de nutrición personalizado, 60 videos para entrenar en casa, PDFs de nutrición y soporte diario por WhatsApp para quienes compraban. Hice yo mismo la propuesta de valor, la landing de preregistro, la plataforma de contenido en WordPress y LearnDash, los pagos, los flujos de correo y las automatizaciones. El 42 % de la lista de espera final compró (dato interno), y en la primera semana hubo 5.000 suscriptores y USD 400k en ventas (Forbes Colombia, 2021).' },
       { when: 'CRO del lanzamiento', title: 'Conversión de cerca de 3 % a 4 %', text: 'Cambié el funnel pieza por pieza: cuotas sin interés, pago en efectivo en Efecty y Baloto, solo dos planes (el reto, o el reto con nutrición), un upsell de nutrición personalizada de USD 300 que compraron 252 personas, recuperación de carritos abandonados por WhatsApp y un equipo de chat entrenado en ventas para quien dudaba. Hice pruebas A/B con Nelio A/B Testing con los primeros compradores de cada lanzamiento y publicaba la versión ganadora de inmediato. Con todos estos cambios, la conversión pasó de cerca de 3 % a 4,0 % y el lanzamiento cerró en USD 800k (dato interno).' },
       { when: 'Los retos siguientes', title: 'Repetir con pauta', text: 'Después vinieron tres retos más, y en ellos dirigí todo el marketing: pauta, SEO, SEM y analítica.' },
       { when: 'De reto a app', title: 'Onboarding, paywall y prueba de 7 días', text: 'La suscripción pasó a una app. Trainerize no sirvió para lo que necesitábamos, así que silBe se cambió a las apps nativas de FitBudd para iOS y Android. Diseñé el onboarding, el paywall (en el editor sin código de FitBudd, con su equipo de desarrollo en India), los planes y una prueba gratis de 7 días. Para 2022, 20.000 usuarios pagaban USD 29 al mes.' },
@@ -71,7 +71,7 @@ const es: Record<CaseId, CaseText> = {
     next: 'undergold',
     meta: {
       title: 'silBe: de comunidad gratis a suscripción | Santiago Cardona',
-      description: 'Lideré growth, tecnología y conversión en silBe by Silvy (2020–2026): lanzamiento de USD 800k y conversión de cerca de 3 % a 4 %.',
+      description: 'Lideré growth, tecnología y conversión en silBe by Silvy (2020–2026): primer lanzamiento de USD 800k (producto sin ingresos previos) y conversión de cerca de 3 % a 4 %.',
     },
   },
   radhi: {
@@ -189,11 +189,11 @@ const en: Record<CaseId, CaseText> = {
     tag: 'Growth, tech & conversion lead · Fitness subscription',
     period: 'Aug 2020 – Jun 2026',
     headline: 'From a free community to a *subscription* business.',
-    lead: 'I led growth, tech and conversion for silBe by Silvy from August 2020 to June 2026, reporting results to the founder. The first launch sold USD 800k, and conversion went from about 3% to 4%.',
+    lead: 'I led growth, tech and conversion for silBe by Silvy from August 2020 to June 2026, reporting results to the founder. The first launch of a product with no prior revenue sold USD 800k, and conversion went from about 3% to 4%.',
     figures: [
       { value: 'USD 400k', label: 'in sales in the first week', source: 'Forbes Colombia, 2021' },
       { value: '5,000', label: 'subscribers in the first week', source: 'Forbes Colombia, 2021' },
-      { value: 'USD 800k', label: 'across the whole first launch', source: 'Internal data' },
+      { value: 'USD 800k', label: 'across the whole first launch, of a product with no prior revenue', source: 'Internal data' },
       { value: '3% → 4%', label: 'purchase conversion after the funnel changes', source: 'Internal data' },
       { value: '42%', label: 'of the final waitlist bought', source: 'Internal data' },
       { value: '25k', label: 'paying subscribers on the base I helped build', source: 'Internal data' },
@@ -207,7 +207,7 @@ const en: Record<CaseId, CaseText> = {
     ],
     changed: [
       'USD 400k and 5,000 subscribers in the first week (Forbes Colombia, 2021).',
-      'USD 800k across the whole first launch, with 42% of the final waitlist converting (internal data).',
+      'USD 800k across the whole first launch of a product with no prior revenue, with 42% of the final waitlist converting (internal data).',
       'Conversion from about 3% to 4.0%, and price from USD 29 to USD 39 a month with no rise in churn (internal data).',
     ],
     note: 'Figures marked "Forbes Colombia, 2021" come from Forbes Colombia (February 7, 2021). Figures marked "Internal data" come from silBe\'s own records.',
@@ -215,7 +215,7 @@ const en: Record<CaseId, CaseText> = {
       { when: 'Context', title: 'A big community with no revenue', text: 'silBe by Silvy is a fitness subscription for women. In August 2020, Silvy had about 1M Instagram followers and ran free live workouts every day, but the community made no money. There was no product and no revenue.' },
       { when: 'My role', title: 'Growth, tech and conversion, 2020–2026', text: "I owned the funnel, the tech and conversion, and later all of marketing. I reported results to the founder and worked with her team and, later on, with FitBudd's development team in India." },
       { when: 'The constraint', title: 'Sell before there is an app', text: 'The first version had to sell to an audience used to free content, and to buyers who often prefer cash or installments over a single card payment.' },
-      { when: 'December 17, 2020', title: 'The MVP: an 8-week challenge', text: 'Before any app, I built an 8-week challenge for women aged 18 to 50: a personalized nutrition plan, 60 follow-along workout videos, nutrition PDFs and daily WhatsApp support for buyers. I did the value proposition, the pre-registration landing page, the WordPress and LearnDash content platform, payments, email flows and automations myself. 42% of the final waitlist bought (internal data), and the first week brought 5,000 subscribers and USD 400k in sales (Forbes Colombia, 2021).' },
+      { when: 'December 18, 2020', title: 'The MVP: an 8-week challenge', text: 'Before any app, I built an 8-week challenge for women aged 18 to 50: a personalized nutrition plan, 60 follow-along workout videos, nutrition PDFs and daily WhatsApp support for buyers. I did the value proposition, the pre-registration landing page, the WordPress and LearnDash content platform, payments, email flows and automations myself. 42% of the final waitlist bought (internal data), and the first week brought 5,000 subscribers and USD 400k in sales (Forbes Colombia, 2021).' },
       { when: 'Launch CRO', title: 'Conversion from about 3% to 4%', text: 'I changed the funnel one piece at a time: interest-free installments, cash payment at Efecty and Baloto, only two plans (the challenge, or the challenge plus nutrition), a USD 300 personalized nutrition upsell that 252 people bought, abandoned-cart recovery over WhatsApp, and a sales-trained chat team for hesitant buyers. I ran A/B tests with Nelio A/B Testing on the first buyers of each launch and shipped the winner right away. Together, these changes took conversion from about 3% to 4.0%, and the launch closed at USD 800k (internal data).' },
       { when: 'The next challenges', title: 'Repeat, with paid media', text: 'Three more challenges followed. I led all of the marketing: paid media, SEO, SEM and analytics.' },
       { when: 'From challenge to app', title: 'Onboarding, paywall and a 7-day trial', text: "The subscription moved into an app. Trainerize didn't fit, so silBe switched to FitBudd's native iOS and Android apps. I designed the onboarding, the paywall (in FitBudd's no-code builder, with their development team in India), the plans and a 7-day free trial. By 2022, 20,000 users were paying USD 29 a month." },
@@ -227,7 +227,7 @@ const en: Record<CaseId, CaseText> = {
     next: 'undergold',
     meta: {
       title: 'silBe: free community to subscription | Santiago Cardona',
-      description: 'I led growth, tech and conversion for silBe by Silvy (2020–2026): a USD 800k launch and conversion from about 3% to 4%.',
+      description: 'I led growth, tech and conversion for silBe by Silvy (2020–2026): a USD 800k first launch (product with no prior revenue) and conversion from about 3% to 4%.',
     },
   },
   radhi: {

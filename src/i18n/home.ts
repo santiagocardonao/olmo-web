@@ -182,7 +182,7 @@ const es: HomeText = {
   },
   ui: {
     skip: 'Saltar al contenido',
-    closed: 'Disponible cargos remotos | Tiempo completo · Growth, CRO e IA · En Medellín, Colombia (UTC-5) · 9\u00a0a.\u00a0m.–6\u00a0p.\u00a0m.\u00a0ET',
+    closed: 'Disponible para cargos remotos | Tiempo completo · Growth, CRO e IA · En Medellín, Colombia (UTC-5) · 9\u00a0a.\u00a0m.–6\u00a0p.\u00a0m.\u00a0ET',
     logoLabel: 'Santiago Cardona, ir al inicio',
     logoName: 'Santiago Cardona',
     nav: ['Trabajo', 'IA', 'Sobre mí', 'Contacto'],
