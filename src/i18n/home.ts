@@ -136,7 +136,7 @@ const en: HomeText = {
   },
   about: {
     label: 'About',
-    title: 'Founder habits, now looking for an *in-house* team.',
+    title: 'Founder experience, now looking for an *in-house* team.',
     body: "I'm Santiago Cardona Ortiz. From 2020 to June 2026 I led growth, tech and conversion for silBe by Silvy, reporting results to its founder and working with her team and FitBudd's developers. From 2017 to 2025 I co-founded Vieli and ran operations as COO for a 30-person studio, with 100+ projects that all came from referrals. I taught UX/UI at CESDE for six years.",
     intent: 'I left Vieli in 2025. Now I want to own a growth or CRO number inside a product team, full time.',
     button: 'More about me',
