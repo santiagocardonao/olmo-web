@@ -357,3 +357,7 @@ a.pill:active { transform: scale(.96); }
 }
 
 @media (min-width: 768px) { :root { --topbar-h: 42px; } }
+/* El texto en español es más largo: 3 líneas en móvil y 2 entre 768 y 959. Por debajo de 360 también el inglés va en 3. */
+@media (max-width: 767px) { :root:lang(es) { --topbar-h: 66px; } }
+@media (max-width: 359px) { :root { --topbar-h: 66px; } }
+@media (min-width: 768px) and (max-width: 959px) { :root:lang(es) { --topbar-h: 54px; } }
