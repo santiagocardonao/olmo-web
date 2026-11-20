@@ -144,14 +144,20 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
     } else {
       readScroll();
       prog = target;
+      // El bucle solo corre mientras la sección está en pantalla o aún no ha llegado a su posición.
+      let inView = true, running = false;
       const tick = () => {
         prog += (target - prog) * 0.09;
         px += (tpx - px) * 0.06;
         py += (tpy - py) * 0.06;
         render();
-        requestAnimationFrame(tick);
+        const settled = Math.abs(target - prog) < 0.0005 && Math.abs(tpx - px) < 0.001 && Math.abs(tpy - py) < 0.001;
+        if (inView || !settled) requestAnimationFrame(tick); else running = false;
       };
-      requestAnimationFrame(tick);
+      const start = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
+      new IntersectionObserver(([e]) => { inView = e.isIntersecting; if (inView) start(); }).observe(root);
+      addEventListener('scroll', start, { passive: true });
+      start();
     }
   }
 </script>

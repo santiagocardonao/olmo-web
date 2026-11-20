@@ -4,24 +4,28 @@
  * es una foto redonda de Colombia (sin personas). Al cambiar: el sticker sale, la línea sube a la
  * palabra siguiente, se abre el hueco y el sticker nuevo entra con rebote.
  * Adaptado de un componente React + GSAP a Astro + GSAP (ya está en el sitio).
- * Fotos de Envato (licencia de Santiago): Cocora, Guatapé y Cartagena, sin personas.
+ * Fotos de Envato (licencia de Santiago): Cocora, Guatapé, Cartagena, sendero y arrecife.
  */
 import { Image } from 'astro:assets';
 import cocora from '../../assets/stickers/cocora.jpg';
 import guatape from '../../assets/stickers/guatape.jpg';
 import cartagena from '../../assets/stickers/cartagena.jpg';
+import sendero from '../../assets/stickers/sendero.jpg';
+import arrecife from '../../assets/stickers/arrecife.jpg';
 import type { Lang } from '../../config';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 
 const COPY = {
-  en: { lead: 'Always', words: ['Consistent', 'Curious', 'Supportive'], hint: 'Next word' },
-  es: { lead: 'Siempre', words: ['Constante', 'Curioso', 'Colaborador'], hint: 'Siguiente palabra' },
+  en: { lead: 'Always', words: ['Consistent', 'Curious', 'Supportive', 'Optimistic', 'Open-Minded'], hint: 'Next word' },
+  es: { lead: 'Siempre', words: ['Constante', 'Curioso', 'Colaborador', 'Optimista', 'Abierto'], hint: 'Siguiente palabra' },
 }[lang];
 const IMGS = [
   { src: cocora, alt: lang === 'es' ? 'Palmas de cera en el Valle del Cocora' : 'Wax palms in Cocora Valley', tilt: -8 },
   { src: guatape, alt: lang === 'es' ? 'Islas del embalse de Guatapé' : 'Islands of the Guatapé reservoir', tilt: 6 },
   { src: cartagena, alt: lang === 'es' ? 'Balcón colonial en Cartagena' : 'Colonial balcony in Cartagena', tilt: -4 },
+  { src: sendero, alt: lang === 'es' ? 'Corredores en un sendero de montaña' : 'Runners on a mountain trail', tilt: 9 },
+  { src: arrecife, alt: lang === 'es' ? 'Arrecife de coral en el Caribe' : 'Coral reef in the Caribbean', tilt: -6 },
 ];
 // La primera "o" se vuelve el sticker.
 const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i < 0 ? [w, ''] : [w.slice(0, i), w.slice(i + 1)]; };
@@ -36,7 +40,7 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
           const [before, after] = split(w);
           return (
             <span class={`stk-word${i === 0 ? ' is-on' : ''}`} data-word={w} aria-hidden="true">
-              <span class="stk-before">{before}</span><span class="stk-slot"><span class="stk-pic" style={`--tilt:${IMGS[i].tilt}deg`} data-tilt={IMGS[i].tilt}><Image src={IMGS[i].src} alt="" width={240} height={240} loading="lazy" /></span></span><span class="stk-after">{after}</span><span class="stk-dot">.</span>
+              <span class="stk-before">{before}</span><span class="stk-slot"><span class="stk-pic" style={`--tilt:${IMGS[i].tilt}deg`} data-tilt={IMGS[i].tilt}><Image src={IMGS[i].src} alt="" width={240} height={240} loading="eager" decoding="async" /></span></span><span class="stk-after">{after}</span><span class="stk-dot">.</span>
             </span>
           );
         })}
@@ -54,7 +58,8 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
     const lead = root.querySelector<HTMLElement>('.stk-lead')!;
     const words = Array.from(reel.querySelectorAll<HTMLElement>('.stk-word'));
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let i = 0, busy = false, visible = false, started = false;
+    let i = 0, busy = false, visible = false, started = false, paused = false;
+    const SPEED = 1.2; // transiciones un 20 % más rápidas
 
     const popIn = (w: HTMLElement, at: number, tl: gsap.core.Timeline) => {
       const pic = w.querySelector<HTMLElement>('.stk-pic')!;
@@ -65,27 +70,28 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
       tl.fromTo(pic, { scale: 0, rotate: tilt - 24 }, { scale: 1, rotate: tilt, duration: 0.42, ease: 'back.out(2.2)' }, at + 0.1);
     };
 
-    const advance = () => {
+    // manual = clic del usuario: solo entonces se anuncia la palabra al lector de pantalla (el autoplay no hace ruido).
+    const advance = (manual = false) => {
       if (busy || words.length < 2) return;
       busy = true;
       const out = words[i];
       i = (i + 1) % words.length;
       const next = words[i];
-      live.textContent = `${lead.textContent} ${next.dataset.word}`;
+      if (manual) live.textContent = `${lead.textContent} ${next.dataset.word}`;
       if (reduce) {
         out.classList.remove('is-on'); next.classList.add('is-on');
-        gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 0.3, onComplete: () => { busy = false; } });
+        gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 0.3 / SPEED, onComplete: () => { busy = false; } });
         return;
       }
       const pic = out.querySelector('.stk-pic');
-      gsap.to(pic, { scale: 0, duration: 0.14, ease: 'power2.in', onComplete: () => {
+      gsap.to(pic, { scale: 0, duration: 0.14 / SPEED, ease: 'power2.in', onComplete: () => {
         out.classList.add('is-out');
         next.classList.add('is-on');
         const tl = gsap.timeline({ onComplete: () => {
           out.classList.remove('is-on', 'is-out');
           gsap.set(out, { clearProps: 'all' }); gsap.set(pic, { clearProps: 'all' });
           busy = false;
-        } });
+        } }).timeScale(SPEED);
         tl.to(out, { yPercent: -100, opacity: 0, duration: 0.42, ease: 'power3.out' }, 0);
         tl.fromTo(next, { yPercent: 100 }, { yPercent: 0, duration: 0.42, ease: 'power3.out' }, 0);
         tl.fromTo(next, { opacity: 0.2 }, { opacity: 1, duration: 0.55, ease: 'power1.out' }, 0.05);
@@ -98,7 +104,7 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
       started = true;
       if (reduce) return;
       busy = true;
-      const tl = gsap.timeline({ onComplete: () => { busy = false; } });
+      const tl = gsap.timeline({ onComplete: () => { busy = false; } }).timeScale(SPEED);
       tl.fromTo([lead, words[0]], { yPercent: 18, opacity: 0.18 }, { yPercent: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.06 }, 0);
       popIn(words[0], 0.55, tl);
     };
@@ -108,8 +114,13 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
       if (visible && !started) intro();
     }, { threshold: 0.4 }).observe(root);
 
-    setInterval(() => { if (visible && !document.hidden) advance(); }, 2800);
-    reel.addEventListener('click', advance);
+    // Autoplay: no corre con movimiento reducido y se pausa con el puntero encima o con foco de teclado.
+    if (!reduce) setInterval(() => { if (visible && !paused && !document.hidden) advance(); }, 2800);
+    reel.addEventListener('click', () => advance(true));
+    root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') paused = true; });
+    root.addEventListener('pointerleave', () => { paused = false; });
+    reel.addEventListener('focus', () => { if (reel.matches(':focus-visible')) paused = true; });
+    reel.addEventListener('blur', () => { paused = false; });
   }
 </script>
 
