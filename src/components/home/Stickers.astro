@@ -58,8 +58,8 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
     const lead = root.querySelector<HTMLElement>('.stk-lead')!;
     const words = Array.from(reel.querySelectorAll<HTMLElement>('.stk-word'));
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let i = 0, busy = false, visible = false, started = false, paused = false;
-    const SPEED = 1.2; // transiciones un 20 % más rápidas
+    let i = 0, busy = false, visible = false, started = false, paused = false, turns = 0;
+    const SPEED = 1.5; // transiciones más rápidas que el componente original
 
     const popIn = (w: HTMLElement, at: number, tl: gsap.core.Timeline) => {
       const pic = w.querySelector<HTMLElement>('.stk-pic')!;
@@ -74,6 +74,9 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
     const advance = (manual = false) => {
       if (busy || words.length < 2) return;
       busy = true;
+      // Seguro: si una animación se corta, el ciclo no se queda trabado.
+      const turn = ++turns;
+      setTimeout(() => { if (turn === turns) busy = false; }, 1500);
       const out = words[i];
       i = (i + 1) % words.length;
       const next = words[i];
@@ -114,11 +117,9 @@ const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i 
       if (visible && !started) intro();
     }, { threshold: 0.4 }).observe(root);
 
-    // Autoplay: no corre con movimiento reducido y se pausa con el puntero encima o con foco de teclado.
-    if (!reduce) setInterval(() => { if (visible && !paused && !document.hidden) advance(); }, 2800);
+    // Autoplay constante (no se detiene con el mouse). Solo se pausa con foco de teclado y no corre con movimiento reducido.
+    if (!reduce) setInterval(() => { if (visible && !paused && !document.hidden) advance(); }, 2000);
     reel.addEventListener('click', () => advance(true));
-    root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') paused = true; });
-    root.addEventListener('pointerleave', () => { paused = false; });
     reel.addEventListener('focus', () => { if (reel.matches(':focus-visible')) paused = true; });
     reel.addEventListener('blur', () => { paused = false; });
   }
