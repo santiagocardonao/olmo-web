@@ -15,7 +15,7 @@ const { lang } = Astro.props;
 const m = HOME[lang].meta;
 ---
 <Base lang={lang} route="home" title={m.title} description={m.description} ogTitle={m.ogTitle} ogDescription={m.ogDescription} dark>
-  <Hero lang={lang} />
+  <Hero lang={lang} tunnel />
   <Clients lang={lang} />
   <BigText lang={lang} />
   <Work lang={lang} />

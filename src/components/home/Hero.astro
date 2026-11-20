@@ -6,8 +6,9 @@ import { r } from '../../i18n/routes';
 import { LINKS, EMAIL, type Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 import { emph } from '../../lib/util';
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+import HeroTunnel from './HeroTunnel.astro';
+interface Props { lang: Lang; tunnel?: boolean }
+const { lang, tunnel = false } = Astro.props;
 const h = HOME[lang].hero;
 const ui = HOME[lang].ui;
 const P = PROJECTS[lang];
@@ -20,6 +21,7 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
 // "(internal data)" se separa para mostrarlo como nota al pie.
 const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); return m ? [m[1], m[2]] : [k, '']; };
 ---
+{tunnel ? <HeroTunnel lang={lang} /> : (
 <section class="hero band-dark" aria-labelledby="hero-h1" data-dark>
   <div class="hero-float" aria-label={lang === 'es' ? 'Proyectos' : 'Projects'} role="group">
     {ids.map((id, i) => (
@@ -42,6 +44,7 @@ const split = (k: string) => { const m = k.match(/^(.*?)\s*(\([^)]*\))$/); retur
     <p class="hero-sub">{h.sub}</p>
   </div>
 </section>
+)}
 
 <section class="proof band-dark" aria-label={lang === 'es' ? 'Resultados' : 'Results'}>
   <div class="wrap">
