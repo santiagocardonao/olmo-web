@@ -1,0 +1,143 @@
+---
+/**
+ * Titular con sticker (antes del footer). "Always" fijo y debajo una palabra que cambia; la "o" de cada palabra
+ * es una foto redonda de Colombia (sin personas). Al cambiar: el sticker sale, la línea sube a la
+ * palabra siguiente, se abre el hueco y el sticker nuevo entra con rebote.
+ * Adaptado de un componente React + GSAP a Astro + GSAP (ya está en el sitio).
+ * Fotos de Envato (licencia de Santiago): Cocora, Guatapé y Cartagena, sin personas.
+ */
+import { Image } from 'astro:assets';
+import cocora from '../../assets/stickers/cocora.jpg';
+import guatape from '../../assets/stickers/guatape.jpg';
+import cartagena from '../../assets/stickers/cartagena.jpg';
+import type { Lang } from '../../config';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const COPY = {
+  en: { lead: 'Always', words: ['Consistent', 'Curious', 'Supportive'], hint: 'Next word' },
+  es: { lead: 'Siempre', words: ['Constante', 'Curioso', 'Colaborador'], hint: 'Siguiente palabra' },
+}[lang];
+const IMGS = [
+  { src: cocora, alt: lang === 'es' ? 'Palmas de cera en el Valle del Cocora' : 'Wax palms in Cocora Valley', tilt: -8 },
+  { src: guatape, alt: lang === 'es' ? 'Islas del embalse de Guatapé' : 'Islands of the Guatapé reservoir', tilt: 6 },
+  { src: cartagena, alt: lang === 'es' ? 'Balcón colonial en Cartagena' : 'Colonial balcony in Cartagena', tilt: -4 },
+];
+// La primera "o" se vuelve el sticker.
+const split = (w: string) => { const i = w.toLowerCase().indexOf('o'); return i < 0 ? [w, ''] : [w.slice(0, i), w.slice(i + 1)]; };
+---
+<section class="stk band-dark" aria-label={`${COPY.lead}: ${COPY.words.join(', ')}`} data-stk>
+  <div class="wrap stk-inner">
+    <p class="stk-h">
+      <span class="sr-only" aria-live="polite" data-stk-live>{COPY.lead} {COPY.words[0]}</span>
+      <span class="stk-lead" aria-hidden="true">{COPY.lead}</span>
+      <button type="button" class="stk-reel" aria-label={COPY.hint} data-stk-reel>
+        {COPY.words.map((w, i) => {
+          const [before, after] = split(w);
+          return (
+            <span class={`stk-word${i === 0 ? ' is-on' : ''}`} data-word={w} aria-hidden="true">
+              <span class="stk-before">{before}</span><span class="stk-slot"><span class="stk-pic" style={`--tilt:${IMGS[i].tilt}deg`} data-tilt={IMGS[i].tilt}><Image src={IMGS[i].src} alt="" width={240} height={240} loading="lazy" /></span></span><span class="stk-after">{after}</span><span class="stk-dot">.</span>
+            </span>
+          );
+        })}
+      </button>
+    </p>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  const root = document.querySelector<HTMLElement>('[data-stk]');
+  if (root) {
+    const reel = root.querySelector<HTMLElement>('[data-stk-reel]')!;
+    const live = root.querySelector<HTMLElement>('[data-stk-live]')!;
+    const lead = root.querySelector<HTMLElement>('.stk-lead')!;
+    const words = Array.from(reel.querySelectorAll<HTMLElement>('.stk-word'));
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0, busy = false, visible = false, started = false;
+
+    const popIn = (w: HTMLElement, at: number, tl: gsap.core.Timeline) => {
+      const pic = w.querySelector<HTMLElement>('.stk-pic')!;
+      const tilt = Number(pic.dataset.tilt) || 0;
+      // Se abre el hueco: las letras a cada lado se separan para hacerle sitio al sticker.
+      tl.fromTo(w.querySelector('.stk-before'), { x: '0.4em' }, { x: 0, duration: 0.22, ease: 'power2.out' }, at);
+      tl.fromTo(w.querySelectorAll('.stk-after, .stk-dot'), { x: '-0.39em' }, { x: 0, duration: 0.22, ease: 'power2.out' }, at);
+      tl.fromTo(pic, { scale: 0, rotate: tilt - 24 }, { scale: 1, rotate: tilt, duration: 0.42, ease: 'back.out(2.2)' }, at + 0.1);
+    };
+
+    const advance = () => {
+      if (busy || words.length < 2) return;
+      busy = true;
+      const out = words[i];
+      i = (i + 1) % words.length;
+      const next = words[i];
+      live.textContent = `${lead.textContent} ${next.dataset.word}`;
+      if (reduce) {
+        out.classList.remove('is-on'); next.classList.add('is-on');
+        gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 0.3, onComplete: () => { busy = false; } });
+        return;
+      }
+      const pic = out.querySelector('.stk-pic');
+      gsap.to(pic, { scale: 0, duration: 0.14, ease: 'power2.in', onComplete: () => {
+        out.classList.add('is-out');
+        next.classList.add('is-on');
+        const tl = gsap.timeline({ onComplete: () => {
+          out.classList.remove('is-on', 'is-out');
+          gsap.set(out, { clearProps: 'all' }); gsap.set(pic, { clearProps: 'all' });
+          busy = false;
+        } });
+        tl.to(out, { yPercent: -100, opacity: 0, duration: 0.42, ease: 'power3.out' }, 0);
+        tl.fromTo(next, { yPercent: 100 }, { yPercent: 0, duration: 0.42, ease: 'power3.out' }, 0);
+        tl.fromTo(next, { opacity: 0.2 }, { opacity: 1, duration: 0.55, ease: 'power1.out' }, 0.05);
+        popIn(next, 0.48, tl);
+      } });
+    };
+
+    // Primera entrada: cuando la sección aparece, las dos líneas suben y el primer sticker entra.
+    const intro = () => {
+      started = true;
+      if (reduce) return;
+      busy = true;
+      const tl = gsap.timeline({ onComplete: () => { busy = false; } });
+      tl.fromTo([lead, words[0]], { yPercent: 18, opacity: 0.18 }, { yPercent: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.06 }, 0);
+      popIn(words[0], 0.55, tl);
+    };
+
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible && !started) intro();
+    }, { threshold: 0.4 }).observe(root);
+
+    setInterval(() => { if (visible && !document.hidden) advance(); }, 2800);
+    reel.addEventListener('click', advance);
+  }
+</script>
+
+<style>
+  .stk { padding-block: clamp(64px, 9vw, 120px); overflow: hidden; }
+  .stk-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .stk-h {
+    font: 400 clamp(44px, 8.4vw, 132px)/0.95 var(--f-logo); letter-spacing: -0.035em;
+    color: var(--on-dark);
+  }
+  .stk-lead { display: block; }
+  .stk-reel {
+    position: relative; display: block; overflow: hidden;
+    padding: .1em .12em; margin: -.1em -.12em 0;
+    font: inherit; letter-spacing: inherit; color: inherit; background: none; border: 0; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .stk-reel:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 4px; border-radius: 8px; }
+  .stk-word { display: none; white-space: nowrap; }
+  .stk-word.is-on { display: block; }
+  .stk-word.is-out { position: absolute; left: .12em; right: .12em; top: .1em; pointer-events: none; }
+  .stk-before, .stk-after, .stk-dot { display: inline-block; }
+  .stk-dot { color: var(--violeta); }
+  /* El hueco de la "o": un poco más alto que la x para que la foto se lea. */
+  .stk-slot { position: relative; display: inline-block; width: .72em; height: .72em; margin: 0 .03em; vertical-align: -.06em; }
+  .stk-pic {
+    position: absolute; inset: 0; border-radius: 50%; background: #fbf8f2; padding: .035em;
+    transform: rotate(var(--tilt)); box-shadow: 0 .04em .12em rgba(0, 0, 0, .45);
+  }
+  .stk-pic :global(img) { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+</style>

@@ -8,6 +8,7 @@ import Work from './Work.astro';
 import Testimonials from './Testimonials.astro';
 import About from './About.astro';
 import Press from './Press.astro';
+import Stickers from './Stickers.astro';
 import type { Lang } from '../../config';
 import { HOME } from '../../i18n/home';
 interface Props { lang: Lang }
@@ -23,4 +24,5 @@ const m = HOME[lang].meta;
   <Services lang={lang} />
   <Testimonials lang={lang} />
   <About lang={lang} />
+  <Stickers lang={lang} />
 </Base>
