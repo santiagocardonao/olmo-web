@@ -38,7 +38,7 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
     <div class="wrap tun-copy" data-tun-copy>
       <p class="tun-eyebrow">{role}</p>
       <p class="tun-name">{name}<span class="hn-dot" aria-hidden="true">.</span></p>
-      <h1 id="hero-h1" class="tun-h1" set:html={emph(h.h1)} />
+      <h1 id="hero-h1" class="tun-h1" set:html={emph(h.h1).replace(/e-commerce/g, '<span class="nw">e-commerce</span>')} />
       <p class="tun-sub">{h.sub}</p>
     </div>
 
@@ -104,6 +104,10 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
 
     const render = () => {
       const p = HEAD + prog * (1 - HEAD);
+      // Móvil: el texto ocupa casi todo el ancho, así que se apaga antes, no crece (se cortaba en los bordes)
+      // y las portadas van atenuadas mientras el texto está visible.
+      const copyOp = mobile ? ramp(prog, [0, 0.06, 0.3], [1, 1, 0]) : ramp(prog, [0, 0.15, 0.45], [1, 1, 0]);
+      const dim = mobile ? 1 - 0.5 * copyOp : 1;
       const farZ = mobile ? -1200 : -1700;
       const nearZ = mobile ? 350 : 500;
       const pan = mobile ? 20 : 45;
@@ -115,7 +119,7 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
         const start = (i / total) * (1 - STAGGER);
         const lp = clamp((p - start) / STAGGER);
         const z = farZ + (nearZ - farZ) * lp;
-        const op = ramp(lp, [0, 0.18, 0.82, 0.98], [0, 1, 1, 0]);
+        const op = ramp(lp, [0, 0.18, 0.82, 0.98], [0, 1, 1, 0]) * dim;
         // Al fondo la perspectiva junta todo en el centro: se empujan hacia afuera y se van cerrando al acercarse.
         const out = 1 + SPREAD * (1 - lp);
         const x = d.cos * W * d.rx * out - px * pan;
@@ -127,16 +131,17 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
       });
 
       // El texto entra completo, crece un poco y se apaga en la primera mitad del viaje.
-      const s = ramp(prog, [0, 0.5], [1, 1.25]);
+      const s = mobile ? 1 : ramp(prog, [0, 0.5], [1, 1.25]);
       copy.style.transform = `scale(${s.toFixed(3)})`;
-      copy.style.opacity = ramp(prog, [0, 0.15, 0.45], [1, 1, 0]).toFixed(3);
+      copy.style.opacity = copyOp.toFixed(3);
       prompt.style.opacity = ramp(prog, [0, 0.08], [1, 0]).toFixed(3);
     };
 
     if (reduce) {
       // Sin movimiento: una sola foto del túnel, sin sección alta.
       root.classList.add('is-static');
-      prog = 0.25;
+      // En móvil la foto fija se toma al inicio, con las portadas atenuadas detrás del texto.
+      prog = mobile ? 0.05 : 0.25;
       render();
       copy.style.transform = 'none';
       copy.style.opacity = '1';
@@ -165,6 +170,8 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
 <style>
   /* Sección alta: el escenario queda fijo mientras se recorre. */
   .tun { position: relative; height: 320svh; background: var(--tinta, #111); }
+  /* Móvil: recorrido más corto para llegar antes a los resultados. */
+  @media (max-width: 767px) { .tun { height: 230svh; } }
   .tun.is-static { height: auto; }
   .tun-stage {
     position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate;
@@ -232,6 +239,8 @@ const role = h.eyebrow.split('·').slice(1).join('·').trim();
     color: var(--on-dark); text-wrap: balance; text-shadow: 0 2px 24px rgba(17, 17, 17, .8);
   }
   .tun-h1 :global(em.s) { color: inherit; }
+  /* "e-commerce" nunca se parte en dos líneas */
+  .tun-h1 :global(.nw) { white-space: nowrap; }
   .tun-sub {
     margin: 14px auto 0; max-width: 52ch;
     font: 400 var(--t-base)/1.55 var(--f-sans); color: #fff; text-wrap: pretty;
