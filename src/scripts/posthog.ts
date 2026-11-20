@@ -33,6 +33,7 @@ async function start() {
     ['a[href^="mailto:"]', 'email_click'],
     ['a[href*="linkedin.com/"]', 'linkedin_click'],
     ['a[href*="wa.me/"]', 'whatsapp_click'],
+    ['a[href$="_CV.pdf"]', 'cv_download'],
   ];
   document.addEventListener('click', (e) => {
     const el = e.target as Element | null;

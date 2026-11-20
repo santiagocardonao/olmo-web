@@ -40,7 +40,7 @@ export interface HomeText {
     milestones: { date: string; place: string; role: string }[];
     stackLabel: string; stack: string[];
     langLabel: string; langs: { n: string; l: string }[];
-    linkedin: string; photoAlt: string;
+    linkedin: string; cv: string; cvLabel: string; photoAlt: string;
   };
   footer: {
     eyebrow: string; title: string; button: string; pills: string[]; tools: string;
@@ -56,12 +56,12 @@ const en: HomeText = {
       'Growth and conversion lead with 8 years of subscription launches, checkout CRO and AI tools I build myself with Claude and Supabase. Remote from Medellín, Colombia.',
     ogTitle: 'Santiago Cardona · Growth Marketer, CRO & AI Builder',
     ogDescription:
-      'USD 800k in the first launch of a product with no prior revenue, conversion from about 3% to 4%, and AI products shipped end to end. Open to full-time remote roles.',
+      'USD 800k in the first launch of a product with no prior revenue, conversion from about 3% to 4%, and AI products shipped end to end. Open to full-time remote roles or relocating to São Paulo or Mexico City.',
     ogAlt: 'Santiago Cardona · Growth Marketer, CRO & AI Builder',
   },
   ui: {
     skip: 'Skip to content',
-    closed: 'Open to full-time remote roles · Growth, CRO & AI · Based in Medellín, Colombia (UTC-5) · 9am–6pm\u00a0ET',
+    closed: 'Open to remote roles or relocating to São Paulo or Mexico City · Growth, CRO & AI · Medellín, Colombia (UTC-5) · 9am–6pm\u00a0ET',
     logoLabel: 'Santiago Cardona, go to home',
     logoName: 'Santiago Cardona',
     nav: ['Work', 'AI builds', 'About', 'Contact'],
@@ -109,7 +109,7 @@ const en: HomeText = {
       { title: 'AI building', kind: 'Products shipped with Claude Code and Supabase', meta: 'Olmo Cotiza, live', href: 'pfCotiza', img: 'ia' },
       { title: 'Web performance', kind: 'Speed, tracking and site architecture', meta: '−60% load time at Ideal Team', href: 'idealTeam', img: 'web' },
     ],
-    marquee: ['Open to full-time remote roles', 'Growth · CRO · AI Builder'],
+    marquee: ['Open to remote roles or relocation', 'Growth · CRO · AI Builder'],
     items: [
       { word: 'Advisory', support: 'Monthly advisory: WhatsApp every day and a 1-hour meeting every week.', href: 'advisory', img: 'santiago', alt: 'Santiago Cardona in a meeting with his laptop open' },
       { word: 'Funnels', support: 'A funnel is the path from first visit to payment: waitlist, landing page, checkout, emails and automations. At silBe, conversion went from 3% to 4%.', href: 'advisory#funnels', img: 'funnel', alt: 'Funnel diagram: waitlist, landing page, checkout, email and automation' },
@@ -144,17 +144,19 @@ const en: HomeText = {
       { date: '2020–2026', place: 'silBe by Silvy', role: 'Growth, tech & conversion lead.' },
       { date: '2017–2025', place: 'Vieli', role: 'Co-founder & COO. 30 people, 100+ projects.' },
       { date: 'Since 2025', place: 'Olmo', role: 'My lab for AI tools: Cotiza, Métricas.' },
-      { date: '6 years', place: 'CESDE', role: 'UX/UI instructor.' },
+      { date: '2019–2024', place: 'CESDE', role: 'UX/UI instructor.' },
     ],
     langLabel: 'Languages',
-    langs: [{ n: 'Spanish', l: 'Native' }, { n: 'English', l: 'Professional working proficiency' }, { n: 'Portuguese', l: 'Conversational' }],
+    langs: [{ n: 'Spanish', l: 'Native' }, { n: 'English', l: 'Professional working proficiency' }, { n: 'Portuguese', l: 'Fluent' }],
     stackLabel: 'Stack',
     stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'Adobe Illustrator', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Meta & Google Ads strategy'],
     linkedin: 'LinkedIn',
+    cv: 'Download CV',
+    cvLabel: 'Download my CV (PDF, English)',
     photoAlt: 'Portrait of Santiago Cardona Ortiz',
   },
   footer: {
-    eyebrow: 'Open to full-time remote roles',
+    eyebrow: 'Open to remote roles or relocation',
     title: 'Hiring for growth, CRO or a *product builder*?',
     button: 'Email me',
     pills: ['Work', 'AI builds', 'About', 'Terms', 'Privacy'],
@@ -177,12 +179,12 @@ const es: HomeText = {
       'Líder de growth y conversión con 8 años en lanzamientos de suscripciones, CRO de checkout y herramientas de IA que construyo yo mismo con Claude y Supabase. Trabajo remoto desde Medellín, Colombia.',
     ogTitle: 'Santiago Cardona · Growth Marketing, CRO y AI Builder',
     ogDescription:
-      'USD 800k en el primer lanzamiento de un producto que no generaba ingresos, conversión de cerca de 3 % a 4 % y productos de IA que llevé de la idea a producción. Disponible para cargos remotos de tiempo completo.',
+      'USD 800k en el primer lanzamiento de un producto que no generaba ingresos, conversión de cerca de 3 % a 4 % y productos de IA que llevé de la idea a producción. Disponible para cargos remotos de tiempo completo o para mudarme a São Paulo o Ciudad de México.',
     ogAlt: 'Santiago Cardona · Growth Marketing, CRO y AI Builder',
   },
   ui: {
     skip: 'Saltar al contenido',
-    closed: 'Disponible para cargos remotos | Tiempo completo · Growth, CRO e IA · En Medellín, Colombia (UTC-5) · 9\u00a0a.\u00a0m.–6\u00a0p.\u00a0m.\u00a0ET',
+    closed: 'Disponible para cargos remotos o para mudarme a São Paulo o CDMX · Growth, CRO e IA · Medellín, Colombia (UTC-5) · 9\u00a0a.\u00a0m.–6\u00a0p.\u00a0m.\u00a0ET',
     logoLabel: 'Santiago Cardona, ir al inicio',
     logoName: 'Santiago Cardona',
     nav: ['Trabajo', 'IA', 'Sobre mí', 'Contacto'],
@@ -230,7 +232,7 @@ const es: HomeText = {
       { title: 'Productos con IA', kind: 'Hechos con Claude Code y Supabase', meta: 'Olmo Cotiza, en producción', href: 'pfCotiza', img: 'ia' },
       { title: 'Rendimiento web', kind: 'Velocidad, medición y arquitectura del sitio', meta: '−60 % en tiempo de carga en Ideal Team', href: 'idealTeam', img: 'web' },
     ],
-    marquee: ['Disponible para cargos remotos de tiempo completo', 'Growth · CRO · AI Builder'],
+    marquee: ['Disponible para cargos remotos o para mudarme', 'Growth · CRO · AI Builder'],
     items: [
       { word: 'Asesoría', support: 'Asesoría mensual: WhatsApp todos los días y una reunión de 1 h cada semana.', href: 'advisory', img: 'santiago', alt: 'Santiago Cardona en una reunión con el portátil abierto' },
       { word: 'Funnels', support: 'El funnel es el camino de la primera visita al pago: preregistro, landing, checkout, correos y automatizaciones. En silBe la conversión pasó de 3 % a 4 %.', href: 'advisory#funnels', img: 'funnel', alt: 'Diagrama de un funnel: preregistro, landing, checkout, correo y automatización' },
@@ -265,17 +267,19 @@ const es: HomeText = {
       { date: '2020–2026', place: 'silBe by Silvy', role: 'Líder de growth, tecnología y conversión.' },
       { date: '2017–2025', place: 'Vieli', role: 'Cofundador y COO. 30 personas, 100+ proyectos.' },
       { date: 'Desde 2025', place: 'Olmo', role: 'Mi laboratorio de herramientas de IA: Cotiza, Métricas.' },
-      { date: '6 años', place: 'CESDE', role: 'Docente de UX/UI.' },
+      { date: '2019–2024', place: 'CESDE', role: 'Docente de UX/UI.' },
     ],
     langLabel: 'Idiomas',
-    langs: [{ n: 'Español', l: 'Nativo' }, { n: 'Inglés', l: 'Nivel profesional' }, { n: 'Portugués', l: 'Conversacional' }],
+    langs: [{ n: 'Español', l: 'Nativo' }, { n: 'Inglés', l: 'Nivel profesional' }, { n: 'Portugués', l: 'Fluido' }],
     stackLabel: 'Herramientas',
     stack: ['Claude Code', 'Supabase · SQL', 'Shopify', 'Figma · Framer', 'Adobe Illustrator', 'GA4 · GTM', 'PostHog', 'Klaviyo · Mailchimp · Kit', 'Estrategia en Meta y Google Ads'],
     linkedin: 'LinkedIn',
+    cv: 'Descargar CV',
+    cvLabel: 'Descargar mi CV (PDF, en inglés)',
     photoAlt: 'Retrato de Santiago Cardona Ortiz',
   },
   footer: {
-    eyebrow: 'Disponible para cargos remotos de tiempo completo',
+    eyebrow: 'Disponible para cargos remotos o para mudarme',
     title: '¿Buscas a alguien para growth, CRO o *producto*?',
     button: 'Escríbeme',
     pills: ['Trabajo', 'IA', 'Sobre mí', 'Términos', 'Privacidad'],

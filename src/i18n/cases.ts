@@ -66,7 +66,7 @@ const es: Record<CaseId, CaseText> = {
       { when: 'Precio', title: 'De USD 29 a USD 39 al mes', text: 'Cuando la marca creció en mercados de mayor ingreso (Estados Unidos, Medio Oriente, Australia y España), el precio subió a USD 39 al mes. El churn no subió y las ventas nuevas se sostuvieron.' },
       { when: 'Último proyecto', title: 'Una app a la medida para cobrar con medios locales', text: 'La pantalla de pago de FitBudd no permitía lo que silBe necesitaba: débito automático con DRUO desde cuentas de Bancolombia y precios convertidos a la moneda de cada país. Lideré el paso a una app hecha a la medida hasta que salí en junio de 2026.' },
       { when: 'Herramientas', title: 'Stack', text: 'WordPress, LearnDash, Nelio A/B Testing, WhatsApp, email marketing y automatizaciones, Trainerize, FitBudd (iOS y Android), pauta, SEO, SEM y analítica.' },
-      { when: 'Lo que aprendí', title: 'Lo que llevo a cualquier equipo', text: 'Hoy la base de suscripción que ayudé a construir tiene 25.000 suscriptores pagos. De ahí me quedaron tres hábitos: lanzar con el producto más pequeño que se pueda vender, quitar fricción en el pago antes de comprar tráfico y probar con los primeros compradores de cada lanzamiento para publicar la versión ganadora de inmediato.' },
+      { when: 'Lo que aprendí', title: 'Lo que llevo a cualquier equipo', text: 'Cuando salí, en junio de 2026, la base de suscripción que ayudé a construir tenía 25.000 suscriptores pagos. De ahí me quedaron tres hábitos: lanzar con el producto más pequeño que se pueda vender, quitar fricción en el pago antes de comprar tráfico y probar con los primeros compradores de cada lanzamiento para publicar la versión ganadora de inmediato.' },
     ],
     next: 'undergold',
     meta: {
@@ -222,7 +222,7 @@ const en: Record<CaseId, CaseText> = {
       { when: 'Pricing', title: 'From USD 29 to USD 39 a month', text: "As the brand grew in higher-income markets (the US, the Middle East, Australia and Spain), the price went up to USD 39 a month. Churn didn't rise and new sales held." },
       { when: 'Last project', title: 'A custom app for local payments', text: "FitBudd's payment screen couldn't do what silBe needed: DRUO auto-debit from Bancolombia accounts and prices converted to local currency by location. I led the move to a custom-built app until I left in June 2026." },
       { when: 'Tools', title: 'Stack', text: 'WordPress, LearnDash, Nelio A/B Testing, WhatsApp, email marketing and automations, Trainerize, FitBudd (iOS and Android), paid media, SEO, SEM and analytics.' },
-      { when: 'What I learned', title: 'What I bring to any team', text: 'The subscription base I helped build is now at 25,000 paying subscribers. Three habits came out of it: launch with the smallest product that can sell, remove payment friction before buying traffic, and test on the first buyers of each launch so the winner ships right away.' },
+      { when: 'What I learned', title: 'What I bring to any team', text: 'When I left in June 2026, the subscription base I helped build had 25,000 paying subscribers. Three habits came out of it: launch with the smallest product that can sell, remove payment friction before buying traffic, and test on the first buyers of each launch so the winner ships right away.' },
     ],
     next: 'undergold',
     meta: {
