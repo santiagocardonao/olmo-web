@@ -143,7 +143,7 @@ const en: HomeText = {
     milestones: [
       { date: '2020–2026', place: 'silBe by Silvy', role: 'Growth, tech & conversion lead.' },
       { date: '2017–2025', place: 'Vieli', role: 'Co-founder & COO. 30 people, 100+ projects.' },
-      { date: 'Since 2025', place: 'Olmo', role: 'My lab for AI tools: Cotiza, Métricas.' },
+      { date: 'Since 2025', place: 'Olmo', role: 'Independent AI builder: my own tools (Cotiza, Métricas) and builds for clients.' },
       { date: '2019–2024', place: 'CESDE', role: 'UX/UI instructor.' },
     ],
     langLabel: 'Languages',
@@ -266,7 +266,7 @@ const es: HomeText = {
     milestones: [
       { date: '2020–2026', place: 'silBe by Silvy', role: 'Líder de growth, tecnología y conversión.' },
       { date: '2017–2025', place: 'Vieli', role: 'Cofundador y COO. 30 personas, 100+ proyectos.' },
-      { date: 'Desde 2025', place: 'Olmo', role: 'Mi laboratorio de herramientas de IA: Cotiza, Métricas.' },
+      { date: 'Desde 2025', place: 'Olmo', role: 'AI builder independiente: mis propias herramientas (Cotiza, Métricas) y proyectos para clientes.' },
       { date: '2019–2024', place: 'CESDE', role: 'Docente de UX/UI.' },
     ],
     langLabel: 'Idiomas',
