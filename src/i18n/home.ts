@@ -61,7 +61,7 @@ const en: HomeText = {
   },
   ui: {
     skip: 'Skip to content',
-    closed: 'Taking on new projects · Growth, CRO & AI · Medellín, Colombia (UTC-5)',
+    closed: 'Available for work · Growth, CRO & AI · Medellín, Colombia (UTC-5)',
     logoLabel: 'Santiago Cardona, go to home',
     logoName: 'Santiago Cardona',
     nav: ['Work', 'AI builds', 'About', 'Contact'],
@@ -109,7 +109,7 @@ const en: HomeText = {
       { title: 'Web & app development', kind: 'Full-stack sites and apps, built with AI', meta: 'This site, Olmo Cotiza, Métricas', href: 'pfCotiza', img: 'ia' },
       { title: 'Web performance', kind: 'Speed, tracking and site architecture', meta: '−60% load time at Ideal Team', href: 'idealTeam', img: 'web' },
     ],
-    marquee: ['Available for new work', 'Growth · CRO · AI Builder'],
+    marquee: ['Available for work', 'Growth · CRO · AI Builder'],
     items: [
       { word: 'Advisory', support: 'Monthly advisory: WhatsApp every day and a 1-hour meeting every week.', href: 'advisory', img: 'santiago', alt: 'Santiago Cardona in a meeting with his laptop open' },
       { word: 'Funnels', support: 'A funnel is the path from first visit to payment: waitlist, landing page, checkout, emails and automations. At silBe, conversion went from 3% to 4%.', href: 'advisory#funnels', img: 'funnel', alt: 'Funnel diagram: waitlist, landing page, checkout, email and automation' },
@@ -156,7 +156,7 @@ const en: HomeText = {
     photoAlt: 'Portrait of Santiago Cardona Ortiz',
   },
   footer: {
-    eyebrow: 'Available for new work',
+    eyebrow: 'Available for work',
     title: 'Need growth, CRO or a *product builder*?',
     button: 'Email me',
     pills: ['Work', 'AI builds', 'About', 'Terms', 'Privacy'],
@@ -185,7 +185,7 @@ const es: HomeText = {
   },
   ui: {
     skip: 'Saltar al contenido',
-    closed: 'Disponible para nuevos proyectos · Growth, CRO e IA · Medellín, Colombia (UTC-5)',
+    closed: 'Disponible actualmente · Growth, CRO e IA · Medellín, Colombia (UTC-5)',
     logoLabel: 'Santiago Cardona, ir al inicio',
     logoName: 'Santiago Cardona',
     nav: ['Trabajo', 'IA', 'Sobre mí', 'Contacto'],
@@ -233,7 +233,7 @@ const es: HomeText = {
       { title: 'Desarrollo web y apps', kind: 'Sitios y apps full stack, hechos con IA', meta: 'Este sitio, Olmo Cotiza, Métricas', href: 'pfCotiza', img: 'ia' },
       { title: 'Rendimiento web', kind: 'Velocidad, medición y arquitectura del sitio', meta: '−60 % en tiempo de carga en Ideal Team', href: 'idealTeam', img: 'web' },
     ],
-    marquee: ['Disponible para nuevos proyectos', 'Growth · CRO · AI Builder'],
+    marquee: ['Disponible actualmente', 'Growth · CRO · AI Builder'],
     items: [
       { word: 'Asesoría', support: 'Asesoría mensual: WhatsApp todos los días y una reunión de 1 h cada semana.', href: 'advisory', img: 'santiago', alt: 'Santiago Cardona en una reunión con el portátil abierto' },
       { word: 'Funnels', support: 'El funnel es el camino de la primera visita al pago: preregistro, landing, checkout, correos y automatizaciones. En silBe la conversión pasó de 3 % a 4 %.', href: 'advisory#funnels', img: 'funnel', alt: 'Diagrama de un funnel: preregistro, landing, checkout, correo y automatización' },
@@ -280,7 +280,7 @@ const es: HomeText = {
     photoAlt: 'Retrato de Santiago Cardona Ortiz',
   },
   footer: {
-    eyebrow: 'Disponible para nuevos proyectos',
+    eyebrow: 'Disponible actualmente',
     title: '¿Buscas a alguien para growth, CRO o *producto*?',
     button: 'Escríbeme',
     pills: ['Trabajo', 'IA', 'Sobre mí', 'Términos', 'Privacidad'],
