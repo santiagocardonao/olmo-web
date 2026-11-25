@@ -142,6 +142,19 @@ const PID = Object.fromEntries(Object.entries(PROJECT_ROUTE).map(([k, v]) => [v,
     prev.addEventListener('click', () => to(current() - 1));
     next.addEventListener('click', () => to(current() + 1));
     track.addEventListener('scroll', update, { passive: true });
+    // El scroll vertical nunca se queda en el carrusel: con trackpad o rueda, si el gesto es más vertical que
+    // horizontal, se lo pasamos a la página. Ir de lado sigue funcionando (trackpad, shift+rueda, flechas, puntos).
+    let lockX = 0;
+    track.addEventListener('wheel', (e) => {
+      if (e.ctrlKey) return; // pellizco para zoom
+      const now = performance.now();
+      const dx = Math.abs(e.deltaX), dy = Math.abs(e.deltaY);
+      if (dx > dy) { lockX = now; return; } // gesto lateral: lo maneja el carrusel
+      if (now - lockX < 120 || dy === 0) return; // inercia de un gesto lateral que acaba de pasar
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1;
+      window.scrollBy({ top: e.deltaY * unit, behavior: 'instant' });
+    }, { passive: false });
     new ResizeObserver(build).observe(track);
     build();
   }
