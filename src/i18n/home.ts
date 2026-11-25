@@ -45,7 +45,7 @@ export interface HomeText {
   footer: {
     eyebrow: string; title: string; button: string; pills: string[]; tools: string;
     emailLabel: string; city: string; inCity: string;
-    colPages: string; colElsewhere: string; colHello: string; toTop: string; copyright: string;
+    colPages: string; colElsewhere: string; colHello: string; toTop: string; copyright: string; built: string;
   };
 }
 
@@ -76,7 +76,7 @@ const en: HomeText = {
   hero: {
     eyebrow: 'Santiago Cardona · Growth, CRO & AI products',
     h1: 'I grow subscription and e-commerce revenue, and I build the *funnel* myself.',
-    sub: '8 years running launches, checkouts, paywalls and pricing, now shipping AI products with Claude Code and Supabase.',
+    sub: '8 years running launches, checkouts, paywalls and pricing, and I build the sites and apps myself, full stack, with AI.',
     stats: [
       { v: 'USD 800k', k: 'in the first launch of a product with no prior revenue, silBe, Dec 2020 (internal data)' },
       { v: '3% → 4%', k: 'purchase conversion at silBe, after the funnel changes (internal data)' },
@@ -106,7 +106,7 @@ const en: HomeText = {
     offer: [
       { title: 'Growth marketing', kind: 'Launches, lifecycle and paid strategy', meta: 'USD 800k in the first launch at silBe', href: 'silbe', img: 'mensualidad' },
       { title: 'CRO', kind: 'Checkout, paywall, pricing and A/B tests', meta: 'Conversion 3% → 4%', href: 'silbe', img: 'asesoria' },
-      { title: 'AI building', kind: 'Products shipped with Claude Code and Supabase', meta: 'Olmo Cotiza, live', href: 'pfCotiza', img: 'ia' },
+      { title: 'Web & app development', kind: 'Full-stack sites and apps, built with AI', meta: 'This site, Olmo Cotiza, Métricas', href: 'pfCotiza', img: 'ia' },
       { title: 'Web performance', kind: 'Speed, tracking and site architecture', meta: '−60% load time at Ideal Team', href: 'idealTeam', img: 'web' },
     ],
     marquee: ['Available for new work', 'Growth · CRO · AI Builder'],
@@ -169,6 +169,7 @@ const en: HomeText = {
     colHello: 'Say hello',
     toTop: 'Back to top',
     copyright: '© 2026 Santiago Cardona Ortiz · Olmo',
+    built: 'Designed and built by me · Astro + Claude Code',
   },
 };
 
@@ -199,7 +200,7 @@ const es: HomeText = {
   hero: {
     eyebrow: 'Santiago Cardona · Growth, CRO y productos de IA',
     h1: 'Hago crecer los ingresos de suscripciones y e-commerce, y el *funnel* lo construyo yo.',
-    sub: '8 años a cargo de lanzamientos, checkouts, paywalls y precios. Hoy también construyo productos de IA con Claude Code y Supabase.',
+    sub: '8 años a cargo de lanzamientos, checkouts, paywalls y precios, y los sitios y apps los construyo yo, full stack, con IA.',
     stats: [
       { v: 'USD 800k', k: 'en el primer lanzamiento de un producto que no generaba ingresos, silBe, dic. 2020 (dato interno)' },
       { v: '3 % → 4 %', k: 'de conversión a compra en silBe, tras los cambios al funnel (dato interno)' },
@@ -229,7 +230,7 @@ const es: HomeText = {
     offer: [
       { title: 'Growth marketing', kind: 'Lanzamientos, lifecycle y estrategia de pauta', meta: 'USD 800k en el primer lanzamiento de silBe', href: 'silbe', img: 'mensualidad' },
       { title: 'CRO', kind: 'Checkout, paywall, precios y pruebas A/B', meta: 'Conversión de 3 % a 4 %', href: 'silbe', img: 'asesoria' },
-      { title: 'Productos con IA', kind: 'Hechos con Claude Code y Supabase', meta: 'Olmo Cotiza, en producción', href: 'pfCotiza', img: 'ia' },
+      { title: 'Desarrollo web y apps', kind: 'Sitios y apps full stack, hechos con IA', meta: 'Este sitio, Olmo Cotiza, Métricas', href: 'pfCotiza', img: 'ia' },
       { title: 'Rendimiento web', kind: 'Velocidad, medición y arquitectura del sitio', meta: '−60 % en tiempo de carga en Ideal Team', href: 'idealTeam', img: 'web' },
     ],
     marquee: ['Disponible para nuevos proyectos', 'Growth · CRO · AI Builder'],
@@ -292,6 +293,7 @@ const es: HomeText = {
     colHello: 'Escríbeme',
     toTop: 'Volver arriba',
     copyright: '© 2026 Santiago Cardona Ortiz · Olmo',
+    built: 'Diseñado y construido por mí · Astro + Claude Code',
   },
 };
 

@@ -63,7 +63,7 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
     </div>
 
     <div class="ft-bottom">
-      <p class="ft-copy">{f.copyright}</p>
+      <p class="ft-copy">{f.copyright}<span class="ft-built"><span aria-hidden="true"> · </span>{f.built}</span></p>
       <div class="ft-end">
         <LangSwitch lang={lang} route={route} />
         <a class="ft-top" href="#" aria-label={f.toTop}><span aria-hidden="true">↑</span></a>
@@ -147,6 +147,7 @@ const pillIds: RouteId[] = ['portfolio', 'tools', 'about', 'terms', 'privacy'];
   .ft-data { margin-top: 12px; font: 400 var(--t-sm)/1.5 var(--f-sans); color: var(--on-dark-2); }
 
   .ft-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 72px); }
+  @media (max-width: 767px) { .ft-built { display: block; } .ft-built > span { display: none; } }
   .ft-copy { font: 400 var(--t-sm)/1.4 var(--f-sans); color: var(--on-dark-2); }
   .ft-end { display: flex; align-items: center; gap: 12px; }
   .site-footer :global(.lang) { background: #ffffff0a; border-color: var(--line-dark); }
